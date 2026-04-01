@@ -6,10 +6,12 @@ from uuid import uuid4
 
 import socketio
 from server.logger import logger
-from server.utils.conversation_callback_utils import invoke_conversation_callbacks
+from server.utils.conversation_callback_utils import \
+    invoke_conversation_callbacks
 from sqlalchemy import select
 from storage.database import a_session_maker
-from storage.stored_conversation_metadata_saas import StoredConversationMetadataSaas
+from storage.stored_conversation_metadata_saas import \
+    StoredConversationMetadataSaas
 
 from openhands.core.config import LLMConfig
 from openhands.core.config.openhands_config import OpenHandsConfig
@@ -23,12 +25,10 @@ from openhands.events.stream import EventStreamSubscriber
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.runtime.runtime_status import RuntimeStatus
 from openhands.server.config.server_config import ServerConfig
-from openhands.server.conversation_manager.conversation_manager import (
-    ConversationManager,
-)
-from openhands.server.conversation_manager.standalone_conversation_manager import (
-    StandaloneConversationManager,
-)
+from openhands.server.conversation_manager.conversation_manager import \
+    ConversationManager
+from openhands.server.conversation_manager.standalone_conversation_manager import \
+    StandaloneConversationManager
 from openhands.server.data_models.agent_loop_info import AgentLoopInfo
 from openhands.server.monitoring import MonitoringListener
 from openhands.server.session.agent_session import WAIT_TIME_BEFORE_CLOSE
@@ -484,8 +484,7 @@ class ClusteredConversationManager(StandaloneConversationManager):
         await pipe.execute()
 
     async def _disconnect_from_stopped(self):
-        """
-        Handle connections to conversations that have stopped unexpectedly.
+        """Handle connections to conversations that have stopped unexpectedly.
 
         This method detects when a local connection is pointing to a conversation
         that was running on another server that has crashed or been terminated

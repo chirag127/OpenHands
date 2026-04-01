@@ -6,20 +6,14 @@ from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-from conftest import (
-    _close_test_runtime,
-    _load_runtime,
-)
+from conftest import _close_test_runtime, _load_runtime
 
 from openhands.core.config import MCPConfig
 from openhands.core.config.mcp_config import MCPStdioServerConfig
 from openhands.mcp.utils import add_mcp_tools_to_agent
-from openhands.microagent.microagent import (
-    BaseMicroagent,
-    KnowledgeMicroagent,
-    RepoMicroagent,
-    TaskMicroagent,
-)
+from openhands.microagent.microagent import (BaseMicroagent,
+                                             KnowledgeMicroagent,
+                                             RepoMicroagent, TaskMicroagent)
 from openhands.microagent.types import MicroagentType
 
 
@@ -362,9 +356,9 @@ def test_default_tools_microagent_exists():
 
     # Check that the default-tools.md file exists
     default_tools_path = os.path.join(microagents_dir, 'default-tools.md')
-    assert os.path.exists(default_tools_path), (
-        f'default-tools.md not found at {default_tools_path}'
-    )
+    assert os.path.exists(
+        default_tools_path
+    ), f'default-tools.md not found at {default_tools_path}'
 
     # Read the file and check its content
     with open(default_tools_path, 'r') as f:
@@ -376,9 +370,9 @@ def test_default_tools_microagent_exists():
     # Verify it has the fetch tool configured
     assert 'name: "fetch"' in content, 'default-tools.md should have a fetch tool'
     assert 'command: "uvx"' in content, 'default-tools.md should use uvx command'
-    assert 'args: ["mcp-server-fetch"]' in content, (
-        'default-tools.md should use mcp-server-fetch'
-    )
+    assert (
+        'args: ["mcp-server-fetch"]' in content
+    ), 'default-tools.md should use mcp-server-fetch'
 
 
 @pytest.mark.asyncio
@@ -386,9 +380,8 @@ async def test_add_mcp_tools_from_microagents():
     """Test that add_mcp_tools_to_agent adds tools from microagents."""
     # Import ActionExecutionClient for mocking
 
-    from openhands.runtime.impl.action_execution.action_execution_client import (
-        ActionExecutionClient,
-    )
+    from openhands.runtime.impl.action_execution.action_execution_client import \
+        ActionExecutionClient
 
     # Create mock objects
     mock_agent = MagicMock()

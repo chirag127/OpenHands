@@ -4,9 +4,7 @@ from server.saas_monitoring_listener import SaaSMonitoringListener
 from openhands.core.config.openhands_config import OpenHandsConfig
 from openhands.core.schema.agent import AgentState
 from openhands.events.event import Event
-from openhands.events.observation import (
-    AgentStateChangedObservation,
-)
+from openhands.events.observation import AgentStateChangedObservation
 
 
 @pytest.fixture

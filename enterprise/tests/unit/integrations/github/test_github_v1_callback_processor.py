@@ -1,5 +1,4 @@
-"""
-Tests for the GithubV1CallbackProcessor.
+"""Tests for the GithubV1CallbackProcessor.
 
 Covers:
 - Event filtering
@@ -16,24 +15,20 @@ from uuid import uuid4
 import httpx
 import pytest
 from github import GithubException
-from integrations.github.github_v1_callback_processor import (
-    GithubV1CallbackProcessor,
-)
-
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-)
-from openhands.app_server.event_callback.event_callback_models import EventCallback
-from openhands.app_server.event_callback.event_callback_result_models import (
-    EventCallbackResultStatus,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    ExposedUrl,
-    SandboxInfo,
-    SandboxStatus,
-)
-from openhands.events.action.message import MessageAction
+from integrations.github.github_v1_callback_processor import \
+    GithubV1CallbackProcessor
 from openhands.sdk.event import ConversationStateUpdateEvent
+
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversationInfo
+from openhands.app_server.event_callback.event_callback_models import \
+    EventCallback
+from openhands.app_server.event_callback.event_callback_result_models import \
+    EventCallbackResultStatus
+from openhands.app_server.sandbox.sandbox_models import (ExposedUrl,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
+from openhands.events.action.message import MessageAction
 
 # ---------------------------------------------------------------------------
 # Fixtures

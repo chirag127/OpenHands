@@ -5,7 +5,8 @@
 #   - V1 application server (in this repo): openhands/app_server/
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
-from litellm import ChatCompletionToolParam, ChatCompletionToolParamFunctionChunk
+from litellm import (ChatCompletionToolParam,
+                     ChatCompletionToolParamFunctionChunk)
 
 _VIEW_DESCRIPTION = """Reads a file or list directories from the local filesystem.
 * The path parameter must be an absolute path, not a relative path.

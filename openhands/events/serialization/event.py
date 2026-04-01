@@ -157,9 +157,11 @@ def event_to_trajectory(event: 'Event', include_screenshots: bool = False) -> di
     if 'extras' in d:
         remove_fields(
             d['extras'],
-            DELETE_FROM_TRAJECTORY_EXTRAS
-            if include_screenshots
-            else DELETE_FROM_TRAJECTORY_EXTRAS_AND_SCREENSHOTS,
+            (
+                DELETE_FROM_TRAJECTORY_EXTRAS
+                if include_screenshots
+                else DELETE_FROM_TRAJECTORY_EXTRAS_AND_SCREENSHOTS
+            ),
         )
     return d
 

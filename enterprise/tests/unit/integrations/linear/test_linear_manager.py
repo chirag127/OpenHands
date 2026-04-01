@@ -1,5 +1,4 @@
-"""
-Unit tests for LinearManager.
+"""Unit tests for LinearManager.
 """
 
 import hashlib
@@ -11,18 +10,13 @@ import pytest
 from fastapi import Request
 from integrations.linear.linear_manager import LinearManager
 from integrations.linear.linear_types import LinearViewInterface
-from integrations.linear.linear_view import (
-    LinearExistingConversationView,
-    LinearNewConversationView,
-)
+from integrations.linear.linear_view import (LinearExistingConversationView,
+                                             LinearNewConversationView)
 from integrations.models import Message, SourceType
 
 from openhands.integrations.service_types import ProviderType, Repository
-from openhands.server.types import (
-    LLMAuthenticationError,
-    MissingSettingsError,
-    SessionExpiredError,
-)
+from openhands.server.types import (LLMAuthenticationError,
+                                    MissingSettingsError, SessionExpiredError)
 
 
 class TestLinearManagerInit:
@@ -336,9 +330,7 @@ class TestParseWebhook:
                     {'id': 'label1', 'name': 'bug'},
                     {'id': 'label2', 'name': 'openhands'},
                 ],
-                'updatedFrom': {
-                    'labelIds': []  # Label was not added previously
-                },
+                'updatedFrom': {'labelIds': []},  # Label was not added previously
             },
             'actor': {
                 'id': 'user123',
@@ -388,9 +380,7 @@ class TestParseWebhook:
                 'labels': [
                     {'id': 'label2', 'name': 'openhands'},
                 ],
-                'updatedFrom': {
-                    'labelIds': ['label2']  # Label was added previously
-                },
+                'updatedFrom': {'labelIds': ['label2']},  # Label was added previously
             },
             'actor': {
                 'name': 'Test User',

@@ -1,4 +1,5 @@
 """Tests for the custom secrets API endpoints."""
+
 # flake8: noqa: E501
 
 import os
@@ -9,14 +10,9 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from pydantic import SecretStr
 
-from openhands.integrations.provider import (
-    CustomSecret,
-    ProviderToken,
-    ProviderType,
-)
-from openhands.server.routes.secrets import (
-    app as secrets_app,
-)
+from openhands.integrations.provider import (CustomSecret, ProviderToken,
+                                             ProviderType)
+from openhands.server.routes.secrets import app as secrets_app
 from openhands.storage import get_file_store
 from openhands.storage.data_models.secrets import Secrets
 from openhands.storage.secrets.file_secrets_store import FileSecretsStore

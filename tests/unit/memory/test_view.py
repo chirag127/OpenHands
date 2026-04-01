@@ -1,4 +1,5 @@
-from openhands.events.action.agent import CondensationAction, CondensationRequestAction
+from openhands.events.action.agent import (CondensationAction,
+                                           CondensationRequestAction)
 from openhands.events.action.message import MessageAction
 from openhands.events.event import Event
 from openhands.events.observation.agent import AgentCondensationObservation

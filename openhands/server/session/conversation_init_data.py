@@ -11,7 +11,8 @@ from types import MappingProxyType
 
 from pydantic import ConfigDict, Field, field_validator
 
-from openhands.integrations.provider import CUSTOM_SECRETS_TYPE, PROVIDER_TOKEN_TYPE
+from openhands.integrations.provider import (CUSTOM_SECRETS_TYPE,
+                                             PROVIDER_TOKEN_TYPE)
 from openhands.integrations.service_types import ProviderType
 from openhands.storage.data_models.settings import Settings
 

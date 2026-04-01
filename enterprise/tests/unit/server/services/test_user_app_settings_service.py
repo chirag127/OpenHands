@@ -1,5 +1,4 @@
-"""
-Unit tests for UserAppSettingsService.
+"""Unit tests for UserAppSettingsService.
 
 Tests the service layer for user app settings operations.
 """
@@ -8,11 +7,9 @@ import uuid
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from server.routes.user_app_settings_models import (
-    UserAppSettingsResponse,
-    UserAppSettingsUpdate,
-    UserNotFoundError,
-)
+from server.routes.user_app_settings_models import (UserAppSettingsResponse,
+                                                    UserAppSettingsUpdate,
+                                                    UserNotFoundError)
 from server.services.user_app_settings_service import UserAppSettingsService
 from storage.user import User
 
@@ -54,8 +51,7 @@ def mock_user_context(user_id):
 async def test_get_user_app_settings_success(
     user_id, mock_user, mock_store, mock_user_context
 ):
-    """
-    GIVEN: A user exists in the database
+    """GIVEN: A user exists in the database
     WHEN: get_user_app_settings is called
     THEN: UserAppSettingsResponse is returned with correct data
     """
@@ -80,8 +76,7 @@ async def test_get_user_app_settings_success(
 async def test_get_user_app_settings_user_not_found(
     user_id, mock_store, mock_user_context
 ):
-    """
-    GIVEN: A user does not exist in the database
+    """GIVEN: A user does not exist in the database
     WHEN: get_user_app_settings is called
     THEN: UserNotFoundError is raised
     """
@@ -100,8 +95,7 @@ async def test_get_user_app_settings_user_not_found(
 async def test_update_user_app_settings_success(
     user_id, mock_user, mock_store, mock_user_context
 ):
-    """
-    GIVEN: A user exists in the database
+    """GIVEN: A user exists in the database
     WHEN: update_user_app_settings is called with new values
     THEN: UserAppSettingsResponse is returned with updated data
     """
@@ -133,8 +127,7 @@ async def test_update_user_app_settings_success(
 async def test_update_user_app_settings_no_changes(
     user_id, mock_user, mock_store, mock_user_context
 ):
-    """
-    GIVEN: A user exists in the database
+    """GIVEN: A user exists in the database
     WHEN: update_user_app_settings is called with no fields
     THEN: Current settings are returned without calling update
     """
@@ -158,8 +151,7 @@ async def test_update_user_app_settings_no_changes(
 async def test_update_user_app_settings_user_not_found(
     user_id, mock_store, mock_user_context
 ):
-    """
-    GIVEN: A user does not exist in the database
+    """GIVEN: A user does not exist in the database
     WHEN: update_user_app_settings is called
     THEN: UserNotFoundError is raised
     """

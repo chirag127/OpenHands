@@ -14,9 +14,7 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.llm.llm_registry import RegistryEvent
 from openhands.llm.metrics import Metrics
 from openhands.storage.files import FileStore
-from openhands.storage.locations import (
-    get_conversation_stats_filename,
-)
+from openhands.storage.locations import get_conversation_stats_filename
 
 
 class ConversationStats:
@@ -111,8 +109,7 @@ class ConversationStats:
         self.service_to_metrics[service_id] = llm.metrics
 
     def merge_and_save(self, conversation_stats: 'ConversationStats'):
-        """
-        Merge restored metrics from another ConversationStats into this one.
+        """Merge restored metrics from another ConversationStats into this one.
 
         Important:
         - This method is intended to be used immediately after restoring metrics from
@@ -129,7 +126,6 @@ class ConversationStats:
         - Do NOT merge `service_to_metrics` here.
         - Persist results by calling save_metrics().
         """
-
         # If either side has active service metrics, log an error but proceed
         if self.service_to_metrics or conversation_stats.service_to_metrics:
             logger.error(

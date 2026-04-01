@@ -2,11 +2,9 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from fastapi import HTTPException, Request, status
-from server.utils.rate_limit_utils import (
-    RATE_LIMIT_IP_SECONDS,
-    RATE_LIMIT_USER_SECONDS,
-    check_rate_limit_by_user_id,
-)
+from server.utils.rate_limit_utils import (RATE_LIMIT_IP_SECONDS,
+                                           RATE_LIMIT_USER_SECONDS,
+                                           check_rate_limit_by_user_id)
 
 
 @pytest.fixture
@@ -116,9 +114,7 @@ async def test_rate_limit_by_ip_second_request_within_window_fails(
     key_prefix = 'email_resend'
     mock_redis.set = AsyncMock(return_value=False)  # Key already exists
 
-    with (
-        patch('server.utils.rate_limit_utils.sio') as mock_sio,
-    ):
+    with (patch('server.utils.rate_limit_utils.sio') as mock_sio,):
         mock_sio.manager.redis = mock_redis
 
         # Act & Assert

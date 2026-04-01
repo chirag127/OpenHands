@@ -6,10 +6,8 @@
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
 # Requirements
-from openhands.runtime.plugins.agent_skills import (
-    AgentSkillsPlugin,
-    AgentSkillsRequirement,
-)
+from openhands.runtime.plugins.agent_skills import (AgentSkillsPlugin,
+                                                    AgentSkillsRequirement)
 from openhands.runtime.plugins.jupyter import JupyterPlugin, JupyterRequirement
 from openhands.runtime.plugins.requirement import Plugin, PluginRequirement
 from openhands.runtime.plugins.vscode import VSCodePlugin, VSCodeRequirement

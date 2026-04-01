@@ -23,10 +23,8 @@ from openhands.core import logger
 from openhands.core.config.agent_config import AgentConfig
 from openhands.core.config.arg_utils import get_headless_parser
 from openhands.core.config.condenser_config import (
-    CondenserConfig,
-    condenser_config_from_toml_section,
-    create_condenser_config,
-)
+    CondenserConfig, condenser_config_from_toml_section,
+    create_condenser_config)
 from openhands.core.config.extended_config import ExtendedConfig
 from openhands.core.config.kubernetes_config import KubernetesConfig
 from openhands.core.config.llm_config import LLMConfig
@@ -116,9 +114,11 @@ def load_from_env(
                                 inner_type, BaseModel
                             ):
                                 cast_value = [
-                                    inner_type(**item)
-                                    if isinstance(item, dict)
-                                    else item
+                                    (
+                                        inner_type(**item)
+                                        if isinstance(item, dict)
+                                        else item
+                                    )
                                     for item in cast_value
                                 ]
                     else:
@@ -329,7 +329,8 @@ def load_from_toml(cfg: OpenHandsConfig, toml_file: str = 'config.toml') -> None
     # If no condenser section is in toml but enable_default_condenser is True,
     # set LLMSummarizingCondenserConfig as default
     elif cfg.enable_default_condenser:
-        from openhands.core.config.condenser_config import LLMSummarizingCondenserConfig
+        from openhands.core.config.condenser_config import \
+            LLMSummarizingCondenserConfig
 
         # Get default agent config
         default_agent_config = cfg.get_agent_config()

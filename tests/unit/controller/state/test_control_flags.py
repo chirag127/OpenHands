@@ -1,9 +1,7 @@
 import pytest
 
-from openhands.controller.state.control_flags import (
-    BudgetControlFlag,
-    IterationControlFlag,
-)
+from openhands.controller.state.control_flags import (BudgetControlFlag,
+                                                      IterationControlFlag)
 
 
 def test_iteration_control_flag_reaches_limit_and_increases():

@@ -4,14 +4,12 @@ import os
 
 from pydantic import SecretStr
 
-from openhands.integrations.forgejo.service import (
-    ForgejoBranchesMixin,
-    ForgejoFeaturesMixin,
-    ForgejoMixinBase,
-    ForgejoPRsMixin,
-    ForgejoReposMixin,
-    ForgejoResolverMixin,
-)
+from openhands.integrations.forgejo.service import (ForgejoBranchesMixin,
+                                                    ForgejoFeaturesMixin,
+                                                    ForgejoMixinBase,
+                                                    ForgejoPRsMixin,
+                                                    ForgejoReposMixin,
+                                                    ForgejoResolverMixin)
 from openhands.integrations.service_types import GitService
 from openhands.utils.import_utils import get_impl
 

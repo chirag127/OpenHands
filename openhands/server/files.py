@@ -6,9 +6,7 @@
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
 # This module belongs to the old V0 web server. The V1 application server lives under openhands/app_server/.
-from pydantic import (
-    BaseModel,
-)
+from pydantic import BaseModel
 
 
 class POSTUploadFilesModel(BaseModel):

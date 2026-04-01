@@ -16,27 +16,22 @@ import tenacity
 from tenacity import RetryCallState
 
 from openhands.core.config import OpenHandsConfig
-from openhands.core.exceptions import (
-    AgentRuntimeDisconnectedError,
-    AgentRuntimeError,
-    AgentRuntimeNotFoundError,
-    AgentRuntimeNotReadyError,
-    AgentRuntimeUnavailableError,
-)
+from openhands.core.exceptions import (AgentRuntimeDisconnectedError,
+                                       AgentRuntimeError,
+                                       AgentRuntimeNotFoundError,
+                                       AgentRuntimeNotReadyError,
+                                       AgentRuntimeUnavailableError)
 from openhands.core.logger import openhands_logger as logger
 from openhands.events import EventStream
 from openhands.integrations.provider import PROVIDER_TOKEN_TYPE
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.runtime.builder.remote import RemoteRuntimeBuilder
-from openhands.runtime.impl.action_execution.action_execution_client import (
-    ActionExecutionClient,
-)
+from openhands.runtime.impl.action_execution.action_execution_client import \
+    ActionExecutionClient
 from openhands.runtime.plugins import PluginRequirement
 from openhands.runtime.runtime_status import RuntimeStatus
 from openhands.runtime.utils.command import (
-    DEFAULT_MAIN_MODULE,
-    get_action_execution_server_startup_command,
-)
+    DEFAULT_MAIN_MODULE, get_action_execution_server_startup_command)
 from openhands.runtime.utils.request import send_request
 from openhands.runtime.utils.runtime_build import build_runtime_image
 from openhands.utils.async_utils import call_sync_from_async
@@ -164,12 +159,12 @@ class RemoteRuntime(ActionExecutionClient):
                 )
                 self.container_image = self.config.sandbox.runtime_container_image
             self._start_runtime()
-        assert self.runtime_id is not None, (
-            'Runtime ID is not set. This should never happen.'
-        )
-        assert self.runtime_url is not None, (
-            'Runtime URL is not set. This should never happen.'
-        )
+        assert (
+            self.runtime_id is not None
+        ), 'Runtime ID is not set. This should never happen.'
+        assert (
+            self.runtime_url is not None
+        ), 'Runtime URL is not set. This should never happen.'
         if not self.attach_to_existing:
             self.log('info', 'Waiting for runtime to be alive...')
         self._wait_until_alive()

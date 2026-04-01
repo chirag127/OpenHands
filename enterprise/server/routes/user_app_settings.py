@@ -6,15 +6,11 @@ Provides endpoints for managing user-level app preferences:
 """
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from server.routes.user_app_settings_models import (
-    UserAppSettingsResponse,
-    UserAppSettingsUpdate,
-    UserNotFoundError,
-)
+from server.routes.user_app_settings_models import (UserAppSettingsResponse,
+                                                    UserAppSettingsUpdate,
+                                                    UserNotFoundError)
 from server.services.user_app_settings_service import (
-    UserAppSettingsService,
-    UserAppSettingsServiceInjector,
-)
+    UserAppSettingsService, UserAppSettingsServiceInjector)
 
 from openhands.core.logger import openhands_logger as logger
 

@@ -3,13 +3,9 @@ import concurrent.futures
 
 import pytest
 
-from openhands.utils.async_utils import (
-    AsyncException,
-    call_async_from_sync,
-    call_sync_from_async,
-    run_in_loop,
-    wait_all,
-)
+from openhands.utils.async_utils import (AsyncException, call_async_from_sync,
+                                         call_sync_from_async, run_in_loop,
+                                         wait_all)
 
 
 @pytest.mark.asyncio

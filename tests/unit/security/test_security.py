@@ -7,31 +7,25 @@ import pytest
 from openhands.core.config import LLMConfig
 from openhands.core.schema.action import ActionType
 from openhands.core.schema.agent import AgentState
-from openhands.events.action import (
-    AgentDelegateAction,
-    AgentFinishAction,
-    BrowseInteractiveAction,
-    BrowseURLAction,
-    ChangeAgentStateAction,
-    CmdRunAction,
-    IPythonRunCellAction,
-    MessageAction,
-    NullAction,
-)
-from openhands.events.action.action import ActionConfirmationStatus, ActionSecurityRisk
+from openhands.events.action import (AgentDelegateAction, AgentFinishAction,
+                                     BrowseInteractiveAction, BrowseURLAction,
+                                     ChangeAgentStateAction, CmdRunAction,
+                                     IPythonRunCellAction, MessageAction,
+                                     NullAction)
+from openhands.events.action.action import (ActionConfirmationStatus,
+                                            ActionSecurityRisk)
 from openhands.events.event import Event
-from openhands.events.observation import (
-    AgentDelegateObservation,
-    AgentStateChangedObservation,
-    BrowserOutputObservation,
-    CmdOutputObservation,
-    IPythonRunCellObservation,
-    NullObservation,
-)
+from openhands.events.observation import (AgentDelegateObservation,
+                                          AgentStateChangedObservation,
+                                          BrowserOutputObservation,
+                                          CmdOutputObservation,
+                                          IPythonRunCellObservation,
+                                          NullObservation)
 from openhands.events.stream import EventSource, EventStream
 from openhands.security.invariant import InvariantAnalyzer
 from openhands.security.invariant.client import InvariantClient
-from openhands.security.invariant.nodes import Function, Message, ToolCall, ToolOutput
+from openhands.security.invariant.nodes import (Function, Message, ToolCall,
+                                                ToolOutput)
 from openhands.security.invariant.parser import parse_action, parse_observation
 from openhands.storage import get_file_store
 
@@ -120,9 +114,11 @@ async def test_cmd(cmd, expected_risk, temp_dir: str):
     mock_httpx.post().json.side_effect = [
         {'monitor_id': 'mock-monitor-id'},
         [],  # First check
-        ['PolicyViolation(Disallow rm -rf [risk=medium], ranges=[<2 ranges>])']
-        if expected_risk == ActionSecurityRisk.MEDIUM
-        else [],  # Second check
+        (
+            ['PolicyViolation(Disallow rm -rf [risk=medium], ranges=[<2 ranges>])']
+            if expected_risk == ActionSecurityRisk.MEDIUM
+            else []
+        ),  # Second check
     ]
 
     with (
@@ -175,9 +171,13 @@ async def test_leak_secrets(code, expected_risk, temp_dir: str):
     mock_httpx.post().json.side_effect = [
         {'monitor_id': 'mock-monitor-id'},
         [],  # First check
-        ['PolicyViolation(Disallow writing secrets [risk=medium], ranges=[<2 ranges>])']
-        if expected_risk == ActionSecurityRisk.MEDIUM
-        else [],  # Second check
+        (
+            [
+                'PolicyViolation(Disallow writing secrets [risk=medium], ranges=[<2 ranges>])'
+            ]
+            if expected_risk == ActionSecurityRisk.MEDIUM
+            else []
+        ),  # Second check
         [],  # Third check
     ]
 

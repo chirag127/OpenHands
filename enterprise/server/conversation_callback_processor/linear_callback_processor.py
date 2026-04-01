@@ -1,16 +1,12 @@
 import asyncio
 
 from integrations.linear.linear_manager import LinearManager
-from integrations.utils import (
-    extract_summary_from_conversation_manager,
-    get_last_user_msg_from_conversation_manager,
-    get_summary_instruction,
-)
+from integrations.utils import (extract_summary_from_conversation_manager,
+                                get_last_user_msg_from_conversation_manager,
+                                get_summary_instruction)
 from server.auth.token_manager import TokenManager
-from storage.conversation_callback import (
-    ConversationCallback,
-    ConversationCallbackProcessor,
-)
+from storage.conversation_callback import (ConversationCallback,
+                                           ConversationCallbackProcessor)
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.schema.agent import AgentState
@@ -24,8 +20,7 @@ linear_manager = LinearManager(token_manager)
 
 
 class LinearCallbackProcessor(ConversationCallbackProcessor):
-    """
-    Processor for sending conversation summaries to Linear.
+    """Processor for sending conversation summaries to Linear.
 
     This processor is used to send summaries of conversations to Linear issues
     when agent state changes occur.
@@ -78,8 +73,7 @@ class LinearCallbackProcessor(ConversationCallbackProcessor):
         callback: ConversationCallback,
         observation: AgentStateChangedObservation,
     ) -> None:
-        """
-        Process a conversation event by sending a summary to Linear.
+        """Process a conversation event by sending a summary to Linear.
 
         Args:
             callback: The conversation callback

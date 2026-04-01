@@ -2,18 +2,13 @@ import os
 
 from pydantic import SecretStr
 
-from openhands.integrations.gitlab.service import (
-    GitLabBranchesMixin,
-    GitLabFeaturesMixin,
-    GitLabPRsMixin,
-    GitLabReposMixin,
-    GitLabResolverMixin,
-)
-from openhands.integrations.service_types import (
-    BaseGitService,
-    GitService,
-    ProviderType,
-)
+from openhands.integrations.gitlab.service import (GitLabBranchesMixin,
+                                                   GitLabFeaturesMixin,
+                                                   GitLabPRsMixin,
+                                                   GitLabReposMixin,
+                                                   GitLabResolverMixin)
+from openhands.integrations.service_types import (BaseGitService, GitService,
+                                                  ProviderType)
 from openhands.utils.import_utils import get_impl
 
 
@@ -26,8 +21,7 @@ class GitLabService(
     BaseGitService,
     GitService,
 ):
-    """
-    Assembled GitLab service class combining mixins by feature area.
+    """Assembled GitLab service class combining mixins by feature area.
 
     TODO: This doesn't seem a good candidate for the get_impl() pattern. What are the abstract methods we should actually separate and implement here?
     This is an extension point in OpenHands that allows applications to customize GitLab

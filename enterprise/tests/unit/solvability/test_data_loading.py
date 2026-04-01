@@ -1,5 +1,4 @@
-"""
-Unit tests for data loading functionality in solvability/data.
+"""Unit tests for data loading functionality in solvability/data.
 """
 
 import json
@@ -8,7 +7,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-from integrations.solvability.data import available_classifiers, load_classifier
+from integrations.solvability.data import (available_classifiers,
+                                           load_classifier)
 from integrations.solvability.models.classifier import SolvabilityClassifier
 from pydantic import ValidationError
 

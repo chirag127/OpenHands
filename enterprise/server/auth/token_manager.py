@@ -10,36 +10,28 @@ import httpx
 import jwt
 from cryptography.fernet import Fernet
 from jwt.exceptions import DecodeError
-from keycloak.exceptions import (
-    KeycloakAuthenticationError,
-    KeycloakConnectionError,
-    KeycloakError,
-    KeycloakPostError,
-)
+from keycloak.exceptions import (KeycloakAuthenticationError,
+                                 KeycloakConnectionError, KeycloakError,
+                                 KeycloakPostError)
 from pydantic import BaseModel
 from server.auth.auth_error import ExpiredError
-from server.auth.constants import (
-    BITBUCKET_APP_CLIENT_ID,
-    BITBUCKET_APP_CLIENT_SECRET,
-    BITBUCKET_DATA_CENTER_CLIENT_ID,
-    BITBUCKET_DATA_CENTER_CLIENT_SECRET,
-    BITBUCKET_DATA_CENTER_HOST,
-    BITBUCKET_DATA_CENTER_TOKEN_URL,
-    DUPLICATE_EMAIL_CHECK,
-    GITHUB_APP_CLIENT_ID,
-    GITHUB_APP_CLIENT_SECRET,
-    GITLAB_APP_CLIENT_ID,
-    GITLAB_APP_CLIENT_SECRET,
-    KEYCLOAK_REALM_NAME,
-    KEYCLOAK_SERVER_URL,
-    KEYCLOAK_SERVER_URL_EXT,
-)
-from server.auth.email_validation import (
-    extract_base_email,
-    get_base_email_regex_pattern,
-    matches_base_email,
-)
-from server.auth.keycloak_manager import get_keycloak_admin, get_keycloak_openid
+from server.auth.constants import (BITBUCKET_APP_CLIENT_ID,
+                                   BITBUCKET_APP_CLIENT_SECRET,
+                                   BITBUCKET_DATA_CENTER_CLIENT_ID,
+                                   BITBUCKET_DATA_CENTER_CLIENT_SECRET,
+                                   BITBUCKET_DATA_CENTER_HOST,
+                                   BITBUCKET_DATA_CENTER_TOKEN_URL,
+                                   DUPLICATE_EMAIL_CHECK, GITHUB_APP_CLIENT_ID,
+                                   GITHUB_APP_CLIENT_SECRET,
+                                   GITLAB_APP_CLIENT_ID,
+                                   GITLAB_APP_CLIENT_SECRET,
+                                   KEYCLOAK_REALM_NAME, KEYCLOAK_SERVER_URL,
+                                   KEYCLOAK_SERVER_URL_EXT)
+from server.auth.email_validation import (extract_base_email,
+                                          get_base_email_regex_pattern,
+                                          matches_base_email)
+from server.auth.keycloak_manager import (get_keycloak_admin,
+                                          get_keycloak_openid)
 from server.config import get_config
 from server.logger import logger
 from sqlalchemy import String as SQLString
@@ -48,7 +40,8 @@ from storage.auth_token_store import AuthTokenStore
 from storage.database import a_session_maker
 from storage.github_app_installation import GithubAppInstallation
 from storage.offline_token_store import OfflineTokenStore
-from tenacity import RetryCallState, retry, retry_if_exception_type, stop_after_attempt
+from tenacity import (RetryCallState, retry, retry_if_exception_type,
+                      stop_after_attempt)
 
 from openhands.integrations.service_types import ProviderType
 from openhands.server.types import SessionExpiredError
@@ -261,10 +254,16 @@ class TokenManager:
                 parsed = parse_qs(response.text)
                 # Convert lists to strings and specific keys to integers
                 data = {
-                    key: int(value[0])
-                    if key
-                    in {'expires_in', 'refresh_token_expires_in', 'refresh_expires_in'}
-                    else value[0]
+                    key: (
+                        int(value[0])
+                        if key
+                        in {
+                            'expires_in',
+                            'refresh_token_expires_in',
+                            'refresh_expires_in',
+                        }
+                        else value[0]
+                    )
                     for key, value in parsed.items()
                 }
 
@@ -408,10 +407,12 @@ class TokenManager:
 
             # Convert lists to strings and specific keys to integers
             data = {
-                key: int(value[0])
-                if key
-                in {'expires_in', 'refresh_token_expires_in', 'refresh_expires_in'}
-                else value[0]
+                key: (
+                    int(value[0])
+                    if key
+                    in {'expires_in', 'refresh_token_expires_in', 'refresh_expires_in'}
+                    else value[0]
+                )
                 for key, value in parsed.items()
             }
             return await self._parse_refresh_response(data)

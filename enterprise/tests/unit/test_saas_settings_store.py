@@ -10,9 +10,7 @@ from openhands.storage.data_models.settings import Settings as DataSettings
 
 # Mock the database module before importing
 with patch('storage.database.a_session_maker'):
-    from server.constants import (
-        LITE_LLM_API_URL,
-    )
+    from server.constants import LITE_LLM_API_URL
     from storage.saas_settings_store import SaasSettingsStore
     from storage.user_settings import UserSettings
 
@@ -148,9 +146,7 @@ async def test_load_returns_default_when_not_found(settings_store, async_session
     file_store = MagicMock()
     file_store.read.side_effect = FileNotFoundError()
 
-    with (
-        patch('storage.saas_settings_store.a_session_maker', async_session_maker),
-    ):
+    with (patch('storage.saas_settings_store.a_session_maker', async_session_maker),):
         loaded_settings = await settings_store.load()
         assert loaded_settings is not None
         assert loaded_settings.language == 'en'
@@ -546,7 +542,6 @@ async def test_load_returns_user_specific_mcp_config(
     2. User2 stores a different MCP config
     3. Loading as User1 returns User1's config (not User2's)
     """
-
     # Arrange
     fixture = org_with_multiple_members_fixture
     admin_user_id = str(fixture['admin_user_id'])
@@ -587,10 +582,10 @@ async def test_load_returns_user_specific_mcp_config(
 
     # Act - load settings as user1
     # Need to patch all store modules since load() calls UserStore, OrgStore, etc.
-    with patch(
-        'storage.saas_settings_store.a_session_maker', async_session_maker
-    ), patch('storage.user_store.a_session_maker', async_session_maker), patch(
-        'storage.org_store.a_session_maker', async_session_maker
+    with (
+        patch('storage.saas_settings_store.a_session_maker', async_session_maker),
+        patch('storage.user_store.a_session_maker', async_session_maker),
+        patch('storage.org_store.a_session_maker', async_session_maker),
     ):
         loaded_settings = await store1.load()
 

@@ -8,25 +8,20 @@
 from browsergym.core.action.highlevel import HighLevelActionSet
 from browsergym.utils.obs import flatten_axtree_to_str
 
-from openhands.agenthub.browsing_agent.response_parser import BrowsingResponseParser
+from openhands.agenthub.browsing_agent.response_parser import \
+    BrowsingResponseParser
 from openhands.controller.agent import Agent
 from openhands.controller.state.state import State
 from openhands.core.config import AgentConfig
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.message import ImageContent, Message, TextContent
-from openhands.events.action import (
-    Action,
-    AgentFinishAction,
-    BrowseInteractiveAction,
-    MessageAction,
-)
+from openhands.events.action import (Action, AgentFinishAction,
+                                     BrowseInteractiveAction, MessageAction)
 from openhands.events.event import EventSource
 from openhands.events.observation import BrowserOutputObservation
 from openhands.events.observation.observation import Observation
 from openhands.llm.llm_registry import LLMRegistry
-from openhands.runtime.plugins import (
-    PluginRequirement,
-)
+from openhands.runtime.plugins import PluginRequirement
 
 
 def get_error_prefix(obs: BrowserOutputObservation) -> str:

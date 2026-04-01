@@ -5,12 +5,11 @@
 #   - V1 application server (in this repo): openhands/app_server/
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
-from litellm import ChatCompletionToolParam, ChatCompletionToolParamFunctionChunk
+from litellm import (ChatCompletionToolParam,
+                     ChatCompletionToolParamFunctionChunk)
 
 from openhands.agenthub.codeact_agent.tools.security_utils import (
-    RISK_LEVELS,
-    SECURITY_RISK_DESC,
-)
+    RISK_LEVELS, SECURITY_RISK_DESC)
 
 _FILE_EDIT_DESCRIPTION = """Edit a file in plain-text format.
 * The assistant can edit files by specifying the file path and providing a draft of the new file content.

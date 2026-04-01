@@ -7,13 +7,12 @@ import time
 
 import docker
 import pytest
-from conftest import (
-    _load_runtime,
-)
+from conftest import _load_runtime
 
 import openhands
 from openhands.core.config import MCPConfig
-from openhands.core.config.mcp_config import MCPSSEServerConfig, MCPStdioServerConfig
+from openhands.core.config.mcp_config import (MCPSSEServerConfig,
+                                              MCPStdioServerConfig)
 from openhands.core.logger import openhands_logger as logger
 from openhands.events.action import CmdRunAction, MCPAction
 from openhands.events.observation import CmdOutputObservation, MCPObservation
@@ -125,9 +124,9 @@ def test_default_activated_tools():
         # Fallback to the old method for development environments
         project_root = os.path.dirname(openhands.__file__)
         mcp_config_path = os.path.join(project_root, 'runtime', 'mcp', 'config.json')
-        assert os.path.exists(mcp_config_path), (
-            f'MCP config file not found at {mcp_config_path}'
-        )
+        assert os.path.exists(
+            mcp_config_path
+        ), f'MCP config file not found at {mcp_config_path}'
         with open(mcp_config_path, 'r') as f:
             mcp_config = json.load(f)
 
@@ -178,9 +177,9 @@ async def test_fetch_mcp_via_stdio(
     )
     obs = await runtime.call_tool_mcp(mcp_action)
     logger.info(obs, extra={'msg_type': 'OBSERVATION'})
-    assert isinstance(obs, MCPObservation), (
-        'The observation should be a MCPObservation.'
-    )
+    assert isinstance(
+        obs, MCPObservation
+    ), 'The observation should be a MCPObservation.'
 
     result_json = json.loads(obs.content)
     assert not result_json['isError']
@@ -215,9 +214,9 @@ async def test_filesystem_mcp_via_sse(
         mcp_action = MCPAction(name='list_directory', arguments={'path': '.'})
         obs = await runtime.call_tool_mcp(mcp_action)
         logger.info(obs, extra={'msg_type': 'OBSERVATION'})
-        assert isinstance(obs, MCPObservation), (
-            'The observation should be a MCPObservation.'
-        )
+        assert isinstance(
+            obs, MCPObservation
+        ), 'The observation should be a MCPObservation.'
         assert '[FILE] .dockerenv' in obs.content
 
     finally:
@@ -257,9 +256,9 @@ async def test_both_stdio_and_sse_mcp(
         mcp_action_sse = MCPAction(name='list_directory', arguments={'path': '.'})
         obs_sse = await runtime.call_tool_mcp(mcp_action_sse)
         logger.info(obs_sse, extra={'msg_type': 'OBSERVATION'})
-        assert isinstance(obs_sse, MCPObservation), (
-            'The observation should be a MCPObservation.'
-        )
+        assert isinstance(
+            obs_sse, MCPObservation
+        ), 'The observation should be a MCPObservation.'
         assert '[FILE] .dockerenv' in obs_sse.content
 
         # ======= Test stdio server =======
@@ -290,9 +289,9 @@ async def test_both_stdio_and_sse_mcp(
         )
         obs_fetch = await runtime.call_tool_mcp(mcp_action_fetch)
         logger.info(obs_fetch, extra={'msg_type': 'OBSERVATION'})
-        assert isinstance(obs_fetch, MCPObservation), (
-            'The observation should be a MCPObservation.'
-        )
+        assert isinstance(
+            obs_fetch, MCPObservation
+        ), 'The observation should be a MCPObservation.'
 
         result_json = json.loads(obs_fetch.content)
         assert not result_json['isError']
@@ -348,9 +347,9 @@ async def test_microagent_and_one_stdio_mcp_in_config(
         )
         obs_sse = await runtime.call_tool_mcp(mcp_action_sse)
         logger.info(obs_sse, extra={'msg_type': 'OBSERVATION'})
-        assert isinstance(obs_sse, MCPObservation), (
-            'The observation should be a MCPObservation.'
-        )
+        assert isinstance(
+            obs_sse, MCPObservation
+        ), 'The observation should be a MCPObservation.'
         assert '[FILE] .dockerenv' in obs_sse.content
 
         # ======= Test the stdio server added by the microagent =======
@@ -377,9 +376,9 @@ async def test_microagent_and_one_stdio_mcp_in_config(
         )
         obs_fetch = await runtime.call_tool_mcp(mcp_action_fetch)
         logger.info(obs_fetch, extra={'msg_type': 'OBSERVATION'})
-        assert isinstance(obs_fetch, MCPObservation), (
-            'The observation should be a MCPObservation.'
-        )
+        assert isinstance(
+            obs_fetch, MCPObservation
+        ), 'The observation should be a MCPObservation.'
 
         result_json = json.loads(obs_fetch.content)
         assert not result_json['isError']

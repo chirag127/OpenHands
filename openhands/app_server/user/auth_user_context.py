@@ -2,19 +2,17 @@ from dataclasses import dataclass
 from typing import Any, AsyncGenerator
 
 from fastapi import Request
+from openhands.sdk.secret import SecretSource, StaticSecret
 from pydantic import PrivateAttr
 
 from openhands.app_server.errors import AuthError
 from openhands.app_server.services.injector import InjectorState
 from openhands.app_server.user.specifiy_user_context import USER_CONTEXT_ATTR
-from openhands.app_server.user.user_context import UserContext, UserContextInjector
+from openhands.app_server.user.user_context import (UserContext,
+                                                    UserContextInjector)
 from openhands.app_server.user.user_models import UserInfo
-from openhands.integrations.provider import (
-    PROVIDER_TOKEN_TYPE,
-    ProviderHandler,
-    ProviderType,
-)
-from openhands.sdk.secret import SecretSource, StaticSecret
+from openhands.integrations.provider import (PROVIDER_TOKEN_TYPE,
+                                             ProviderHandler, ProviderType)
 from openhands.server.user_auth.user_auth import UserAuth, get_user_auth
 
 USER_AUTH_ATTR = 'user_auth'
@@ -23,7 +21,8 @@ USER_AUTH_ATTR = 'user_auth'
 @dataclass
 class AuthUserContext(UserContext):
     """Interface to old user settings service. Eventually we want to migrate
-    this to use true database asyncio."""
+    this to use true database asyncio.
+    """
 
     user_auth: UserAuth
     _user_info: UserInfo | None = None
@@ -106,9 +105,9 @@ class AuthUserContext(UserContext):
             for name, custom_secret in secrets.custom_secrets.items():
                 results[name] = StaticSecret(
                     value=custom_secret.secret,
-                    description=custom_secret.description
-                    if custom_secret.description
-                    else None,
+                    description=(
+                        custom_secret.description if custom_secret.description else None
+                    ),
                 )
 
         return results

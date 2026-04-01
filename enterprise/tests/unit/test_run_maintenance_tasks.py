@@ -1,5 +1,4 @@
-"""
-Unit tests for the run_maintenance_tasks.py module.
+"""Unit tests for the run_maintenance_tasks.py module.
 
 These tests verify the functionality of the maintenance task runner script
 that processes pending maintenance tasks.
@@ -18,17 +17,11 @@ mock_db.session_maker = MagicMock()
 sys.modules['storage.database'] = mock_db
 
 # Import after mocking
-from run_maintenance_tasks import (  # noqa: E402
-    main,
-    next_task,
-    run_tasks,
-    set_stale_task_error,
-)
-from storage.maintenance_task import (  # noqa: E402
-    MaintenanceTask,
-    MaintenanceTaskProcessor,
-    MaintenanceTaskStatus,
-)
+from run_maintenance_tasks import (main, next_task, run_tasks,  # noqa: E402
+                                   set_stale_task_error)
+from storage.maintenance_task import (MaintenanceTask,  # noqa: E402
+                                      MaintenanceTaskProcessor,
+                                      MaintenanceTaskStatus)
 
 
 class MockMaintenanceTaskProcessor(MaintenanceTaskProcessor):

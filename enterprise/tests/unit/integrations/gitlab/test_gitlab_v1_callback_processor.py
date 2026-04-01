@@ -1,5 +1,4 @@
-"""
-Tests for the GitlabV1CallbackProcessor.
+"""Tests for the GitlabV1CallbackProcessor.
 
 Covers:
 - Event filtering
@@ -12,24 +11,20 @@ from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import uuid4
 
 import pytest
-from integrations.gitlab.gitlab_v1_callback_processor import (
-    GitlabV1CallbackProcessor,
-)
-
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-)
-from openhands.app_server.event_callback.event_callback_models import EventCallback
-from openhands.app_server.event_callback.event_callback_result_models import (
-    EventCallbackResultStatus,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    ExposedUrl,
-    SandboxInfo,
-    SandboxStatus,
-)
-from openhands.events.action.message import MessageAction
+from integrations.gitlab.gitlab_v1_callback_processor import \
+    GitlabV1CallbackProcessor
 from openhands.sdk.event import ConversationStateUpdateEvent
+
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversationInfo
+from openhands.app_server.event_callback.event_callback_models import \
+    EventCallback
+from openhands.app_server.event_callback.event_callback_result_models import \
+    EventCallbackResultStatus
+from openhands.app_server.sandbox.sandbox_models import (ExposedUrl,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
+from openhands.events.action.message import MessageAction
 
 # ---------------------------------------------------------------------------
 # Fixtures

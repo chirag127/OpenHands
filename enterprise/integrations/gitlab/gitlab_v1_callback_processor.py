@@ -5,24 +5,18 @@ from uuid import UUID
 import httpx
 from integrations.utils import get_summary_instruction
 from integrations.v1_utils import handle_callback_error
-from pydantic import Field
-
 from openhands.agent_server.models import AskAgentRequest, AskAgentResponse
-from openhands.app_server.event_callback.event_callback_models import (
-    EventCallback,
-    EventCallbackProcessor,
-)
-from openhands.app_server.event_callback.event_callback_result_models import (
-    EventCallbackResult,
-    EventCallbackResultStatus,
-)
-from openhands.app_server.event_callback.util import (
-    ensure_conversation_found,
-    ensure_running_sandbox,
-    get_agent_server_url_from_sandbox,
-)
 from openhands.sdk import Event
 from openhands.sdk.event import ConversationStateUpdateEvent
+from pydantic import Field
+
+from openhands.app_server.event_callback.event_callback_models import (
+    EventCallback, EventCallbackProcessor)
+from openhands.app_server.event_callback.event_callback_result_models import (
+    EventCallbackResult, EventCallbackResultStatus)
+from openhands.app_server.event_callback.util import (
+    ensure_conversation_found, ensure_running_sandbox,
+    get_agent_server_url_from_sandbox)
 
 _logger = logging.getLogger(__name__)
 
@@ -221,15 +215,11 @@ class GitlabV1CallbackProcessor(EventCallbackProcessor):
         """
         # Import services within the method to avoid circular imports
         from openhands.app_server.config import (
-            get_app_conversation_info_service,
-            get_httpx_client,
-            get_sandbox_service,
-        )
+            get_app_conversation_info_service, get_httpx_client,
+            get_sandbox_service)
         from openhands.app_server.services.injector import InjectorState
         from openhands.app_server.user.specifiy_user_context import (
-            ADMIN,
-            USER_CONTEXT_ATTR,
-        )
+            ADMIN, USER_CONTEXT_ATTR)
 
         # Create injector state for dependency injection
         state = InjectorState()

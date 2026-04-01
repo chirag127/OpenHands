@@ -14,30 +14,19 @@ from urllib.parse import parse_qs
 from socketio.exceptions import ConnectionRefusedError
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    NullAction,
-)
+from openhands.events.action import NullAction
 from openhands.events.action.agent import RecallAction
 from openhands.events.async_event_store_wrapper import AsyncEventStoreWrapper
 from openhands.events.event_store import EventStore
-from openhands.events.observation import (
-    NullObservation,
-)
-from openhands.events.observation.agent import (
-    AgentStateChangedObservation,
-)
+from openhands.events.observation import NullObservation
+from openhands.events.observation.agent import AgentStateChangedObservation
 from openhands.events.serialization import event_to_dict
 from openhands.integrations.service_types import ProviderType
-from openhands.server.services.conversation_service import (
-    setup_init_conversation_settings,
-)
-from openhands.server.shared import (
-    conversation_manager,
-    sio,
-)
-from openhands.storage.conversation.conversation_validator import (
-    create_conversation_validator,
-)
+from openhands.server.services.conversation_service import \
+    setup_init_conversation_settings
+from openhands.server.shared import conversation_manager, sio
+from openhands.storage.conversation.conversation_validator import \
+    create_conversation_validator
 
 
 @sio.event

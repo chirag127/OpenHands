@@ -3,10 +3,8 @@
 from uuid import UUID
 
 import httpx
-from server.routes.org_models import (
-    OrgMemberFinancialPage,
-    OrgMemberFinancialResponse,
-)
+from server.routes.org_models import (OrgMemberFinancialPage,
+                                      OrgMemberFinancialResponse)
 from storage.lite_llm_manager import LiteLlmManager
 from storage.org_member_store import OrgMemberStore
 

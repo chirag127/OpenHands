@@ -10,9 +10,8 @@ from openhands.events.action import MessageAction
 from openhands.events.event import EventSource
 from openhands.events.event_store import EventStore
 from openhands.llm.llm_registry import LLMRegistry
-from openhands.server.conversation_manager.standalone_conversation_manager import (
-    StandaloneConversationManager,
-)
+from openhands.server.conversation_manager.standalone_conversation_manager import \
+    StandaloneConversationManager
 from openhands.server.monitoring import MonitoringListener
 from openhands.storage.data_models.settings import Settings
 from openhands.storage.memory import InMemoryFileStore

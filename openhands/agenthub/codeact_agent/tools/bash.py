@@ -5,13 +5,12 @@
 #   - V1 application server (in this repo): openhands/app_server/
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
-from litellm import ChatCompletionToolParam, ChatCompletionToolParamFunctionChunk
+from litellm import (ChatCompletionToolParam,
+                     ChatCompletionToolParamFunctionChunk)
 
 from openhands.agenthub.codeact_agent.tools.prompt import refine_prompt
 from openhands.agenthub.codeact_agent.tools.security_utils import (
-    RISK_LEVELS,
-    SECURITY_RISK_DESC,
-)
+    RISK_LEVELS, SECURITY_RISK_DESC)
 from openhands.llm.tool_names import EXECUTE_BASH_TOOL_NAME
 
 _DETAILED_BASH_DESCRIPTION = """Execute a bash command in the terminal within a persistent shell session.

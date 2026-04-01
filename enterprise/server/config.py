@@ -7,19 +7,14 @@ import typing
 import jwt
 import requests  # type: ignore
 from fastapi import HTTPException
-from server.auth.constants import (
-    BITBUCKET_APP_CLIENT_ID,
-    BITBUCKET_DATA_CENTER_CLIENT_ID,
-    ENABLE_ENTERPRISE_SSO,
-    ENABLE_JIRA,
-    ENABLE_JIRA_DC,
-    ENABLE_LINEAR,
-    GITHUB_APP_CLIENT_ID,
-    GITHUB_APP_PRIVATE_KEY,
-    GITHUB_APP_WEBHOOK_SECRET,
-    GITLAB_APP_CLIENT_ID,
-    RECAPTCHA_SITE_KEY,
-)
+from server.auth.constants import (BITBUCKET_APP_CLIENT_ID,
+                                   BITBUCKET_DATA_CENTER_CLIENT_ID,
+                                   ENABLE_ENTERPRISE_SSO, ENABLE_JIRA,
+                                   ENABLE_JIRA_DC, ENABLE_LINEAR,
+                                   GITHUB_APP_CLIENT_ID,
+                                   GITHUB_APP_PRIVATE_KEY,
+                                   GITHUB_APP_WEBHOOK_SECRET,
+                                   GITLAB_APP_CLIENT_ID, RECAPTCHA_SITE_KEY)
 
 from openhands.core.config.utils import load_openhands_config
 from openhands.integrations.service_types import ProviderType

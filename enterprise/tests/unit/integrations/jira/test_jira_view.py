@@ -1,22 +1,16 @@
-"""
-Tests for Jira view classes and factory.
+"""Tests for Jira view classes and factory.
 """
 
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-from integrations.jira.jira_payload import (
-    JiraEventType,
-    JiraPayloadError,
-    JiraPayloadParser,
-    JiraPayloadSkipped,
-    JiraPayloadSuccess,
-)
-from integrations.jira.jira_types import RepositoryNotFoundError, StartingConvoException
-from integrations.jira.jira_view import (
-    JiraFactory,
-    JiraNewConversationView,
-)
+from integrations.jira.jira_payload import (JiraEventType, JiraPayloadError,
+                                            JiraPayloadParser,
+                                            JiraPayloadSkipped,
+                                            JiraPayloadSuccess)
+from integrations.jira.jira_types import (RepositoryNotFoundError,
+                                          StartingConvoException)
+from integrations.jira.jira_view import JiraFactory, JiraNewConversationView
 
 
 class TestJiraNewConversationView:

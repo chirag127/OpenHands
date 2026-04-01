@@ -7,15 +7,11 @@ if TYPE_CHECKING:
     from openhands.controller.agent import Agent
     from openhands.memory.memory import Memory
 
-
 from mcp import McpError
 
-from openhands.core.config.mcp_config import (
-    MCPConfig,
-    MCPSHTTPServerConfig,
-    MCPSSEServerConfig,
-    MCPStdioServerConfig,
-)
+from openhands.core.config.mcp_config import (MCPConfig, MCPSHTTPServerConfig,
+                                              MCPSSEServerConfig,
+                                              MCPStdioServerConfig)
 from openhands.core.logger import openhands_logger as logger
 from openhands.events.action.mcp import MCPAction
 from openhands.events.observation.mcp import MCPObservation
@@ -298,9 +294,9 @@ async def add_mcp_tools_to_agent(
         agent.set_mcp_tools([])
         return
 
-    assert runtime.runtime_initialized, (
-        'Runtime must be initialized before adding MCP tools'
-    )
+    assert (
+        runtime.runtime_initialized
+    ), 'Runtime must be initialized before adding MCP tools'
 
     extra_stdio_servers = []
 

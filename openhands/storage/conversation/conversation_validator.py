@@ -5,7 +5,8 @@ from openhands.core.config.utils import load_openhands_config
 from openhands.core.logger import openhands_logger as logger
 from openhands.server.config.server_config import ServerConfig
 from openhands.storage.conversation.conversation_store import ConversationStore
-from openhands.storage.data_models.conversation_metadata import ConversationMetadata
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationMetadata
 from openhands.utils.conversation_summary import get_default_conversation_title
 from openhands.utils.import_utils import get_impl
 

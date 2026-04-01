@@ -1,15 +1,10 @@
 """Pending messages module for server-side message queuing."""
 
 from openhands.app_server.pending_messages.pending_message_models import (
-    PendingMessage,
-    PendingMessageResponse,
-)
+    PendingMessage, PendingMessageResponse)
 from openhands.app_server.pending_messages.pending_message_service import (
-    PendingMessageService,
-    PendingMessageServiceInjector,
-    SQLPendingMessageService,
-    SQLPendingMessageServiceInjector,
-)
+    PendingMessageService, PendingMessageServiceInjector,
+    SQLPendingMessageService, SQLPendingMessageServiceInjector)
 
 __all__ = [
     'PendingMessage',

@@ -12,97 +12,73 @@ from uuid import UUID, uuid4
 
 import httpx
 from fastapi import Request
-from pydantic import Field, SecretStr, TypeAdapter
-
-from openhands.agent_server.models import (
-    ConversationInfo,
-    SendMessageRequest,
-    StartConversationRequest,
-    TextContent,
-)
-from openhands.app_server.app_conversation.app_conversation_info_service import (
-    AppConversationInfoService,
-)
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AgentType,
-    AppConversation,
-    AppConversationInfo,
-    AppConversationPage,
-    AppConversationSortOrder,
-    AppConversationStartRequest,
-    AppConversationStartTask,
-    AppConversationStartTaskStatus,
-    AppConversationUpdateRequest,
-    PluginSpec,
-)
-from openhands.app_server.app_conversation.app_conversation_service import (
-    AppConversationService,
-    AppConversationServiceInjector,
-)
-from openhands.app_server.app_conversation.app_conversation_service_base import (
-    AppConversationServiceBase,
-    get_project_dir,
-)
-from openhands.app_server.app_conversation.app_conversation_start_task_service import (
-    AppConversationStartTaskService,
-)
-from openhands.app_server.app_conversation.hook_loader import (
-    load_hooks_from_agent_server,
-)
-from openhands.app_server.app_conversation.sql_app_conversation_info_service import (
-    SQLAppConversationInfoService,
-)
-from openhands.app_server.config import get_event_callback_service
-from openhands.app_server.errors import SandboxError
-from openhands.app_server.event.event_service import EventService
-from openhands.app_server.event_callback.event_callback_models import EventCallback
-from openhands.app_server.event_callback.event_callback_service import (
-    EventCallbackService,
-)
-from openhands.app_server.event_callback.set_title_callback_processor import (
-    SetTitleCallbackProcessor,
-)
-from openhands.app_server.pending_messages.pending_message_service import (
-    PendingMessageService,
-)
-from openhands.app_server.sandbox.docker_sandbox_service import DockerSandboxService
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    SandboxInfo,
-    SandboxStatus,
-)
-from openhands.app_server.sandbox.sandbox_service import SandboxService
-from openhands.app_server.sandbox.sandbox_spec_service import SandboxSpecService
-from openhands.app_server.services.injector import InjectorState
-from openhands.app_server.services.jwt_service import JwtService
-from openhands.app_server.user.user_context import UserContext
-from openhands.app_server.user.user_models import UserInfo
-from openhands.app_server.utils.docker_utils import (
-    replace_localhost_hostname_for_docker,
-)
-from openhands.app_server.utils.llm_metadata import (
-    get_llm_metadata,
-    should_set_litellm_extra_body,
-)
-from openhands.integrations.provider import PROVIDER_TOKEN_TYPE, ProviderType
-from openhands.integrations.service_types import SuggestedTask
+from openhands.agent_server.models import (ConversationInfo,
+                                           SendMessageRequest,
+                                           StartConversationRequest,
+                                           TextContent)
 from openhands.sdk import Agent, AgentContext, LocalWorkspace
 from openhands.sdk.hooks import HookConfig
 from openhands.sdk.llm import LLM
 from openhands.sdk.plugin import PluginSource
 from openhands.sdk.secret import LookupSecret, SecretValue, StaticSecret
 from openhands.sdk.utils.paging import page_iterator
-from openhands.sdk.workspace.remote.async_remote_workspace import AsyncRemoteWorkspace
+from openhands.sdk.workspace.remote.async_remote_workspace import \
+    AsyncRemoteWorkspace
+from openhands.tools.preset.default import get_default_tools
+from openhands.tools.preset.planning import (format_plan_structure,
+                                             get_planning_tools)
+from pydantic import Field, SecretStr, TypeAdapter
+
+from openhands.app_server.app_conversation.app_conversation_info_service import \
+    AppConversationInfoService
+from openhands.app_server.app_conversation.app_conversation_models import (
+    AgentType, AppConversation, AppConversationInfo, AppConversationPage,
+    AppConversationSortOrder, AppConversationStartRequest,
+    AppConversationStartTask, AppConversationStartTaskStatus,
+    AppConversationUpdateRequest, PluginSpec)
+from openhands.app_server.app_conversation.app_conversation_service import (
+    AppConversationService, AppConversationServiceInjector)
+from openhands.app_server.app_conversation.app_conversation_service_base import (
+    AppConversationServiceBase, get_project_dir)
+from openhands.app_server.app_conversation.app_conversation_start_task_service import \
+    AppConversationStartTaskService
+from openhands.app_server.app_conversation.hook_loader import \
+    load_hooks_from_agent_server
+from openhands.app_server.app_conversation.sql_app_conversation_info_service import \
+    SQLAppConversationInfoService
+from openhands.app_server.config import get_event_callback_service
+from openhands.app_server.errors import SandboxError
+from openhands.app_server.event.event_service import EventService
+from openhands.app_server.event_callback.event_callback_models import \
+    EventCallback
+from openhands.app_server.event_callback.event_callback_service import \
+    EventCallbackService
+from openhands.app_server.event_callback.set_title_callback_processor import \
+    SetTitleCallbackProcessor
+from openhands.app_server.pending_messages.pending_message_service import \
+    PendingMessageService
+from openhands.app_server.sandbox.docker_sandbox_service import \
+    DockerSandboxService
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
+from openhands.app_server.sandbox.sandbox_service import SandboxService
+from openhands.app_server.sandbox.sandbox_spec_service import \
+    SandboxSpecService
+from openhands.app_server.services.injector import InjectorState
+from openhands.app_server.services.jwt_service import JwtService
+from openhands.app_server.user.user_context import UserContext
+from openhands.app_server.user.user_models import UserInfo
+from openhands.app_server.utils.docker_utils import \
+    replace_localhost_hostname_for_docker
+from openhands.app_server.utils.llm_metadata import (
+    get_llm_metadata, should_set_litellm_extra_body)
+from openhands.integrations.provider import PROVIDER_TOKEN_TYPE, ProviderType
+from openhands.integrations.service_types import SuggestedTask
 from openhands.server.types import AppMode
-from openhands.storage.data_models.conversation_metadata import ConversationTrigger
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationTrigger
 from openhands.storage.data_models.settings import SandboxGroupingStrategy
-from openhands.tools.preset.default import (
-    get_default_tools,
-)
-from openhands.tools.preset.planning import (
-    format_plan_structure,
-    get_planning_tools,
-)
 from openhands.utils.git import ensure_valid_git_branch_name
 
 _conversation_info_type_adapter = TypeAdapter(list[ConversationInfo | None])
@@ -1624,12 +1600,12 @@ class LiveStatusAppConversationService(AppConversationServiceBase):
         sandbox = await self.sandbox_service.get_sandbox(
             app_conversation_info.sandbox_id
         )
-        assert sandbox is not None, (
-            f'Sandbox {app_conversation_info.sandbox_id} not found for conversation {conversation_id}'
-        )
-        assert sandbox.exposed_urls is not None, (
-            f'Sandbox {app_conversation_info.sandbox_id} has no exposed URLs for conversation {conversation_id}'
-        )
+        assert (
+            sandbox is not None
+        ), f'Sandbox {app_conversation_info.sandbox_id} not found for conversation {conversation_id}'
+        assert (
+            sandbox.exposed_urls is not None
+        ), f'Sandbox {app_conversation_info.sandbox_id} has no exposed URLs for conversation {conversation_id}'
 
         # Use the existing method to get the agent-server URL
         agent_server_url = self._get_agent_server_url(sandbox)
@@ -1979,16 +1955,10 @@ class LiveStatusAppConversationServiceInjector(AppConversationServiceInjector):
     ) -> AsyncGenerator[AppConversationService, None]:
         from openhands.app_server.config import (
             get_app_conversation_info_service,
-            get_app_conversation_start_task_service,
-            get_event_service,
-            get_global_config,
-            get_httpx_client,
-            get_jwt_service,
-            get_pending_message_service,
-            get_sandbox_service,
-            get_sandbox_spec_service,
-            get_user_context,
-        )
+            get_app_conversation_start_task_service, get_event_service,
+            get_global_config, get_httpx_client, get_jwt_service,
+            get_pending_message_service, get_sandbox_service,
+            get_sandbox_spec_service, get_user_context)
 
         async with (
             get_user_context(state, request) as user_context,

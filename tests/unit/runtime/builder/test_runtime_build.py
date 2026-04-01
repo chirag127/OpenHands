@@ -16,16 +16,9 @@ from openhands import __version__ as oh_version
 from openhands.core.logger import openhands_logger as logger
 from openhands.runtime.builder.docker import DockerRuntimeBuilder
 from openhands.runtime.utils.runtime_build import (
-    BuildFromImageType,
-    _generate_dockerfile,
-    build_runtime_image,
-    get_hash_for_lock_files,
-    get_hash_for_source_files,
-    get_runtime_image_repo,
-    get_runtime_image_repo_and_tag,
-    prep_build_folder,
-    truncate_hash,
-)
+    BuildFromImageType, _generate_dockerfile, build_runtime_image,
+    get_hash_for_lock_files, get_hash_for_source_files, get_runtime_image_repo,
+    get_runtime_image_repo_and_tag, prep_build_folder, truncate_hash)
 
 OH_VERSION = f'oh_v{oh_version}'
 DEFAULT_BASE_IMAGE = 'nikolaik/python-nodejs:python3.12-nodejs22-slim'

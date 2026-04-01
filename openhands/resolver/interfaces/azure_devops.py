@@ -11,11 +11,8 @@ from typing import Any
 
 import httpx
 
-from openhands.resolver.interfaces.issue import (
-    Issue,
-    IssueHandlerInterface,
-    ReviewThread,
-)
+from openhands.resolver.interfaces.issue import (Issue, IssueHandlerInterface,
+                                                 ReviewThread)
 
 
 class AzureDevOpsIssueHandler(IssueHandlerInterface):

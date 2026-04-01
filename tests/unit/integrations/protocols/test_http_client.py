@@ -8,14 +8,12 @@ import pytest
 from pydantic import SecretStr
 
 from openhands.integrations.protocols.http_client import HTTPClient
-from openhands.integrations.service_types import (
-    AuthenticationError,
-    ProviderTimeoutError,
-    RateLimitError,
-    RequestMethod,
-    ResourceNotFoundError,
-    UnknownException,
-)
+from openhands.integrations.service_types import (AuthenticationError,
+                                                  ProviderTimeoutError,
+                                                  RateLimitError,
+                                                  RequestMethod,
+                                                  ResourceNotFoundError,
+                                                  UnknownException)
 
 
 class TestableHTTPClient(HTTPClient):

@@ -7,13 +7,13 @@
 # Tag: Legacy-V0
 import os
 
-from litellm import ChatCompletionToolParam, ChatCompletionToolParamFunctionChunk
+from litellm import (ChatCompletionToolParam,
+                     ChatCompletionToolParamFunctionChunk)
 
 from openhands.agenthub.codeact_agent.tools.security_utils import (
-    RISK_LEVELS,
-    SECURITY_RISK_DESC,
-)
-from openhands.core.config.config_utils import DEFAULT_WORKSPACE_MOUNT_PATH_IN_SANDBOX
+    RISK_LEVELS, SECURITY_RISK_DESC)
+from openhands.core.config.config_utils import \
+    DEFAULT_WORKSPACE_MOUNT_PATH_IN_SANDBOX
 from openhands.llm.tool_names import STR_REPLACE_EDITOR_TOOL_NAME
 
 _DETAILED_STR_REPLACE_EDITOR_DESCRIPTION = """Custom editing tool for viewing, creating and editing files in plain-text format

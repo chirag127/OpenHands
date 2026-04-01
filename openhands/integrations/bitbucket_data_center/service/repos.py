@@ -1,16 +1,14 @@
 from typing import Any
 from urllib.parse import urlparse
 
-from openhands.integrations.bitbucket_data_center.service.base import (
-    BitbucketDCMixinBase,
-)
+from openhands.integrations.bitbucket_data_center.service.base import \
+    BitbucketDCMixinBase
 from openhands.integrations.service_types import Repository, SuggestedTask
 from openhands.server.types import AppMode
 
 
 class BitbucketDCReposMixin(BitbucketDCMixinBase):
-    """
-    Mixin for BitBucket data center repository-related operations
+    """Mixin for BitBucket data center repository-related operations
     """
 
     async def search_repositories(

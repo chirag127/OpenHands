@@ -69,10 +69,8 @@ class TestAuthCallbackInvitationEmailMismatch:
 
     def test_email_mismatch_error_is_invitation_error(self):
         """Test that EmailMismatchError inherits from InvitationError."""
-        from server.routes.org_invitation_models import (
-            EmailMismatchError,
-            InvitationError,
-        )
+        from server.routes.org_invitation_models import (EmailMismatchError,
+                                                         InvitationError)
 
         error = EmailMismatchError()
         assert isinstance(error, InvitationError)

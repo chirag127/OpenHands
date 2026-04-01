@@ -1,14 +1,13 @@
 from datetime import datetime, timezone
 
-from openhands.integrations.bitbucket_data_center.service.base import (
-    BitbucketDCMixinBase,
-)
-from openhands.integrations.service_types import Branch, PaginatedBranchesResponse
+from openhands.integrations.bitbucket_data_center.service.base import \
+    BitbucketDCMixinBase
+from openhands.integrations.service_types import (Branch,
+                                                  PaginatedBranchesResponse)
 
 
 class BitbucketDCBranchesMixin(BitbucketDCMixinBase):
-    """
-    Mixin for BitBucket data center branch-related operations
+    """Mixin for BitBucket data center branch-related operations
     """
 
     async def get_branches(self, repository: str) -> list[Branch]:
@@ -87,7 +86,6 @@ class BitbucketDCBranchesMixin(BitbucketDCMixinBase):
 
     def _parse_branch(self, branch: dict) -> Branch:
         """Normalize Bitbucket branch representations across Cloud and Server."""
-
         name = branch.get('displayId') or ''
         if not name:
             branch_id = branch.get('id', '')
@@ -108,7 +106,6 @@ class BitbucketDCBranchesMixin(BitbucketDCMixinBase):
 
     def _extract_server_branch_last_modified(self, branch: dict) -> str | None:
         """Extract the last modified timestamp from a Bitbucket Server branch payload."""
-
         metadata = branch.get('metadata')
         if not isinstance(metadata, dict):
             return None

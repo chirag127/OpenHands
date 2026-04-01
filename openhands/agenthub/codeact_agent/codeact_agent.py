@@ -22,18 +22,16 @@ if TYPE_CHECKING:
 import openhands.agenthub.codeact_agent.function_calling as codeact_function_calling
 from openhands.agenthub.codeact_agent.tools.bash import create_cmd_run_tool
 from openhands.agenthub.codeact_agent.tools.browser import BrowserTool
-from openhands.agenthub.codeact_agent.tools.condensation_request import (
-    CondensationRequestTool,
-)
+from openhands.agenthub.codeact_agent.tools.condensation_request import \
+    CondensationRequestTool
 from openhands.agenthub.codeact_agent.tools.finish import FinishTool
 from openhands.agenthub.codeact_agent.tools.ipython import IPythonTool
-from openhands.agenthub.codeact_agent.tools.llm_based_edit import LLMBasedFileEditTool
-from openhands.agenthub.codeact_agent.tools.str_replace_editor import (
-    create_str_replace_editor_tool,
-)
-from openhands.agenthub.codeact_agent.tools.task_tracker import (
-    create_task_tracker_tool,
-)
+from openhands.agenthub.codeact_agent.tools.llm_based_edit import \
+    LLMBasedFileEditTool
+from openhands.agenthub.codeact_agent.tools.str_replace_editor import \
+    create_str_replace_editor_tool
+from openhands.agenthub.codeact_agent.tools.task_tracker import \
+    create_task_tracker_tool
 from openhands.agenthub.codeact_agent.tools.think import ThinkTool
 from openhands.controller.agent import Agent
 from openhands.controller.state.state import State
@@ -46,11 +44,8 @@ from openhands.llm.llm_utils import check_tools
 from openhands.memory.condenser import Condenser
 from openhands.memory.condenser.condenser import Condensation, View
 from openhands.memory.conversation_memory import ConversationMemory
-from openhands.runtime.plugins import (
-    AgentSkillsRequirement,
-    JupyterRequirement,
-    PluginRequirement,
-)
+from openhands.runtime.plugins import (AgentSkillsRequirement,
+                                       JupyterRequirement, PluginRequirement)
 from openhands.utils.prompt import PromptManager
 
 

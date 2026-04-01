@@ -8,11 +8,9 @@ from openhands.events.event_filter import EventFilter
 from openhands.events.event_store_abc import EventStoreABC
 from openhands.events.serialization.event import event_from_dict
 from openhands.storage.files import FileStore
-from openhands.storage.locations import (
-    get_conversation_dir,
-    get_conversation_event_filename,
-    get_conversation_events_dir,
-)
+from openhands.storage.locations import (get_conversation_dir,
+                                         get_conversation_event_filename,
+                                         get_conversation_events_dir)
 from openhands.utils.shutdown_listener import should_continue
 
 

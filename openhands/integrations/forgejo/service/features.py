@@ -5,13 +5,11 @@ from typing import Any
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.forgejo.service.base import ForgejoMixinBase
-from openhands.integrations.service_types import (
-    MicroagentContentResponse,
-    MicroagentResponse,
-    ProviderType,
-    ResourceNotFoundError,
-    SuggestedTask,
-)
+from openhands.integrations.service_types import (MicroagentContentResponse,
+                                                  MicroagentResponse,
+                                                  ProviderType,
+                                                  ResourceNotFoundError,
+                                                  SuggestedTask)
 
 
 class ForgejoFeaturesMixin(ForgejoMixinBase):

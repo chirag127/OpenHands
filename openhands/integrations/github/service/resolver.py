@@ -3,17 +3,14 @@ from typing import Any
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.github.queries import (
-    get_review_threads_graphql_query,
-    get_thread_comments_graphql_query,
-    get_thread_from_comment_graphql_query,
-)
+    get_review_threads_graphql_query, get_thread_comments_graphql_query,
+    get_thread_from_comment_graphql_query)
 from openhands.integrations.github.service.base import GitHubMixinBase
 from openhands.integrations.service_types import Comment
 
 
 class GitHubResolverMixin(GitHubMixinBase):
-    """
-    Helper methods used for the GitHub Resolver
+    """Helper methods used for the GitHub Resolver
     """
 
     async def get_issue_or_pr_title_and_body(
@@ -89,7 +86,6 @@ class GitHubResolverMixin(GitHubMixinBase):
         Returns:
             List of Comment objects representing the entire thread
         """
-
         # Step 1: Use existing GraphQL query to get the comment and check for replyTo
         variables = {'commentId': comment_id}
         data = await self.execute_graphql_query(
@@ -206,16 +202,20 @@ class GitHubResolverMixin(GitHubMixinBase):
                     id=str(comment.get('id', 'unknown')),
                     body=self._truncate_comment(comment.get('body', '')),
                     author=author,
-                    created_at=datetime.fromisoformat(
-                        comment.get('createdAt', '').replace('Z', '+00:00')
-                    )
-                    if comment.get('createdAt')
-                    else datetime.fromtimestamp(0),
-                    updated_at=datetime.fromisoformat(
-                        comment.get('updatedAt', '').replace('Z', '+00:00')
-                    )
-                    if comment.get('updatedAt')
-                    else datetime.fromtimestamp(0),
+                    created_at=(
+                        datetime.fromisoformat(
+                            comment.get('createdAt', '').replace('Z', '+00:00')
+                        )
+                        if comment.get('createdAt')
+                        else datetime.fromtimestamp(0)
+                    ),
+                    updated_at=(
+                        datetime.fromisoformat(
+                            comment.get('updatedAt', '').replace('Z', '+00:00')
+                        )
+                        if comment.get('updatedAt')
+                        else datetime.fromtimestamp(0)
+                    ),
                     system=False,
                 )
             )

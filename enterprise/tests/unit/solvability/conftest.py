@@ -1,5 +1,4 @@
-"""
-Shared fixtures for all tests.
+"""Shared fixtures for all tests.
 """
 
 from typing import Any
@@ -8,11 +7,9 @@ from unittest.mock import MagicMock
 import numpy as np
 import pytest
 from integrations.solvability.models.classifier import SolvabilityClassifier
-from integrations.solvability.models.featurizer import (
-    Feature,
-    FeatureEmbedding,
-    Featurizer,
-)
+from integrations.solvability.models.featurizer import (Feature,
+                                                        FeatureEmbedding,
+                                                        Featurizer)
 from sklearn.ensemble import RandomForestClassifier
 
 from openhands.core.config import LLMConfig
@@ -44,8 +41,7 @@ def feature_embedding() -> FeatureEmbedding:
 
 @pytest.fixture
 def featurizer(mock_llm, features) -> Featurizer:
-    """
-    Create a featurizer for testing.
+    """Create a featurizer for testing.
 
     Mocks out any calls to LLM.completion
     """

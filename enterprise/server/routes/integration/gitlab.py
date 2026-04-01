@@ -7,10 +7,7 @@ from fastapi.responses import JSONResponse
 from integrations.gitlab.gitlab_manager import GitlabManager
 from integrations.gitlab.gitlab_service import SaaSGitLabService
 from integrations.gitlab.webhook_installation import (
-    BreakLoopException,
-    install_webhook_on_resource,
-    verify_webhook_conditions,
-)
+    BreakLoopException, install_webhook_on_resource, verify_webhook_conditions)
 from integrations.models import Message, SourceType
 from integrations.types import GitLabResourceType
 from integrations.utils import GITLAB_WEBHOOK_URL, IS_LOCAL_DEPLOYMENT
@@ -318,12 +315,12 @@ async def reinstall_gitlab_webhook(
             # Create new webhook record
             webhook = GitlabWebhook(
                 user_id=user_id,  # Track who created it
-                project_id=resource_id
-                if resource_type == GitLabResourceType.PROJECT
-                else None,
-                group_id=resource_id
-                if resource_type == GitLabResourceType.GROUP
-                else None,
+                project_id=(
+                    resource_id if resource_type == GitLabResourceType.PROJECT else None
+                ),
+                group_id=(
+                    resource_id if resource_type == GitLabResourceType.GROUP else None
+                ),
                 webhook_exists=False,
             )
             await webhook_store.store_webhooks([webhook])

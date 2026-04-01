@@ -3,26 +3,22 @@
 import logging
 from typing import Annotated, cast
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response, status
+from fastapi import (APIRouter, Depends, HTTPException, Query, Request,
+                     Response, status)
 from fastapi.security import APIKeyHeader
-
 from openhands.agent_server.models import Success
+
 from openhands.app_server.config import depends_sandbox_service
-from openhands.app_server.sandbox.sandbox_models import (
-    SandboxInfo,
-    SandboxPage,
-    SecretNameItem,
-    SecretNamesResponse,
-)
-from openhands.app_server.sandbox.sandbox_service import (
-    SandboxService,
-)
+from openhands.app_server.sandbox.sandbox_models import (SandboxInfo,
+                                                         SandboxPage,
+                                                         SecretNameItem,
+                                                         SecretNamesResponse)
+from openhands.app_server.sandbox.sandbox_service import SandboxService
 from openhands.app_server.sandbox.session_auth import validate_session_key
 from openhands.app_server.user.auth_user_context import AuthUserContext
 from openhands.server.dependencies import get_dependencies
-from openhands.server.user_auth.user_auth import (
-    get_for_user as get_user_auth_for_user,
-)
+from openhands.server.user_auth.user_auth import \
+    get_for_user as get_user_auth_for_user
 
 _logger = logging.getLogger(__name__)
 

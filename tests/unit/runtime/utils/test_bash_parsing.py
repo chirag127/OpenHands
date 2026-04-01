@@ -1,6 +1,7 @@
 import pytest
 
-from openhands.runtime.utils.bash import escape_bash_special_chars, split_bash_commands
+from openhands.runtime.utils.bash import (escape_bash_special_chars,
+                                          split_bash_commands)
 
 
 def test_split_commands_util():
@@ -60,9 +61,9 @@ done
         print('\nCMD')
         print(s)
     for i in range(len(cmds)):
-        assert split_cmds[i].strip() == cmds[i].strip(), (
-            f'At index {i}: {split_cmds[i]} != {cmds[i]}.'
-        )
+        assert (
+            split_cmds[i].strip() == cmds[i].strip()
+        ), f'At index {i}: {split_cmds[i]} != {cmds[i]}.'
 
 
 @pytest.mark.parametrize(
@@ -328,9 +329,9 @@ def test_escape_bash_special_chars():
 
     for input_cmd, expected in test_cases:
         result = escape_bash_special_chars(input_cmd)
-        assert result == expected, (
-            f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'
-        )
+        assert (
+            result == expected
+        ), f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'
 
 
 def test_escape_bash_special_chars_with_invalid_syntax():
@@ -353,9 +354,9 @@ EOF"""
     # Heredoc content should not be escaped
     expected = input_cmd
     result = escape_bash_special_chars(input_cmd)
-    assert result == expected, (
-        f'Failed to handle heredoc correctly\nExpected: {expected}\nGot: {result}'
-    )
+    assert (
+        result == expected
+    ), f'Failed to handle heredoc correctly\nExpected: {expected}\nGot: {result}'
 
 
 def test_escape_bash_special_chars_with_parameter_expansion():
@@ -377,9 +378,9 @@ def test_escape_bash_special_chars_with_parameter_expansion():
 
     for input_cmd, expected in test_cases:
         result = escape_bash_special_chars(input_cmd)
-        assert result == expected, (
-            f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'
-        )
+        assert (
+            result == expected
+        ), f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'
 
 
 def test_escape_bash_special_chars_with_command_substitution():
@@ -401,9 +402,9 @@ def test_escape_bash_special_chars_with_command_substitution():
 
     for input_cmd, expected in test_cases:
         result = escape_bash_special_chars(input_cmd)
-        assert result == expected, (
-            f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'
-        )
+        assert (
+            result == expected
+        ), f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'
 
 
 def test_escape_bash_special_chars_mixed_nodes():
@@ -434,9 +435,9 @@ def test_escape_bash_special_chars_mixed_nodes():
 
     for input_cmd, expected in test_cases:
         result = escape_bash_special_chars(input_cmd)
-        assert result == expected, (
-            f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'
-        )
+        assert (
+            result == expected
+        ), f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'
 
 
 def test_escape_bash_special_chars_with_chained_commands():
@@ -463,6 +464,6 @@ def test_escape_bash_special_chars_with_chained_commands():
 
     for input_cmd, expected in test_cases:
         result = escape_bash_special_chars(input_cmd)
-        assert result == expected, (
-            f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'
-        )
+        assert (
+            result == expected
+        ), f'Failed on input "{input_cmd}"\nExpected: "{expected}"\nGot: "{result}"'

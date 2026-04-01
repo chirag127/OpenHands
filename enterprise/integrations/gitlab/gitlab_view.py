@@ -4,23 +4,17 @@ from uuid import UUID, uuid4
 from integrations.models import Message
 from integrations.resolver_context import ResolverUserContext
 from integrations.types import ResolverViewInterface, UserData
-from integrations.utils import (
-    ENABLE_V1_GITLAB_RESOLVER,
-    HOST,
-    get_oh_labels,
-    get_user_v1_enabled_setting,
-    has_exact_mention,
-)
+from integrations.utils import (ENABLE_V1_GITLAB_RESOLVER, HOST, get_oh_labels,
+                                get_user_v1_enabled_setting, has_exact_mention)
 from jinja2 import Environment
+from openhands.agent_server.models import SendMessageRequest
+from openhands.sdk import TextContent
 from server.auth.token_manager import TokenManager
 from server.config import get_config
 from storage.saas_secrets_store import SaasSecretsStore
 
-from openhands.agent_server.models import SendMessageRequest
 from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationStartRequest,
-    AppConversationStartTaskStatus,
-)
+    AppConversationStartRequest, AppConversationStartTaskStatus)
 from openhands.app_server.config import get_app_conversation_service
 from openhands.app_server.services.injector import InjectorState
 from openhands.app_server.user.specifiy_user_context import USER_CONTEXT_ATTR
@@ -28,16 +22,11 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.gitlab.gitlab_service import GitLabServiceImpl
 from openhands.integrations.provider import PROVIDER_TOKEN_TYPE, ProviderType
 from openhands.integrations.service_types import Comment
-from openhands.sdk import TextContent
 from openhands.server.services.conversation_service import (
-    initialize_conversation,
-    start_conversation,
-)
+    initialize_conversation, start_conversation)
 from openhands.server.user_auth.user_auth import UserAuth
 from openhands.storage.data_models.conversation_metadata import (
-    ConversationMetadata,
-    ConversationTrigger,
-)
+    ConversationMetadata, ConversationTrigger)
 
 OH_LABEL, INLINE_OH_LABEL = get_oh_labels(HOST)
 CONFIDENTIAL_NOTE = 'confidential_note'
@@ -245,9 +234,8 @@ class GitlabIssue(ResolverViewInterface):
 
     def _create_gitlab_v1_callback_processor(self):
         """Create a V1 callback processor for GitLab integration."""
-        from integrations.gitlab.gitlab_v1_callback_processor import (
-            GitlabV1CallbackProcessor,
-        )
+        from integrations.gitlab.gitlab_v1_callback_processor import \
+            GitlabV1CallbackProcessor
 
         # Create and return the GitLab V1 callback processor
         return GitlabV1CallbackProcessor(

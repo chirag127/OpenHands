@@ -1,20 +1,16 @@
-"""
-Tests for ConversationCallbackProcessor and ConversationCallback models.
+"""Tests for ConversationCallbackProcessor and ConversationCallback models.
 """
 
 import json
 from uuid import UUID
 
 import pytest
-from storage.conversation_callback import (
-    CallbackStatus,
-    ConversationCallback,
-    ConversationCallbackProcessor,
-)
+from storage.conversation_callback import (CallbackStatus,
+                                           ConversationCallback,
+                                           ConversationCallbackProcessor)
 from storage.stored_conversation_metadata import StoredConversationMetadata
-from storage.stored_conversation_metadata_saas import (
-    StoredConversationMetadataSaas,
-)
+from storage.stored_conversation_metadata_saas import \
+    StoredConversationMetadataSaas
 
 from openhands.events.observation.agent import AgentStateChangedObservation
 

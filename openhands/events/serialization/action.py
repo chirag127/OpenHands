@@ -2,29 +2,20 @@ from typing import Any
 
 from openhands.core.exceptions import LLMMalformedActionError
 from openhands.events.action.action import Action, ActionSecurityRisk
-from openhands.events.action.agent import (
-    AgentDelegateAction,
-    AgentFinishAction,
-    AgentRejectAction,
-    AgentThinkAction,
-    ChangeAgentStateAction,
-    CondensationAction,
-    CondensationRequestAction,
-    LoopRecoveryAction,
-    RecallAction,
-    TaskTrackingAction,
-)
-from openhands.events.action.browse import BrowseInteractiveAction, BrowseURLAction
-from openhands.events.action.commands import (
-    CmdRunAction,
-    IPythonRunCellAction,
-)
+from openhands.events.action.agent import (AgentDelegateAction,
+                                           AgentFinishAction,
+                                           AgentRejectAction, AgentThinkAction,
+                                           ChangeAgentStateAction,
+                                           CondensationAction,
+                                           CondensationRequestAction,
+                                           LoopRecoveryAction, RecallAction,
+                                           TaskTrackingAction)
+from openhands.events.action.browse import (BrowseInteractiveAction,
+                                            BrowseURLAction)
+from openhands.events.action.commands import CmdRunAction, IPythonRunCellAction
 from openhands.events.action.empty import NullAction
-from openhands.events.action.files import (
-    FileEditAction,
-    FileReadAction,
-    FileWriteAction,
-)
+from openhands.events.action.files import (FileEditAction, FileReadAction,
+                                           FileWriteAction)
 from openhands.events.action.mcp import MCPAction
 from openhands.events.action.message import MessageAction, SystemMessageAction
 

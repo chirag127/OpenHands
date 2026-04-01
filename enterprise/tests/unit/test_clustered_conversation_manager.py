@@ -6,14 +6,13 @@ from dataclasses import dataclass
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-from server.clustered_conversation_manager import (
-    ClusteredConversationManager,
-)
+from server.clustered_conversation_manager import ClusteredConversationManager
 
 from openhands.core.config.openhands_config import OpenHandsConfig
 from openhands.core.schema.agent import AgentState
 from openhands.server.monitoring import MonitoringListener
-from openhands.server.session.conversation_init_data import ConversationInitData
+from openhands.server.session.conversation_init_data import \
+    ConversationInitData
 from openhands.storage.memory import InMemoryFileStore
 
 

@@ -4,7 +4,8 @@ from typing import Any
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.forgejo.service.base import ForgejoMixinBase
-from openhands.integrations.service_types import RequestMethod, UnknownException
+from openhands.integrations.service_types import (RequestMethod,
+                                                  UnknownException)
 
 
 class ForgejoPRsMixin(ForgejoMixinBase):

@@ -3,16 +3,12 @@ from datetime import datetime
 
 from integrations.github.github_manager import GithubManager
 from integrations.github.github_view import GithubViewType
-from integrations.utils import (
-    extract_summary_from_conversation_manager,
-    get_summary_instruction,
-)
+from integrations.utils import (extract_summary_from_conversation_manager,
+                                get_summary_instruction)
 from server.auth.token_manager import TokenManager
-from storage.conversation_callback import (
-    CallbackStatus,
-    ConversationCallback,
-    ConversationCallbackProcessor,
-)
+from storage.conversation_callback import (CallbackStatus,
+                                           ConversationCallback,
+                                           ConversationCallbackProcessor)
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.schema.agent import AgentState
@@ -23,8 +19,7 @@ from openhands.server.shared import conversation_manager
 
 
 class GithubCallbackProcessor(ConversationCallbackProcessor):
-    """
-    Processor for sending conversation summaries to GitHub.
+    """Processor for sending conversation summaries to GitHub.
 
     This processor is used to send summaries of conversations to GitHub issues/PRs
     when agent state changes occur.
@@ -62,8 +57,7 @@ class GithubCallbackProcessor(ConversationCallbackProcessor):
         callback: ConversationCallback,
         observation: AgentStateChangedObservation,
     ) -> None:
-        """
-        Process a conversation event by sending a summary to GitHub.
+        """Process a conversation event by sending a summary to GitHub.
 
         Args:
             callback: The conversation callback

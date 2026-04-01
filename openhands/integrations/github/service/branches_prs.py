@@ -1,14 +1,12 @@
 from openhands.core.logger import openhands_logger as logger
-from openhands.integrations.github.queries import (
-    search_branches_graphql_query,
-)
+from openhands.integrations.github.queries import search_branches_graphql_query
 from openhands.integrations.github.service.base import GitHubMixinBase
-from openhands.integrations.service_types import Branch, PaginatedBranchesResponse
+from openhands.integrations.service_types import (Branch,
+                                                  PaginatedBranchesResponse)
 
 
 class GitHubBranchesMixin(GitHubMixinBase):
-    """
-    Methods for interacting with branches for a repo
+    """Methods for interacting with branches for a repo
     """
 
     async def get_branches(self, repository: str) -> list[Branch]:

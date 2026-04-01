@@ -7,14 +7,14 @@ determines which SharedEventServiceInjector to use based on environment variable
 import os
 from unittest.mock import patch
 
-from server.sharing.aws_shared_event_service import AwsSharedEventServiceInjector
-from server.sharing.filesystem_shared_event_service import (
-    FilesystemSharedEventServiceInjector,
-)
-from server.sharing.google_cloud_shared_event_service import (
-    GoogleCloudSharedEventServiceInjector,
-)
-from server.sharing.shared_event_router import get_shared_event_service_injector
+from server.sharing.aws_shared_event_service import \
+    AwsSharedEventServiceInjector
+from server.sharing.filesystem_shared_event_service import \
+    FilesystemSharedEventServiceInjector
+from server.sharing.google_cloud_shared_event_service import \
+    GoogleCloudSharedEventServiceInjector
+from server.sharing.shared_event_router import \
+    get_shared_event_service_injector
 
 
 class TestGetSharedEventServiceInjector:

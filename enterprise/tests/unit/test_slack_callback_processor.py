@@ -1,14 +1,12 @@
-"""
-Tests for the SlackCallbackProcessor.
+"""Tests for the SlackCallbackProcessor.
 """
 
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from integrations.models import Message
-from server.conversation_callback_processor.slack_callback_processor import (
-    SlackCallbackProcessor,
-)
+from server.conversation_callback_processor.slack_callback_processor import \
+    SlackCallbackProcessor
 from storage.conversation_callback import ConversationCallback
 
 from openhands.core.schema.agent import AgentState

@@ -9,12 +9,8 @@ from pydantic import SecretStr
 from openhands.core.config.mcp_config import MCPConfig, MCPStdioServerConfig
 from openhands.integrations.provider import ProviderToken
 from openhands.integrations.service_types import ProviderType
-from openhands.server.routes.secrets import (
-    app as secrets_router,
-)
-from openhands.server.routes.secrets import (
-    check_provider_tokens,
-)
+from openhands.server.routes.secrets import app as secrets_router
+from openhands.server.routes.secrets import check_provider_tokens
 from openhands.server.routes.settings import store_llm_settings
 from openhands.server.settings import POSTProviderModel
 from openhands.storage import get_file_store
@@ -282,9 +278,7 @@ async def test_store_llm_settings_no_existing_base_url_uses_auto_detection():
     When neither the incoming settings nor existing settings have a base URL,
     auto-detection from litellm should be used.
     """
-    settings = Settings(
-        llm_model='gpt-4'  # Not an openhands model
-    )
+    settings = Settings(llm_model='gpt-4')  # Not an openhands model
 
     # Existing settings without a base URL
     existing_settings = Settings(

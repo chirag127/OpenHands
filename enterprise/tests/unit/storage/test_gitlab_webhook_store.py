@@ -3,7 +3,8 @@
 import pytest
 from integrations.types import GitLabResourceType
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
 from sqlalchemy.pool import StaticPool
 from storage.base import Base
 from storage.gitlab_webhook import GitlabWebhook

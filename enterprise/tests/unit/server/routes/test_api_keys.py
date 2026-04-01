@@ -8,15 +8,12 @@ import pytest
 from fastapi import HTTPException
 from pydantic import SecretStr
 from server.auth.saas_user_auth import SaasUserAuth
-from server.routes.api_keys import (
-    ByorPermittedResponse,
-    CurrentApiKeyResponse,
-    LlmApiKeyResponse,
-    check_byor_permitted,
-    delete_byor_key_from_litellm,
-    get_current_api_key,
-    get_llm_api_key_for_byor,
-)
+from server.routes.api_keys import (ByorPermittedResponse,
+                                    CurrentApiKeyResponse, LlmApiKeyResponse,
+                                    check_byor_permitted,
+                                    delete_byor_key_from_litellm,
+                                    get_current_api_key,
+                                    get_llm_api_key_for_byor)
 from storage.lite_llm_manager import LiteLlmManager
 
 from openhands.server.user_auth.user_auth import AuthType

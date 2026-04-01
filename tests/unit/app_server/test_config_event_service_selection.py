@@ -40,9 +40,8 @@ class TestConfigFromEnvEventServiceSelection:
     def test_defaults_to_filesystem_when_no_env_set(self):
         """Test that FilesystemEventServiceInjector is used when no FILE_STORE is set."""
         from openhands.app_server.config import config_from_env
-        from openhands.app_server.event.filesystem_event_service import (
-            FilesystemEventServiceInjector,
-        )
+        from openhands.app_server.event.filesystem_event_service import \
+            FilesystemEventServiceInjector
 
         env = _get_clean_env()
         with patch.dict(os.environ, env, clear=True):
@@ -52,9 +51,8 @@ class TestConfigFromEnvEventServiceSelection:
     def test_uses_google_cloud_when_file_store_google_cloud(self):
         """Test that GoogleCloudEventServiceInjector is used when FILE_STORE=google_cloud."""
         from openhands.app_server.config import config_from_env
-        from openhands.app_server.event.google_cloud_event_service import (
-            GoogleCloudEventServiceInjector,
-        )
+        from openhands.app_server.event.google_cloud_event_service import \
+            GoogleCloudEventServiceInjector
 
         env = _get_clean_env()
         env['FILE_STORE'] = 'google_cloud'
@@ -69,9 +67,8 @@ class TestConfigFromEnvEventServiceSelection:
     def test_uses_gcp_when_provider_gcp(self):
         """Test that GoogleCloudEventServiceInjector is used when SHARED_EVENT_STORAGE_PROVIDER=gcp."""
         from openhands.app_server.config import config_from_env
-        from openhands.app_server.event.google_cloud_event_service import (
-            GoogleCloudEventServiceInjector,
-        )
+        from openhands.app_server.event.google_cloud_event_service import \
+            GoogleCloudEventServiceInjector
 
         env = _get_clean_env()
         env['SHARED_EVENT_STORAGE_PROVIDER'] = 'gcp'
@@ -84,9 +81,8 @@ class TestConfigFromEnvEventServiceSelection:
     def test_uses_aws_when_provider_aws(self):
         """Test that AwsEventServiceInjector is used when SHARED_EVENT_STORAGE_PROVIDER=aws."""
         from openhands.app_server.config import config_from_env
-        from openhands.app_server.event.aws_event_service import (
-            AwsEventServiceInjector,
-        )
+        from openhands.app_server.event.aws_event_service import \
+            AwsEventServiceInjector
 
         env = _get_clean_env()
         env['SHARED_EVENT_STORAGE_PROVIDER'] = 'aws'
@@ -115,9 +111,8 @@ class TestConfigFromEnvEventServiceSelection:
     def test_provider_takes_precedence_over_file_store(self):
         """Test that SHARED_EVENT_STORAGE_PROVIDER takes precedence over FILE_STORE."""
         from openhands.app_server.config import config_from_env
-        from openhands.app_server.event.aws_event_service import (
-            AwsEventServiceInjector,
-        )
+        from openhands.app_server.event.aws_event_service import \
+            AwsEventServiceInjector
 
         env = _get_clean_env()
         env['SHARED_EVENT_STORAGE_PROVIDER'] = 'aws'
@@ -133,9 +128,8 @@ class TestConfigFromEnvEventServiceSelection:
     def test_provider_gcp_takes_precedence_over_file_store_s3(self):
         """Test that SHARED_EVENT_STORAGE_PROVIDER=gcp takes precedence over FILE_STORE=s3."""
         from openhands.app_server.config import config_from_env
-        from openhands.app_server.event.google_cloud_event_service import (
-            GoogleCloudEventServiceInjector,
-        )
+        from openhands.app_server.event.google_cloud_event_service import \
+            GoogleCloudEventServiceInjector
 
         env = _get_clean_env()
         env['SHARED_EVENT_STORAGE_PROVIDER'] = 'gcp'
@@ -151,9 +145,8 @@ class TestConfigFromEnvEventServiceSelection:
     def test_provider_is_case_insensitive(self):
         """Test that SHARED_EVENT_STORAGE_PROVIDER is case insensitive."""
         from openhands.app_server.config import config_from_env
-        from openhands.app_server.event.aws_event_service import (
-            AwsEventServiceInjector,
-        )
+        from openhands.app_server.event.aws_event_service import \
+            AwsEventServiceInjector
 
         env = _get_clean_env()
         env['SHARED_EVENT_STORAGE_PROVIDER'] = 'AWS'
@@ -166,9 +159,8 @@ class TestConfigFromEnvEventServiceSelection:
     def test_provider_gcp_is_case_insensitive(self):
         """Test that SHARED_EVENT_STORAGE_PROVIDER=GCP is case insensitive."""
         from openhands.app_server.config import config_from_env
-        from openhands.app_server.event.google_cloud_event_service import (
-            GoogleCloudEventServiceInjector,
-        )
+        from openhands.app_server.event.google_cloud_event_service import \
+            GoogleCloudEventServiceInjector
 
         env = _get_clean_env()
         env['SHARED_EVENT_STORAGE_PROVIDER'] = 'GCP'

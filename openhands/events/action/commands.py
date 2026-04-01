@@ -2,11 +2,8 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 from openhands.core.schema import ActionType
-from openhands.events.action.action import (
-    Action,
-    ActionConfirmationStatus,
-    ActionSecurityRisk,
-)
+from openhands.events.action.action import (Action, ActionConfirmationStatus,
+                                            ActionSecurityRisk)
 
 
 @dataclass
@@ -16,7 +13,9 @@ class CmdRunAction(Action):
     )
     is_input: bool = False  # if True, the command is an input to the running process
     thought: str = ''
-    blocking: bool = False  # if True, the command will be run in a blocking manner, but a timeout must be set through _set_hard_timeout
+    blocking: bool = (
+        False  # if True, the command will be run in a blocking manner, but a timeout must be set through _set_hard_timeout
+    )
     is_static: bool = False  # if True, runs the command in a separate process
     cwd: str | None = None  # current working directory, only used if is_static is True
     hidden: bool = (

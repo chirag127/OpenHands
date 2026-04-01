@@ -4,23 +4,13 @@ from io import StringIO
 
 import pytest
 
-from openhands.core.config import (
-    AgentConfig,
-    LLMConfig,
-    OpenHandsConfig,
-    finalize_config,
-    get_agent_config_arg,
-    get_llm_config_arg,
-    load_from_env,
-    load_from_toml,
-    load_openhands_config,
-)
+from openhands.core.config import (AgentConfig, LLMConfig, OpenHandsConfig,
+                                   finalize_config, get_agent_config_arg,
+                                   get_llm_config_arg, load_from_env,
+                                   load_from_toml, load_openhands_config)
 from openhands.core.config.condenser_config import (
-    ConversationWindowCondenserConfig,
-    LLMSummarizingCondenserConfig,
-    NoOpCondenserConfig,
-    RecentEventsCondenserConfig,
-)
+    ConversationWindowCondenserConfig, LLMSummarizingCondenserConfig,
+    NoOpCondenserConfig, RecentEventsCondenserConfig)
 from openhands.core.logger import openhands_logger
 
 
@@ -100,8 +90,7 @@ def test_load_from_old_style_env(monkeypatch, default_config):
 def test_load_from_new_style_toml(default_config, temp_toml_file):
     # Test loading configuration from a new-style TOML file
     with open(temp_toml_file, 'w', encoding='utf-8') as toml_file:
-        toml_file.write(
-            """
+        toml_file.write("""
 [llm]
 model = "test-model"
 api_key = "toml-api-key"
@@ -123,8 +112,7 @@ volumes = "/opt/files2/workspace:/workspace:rw"
 
 [core]
 default_agent = "TestAgent"
-"""
-        )
+""")
 
     load_from_toml(default_config, temp_toml_file)
 
@@ -178,28 +166,24 @@ def test_llm_config_native_tool_calling(default_config, temp_toml_file, monkeypa
 
     # set to false
     with open(temp_toml_file, 'w', encoding='utf-8') as toml_file:
-        toml_file.write(
-            """
+        toml_file.write("""
 [core]
 
 [llm.gpt4o-mini]
 native_tool_calling = false
-"""
-        )
+""")
     load_from_toml(default_config, temp_toml_file)
     assert default_config.get_llm_config().native_tool_calling is None
     assert default_config.get_llm_config('gpt4o-mini').native_tool_calling is False
 
     # set to true using string
     with open(temp_toml_file, 'w', encoding='utf-8') as toml_file:
-        toml_file.write(
-            """
+        toml_file.write("""
 [core]
 
 [llm.gpt4o-mini]
 native_tool_calling = true
-"""
-        )
+""")
     load_from_toml(default_config, temp_toml_file)
     assert default_config.get_llm_config('gpt4o-mini').native_tool_calling is True
 
@@ -315,8 +299,7 @@ user_id = 1001
 def test_sandbox_config_from_toml(monkeypatch, default_config, temp_toml_file):
     # Test loading configuration from a new-style TOML file
     with open(temp_toml_file, 'w', encoding='utf-8') as toml_file:
-        toml_file.write(
-            """
+        toml_file.write("""
 [core]
 
 [llm]
@@ -327,8 +310,7 @@ volumes = "/opt/files/workspace:/workspace:rw"
 timeout = 1
 base_container_image = "custom_image"
 user_id = 1001
-"""
-        )
+""")
     monkeypatch.setattr(os, 'environ', {})
     load_from_toml(default_config, temp_toml_file)
     load_from_env(default_config, os.environ)
@@ -375,8 +357,7 @@ def test_load_from_env_with_list(monkeypatch, default_config):
 def test_security_config_from_toml(default_config, temp_toml_file):
     """Test loading security specific configurations."""
     with open(temp_toml_file, 'w', encoding='utf-8') as toml_file:
-        toml_file.write(
-            """
+        toml_file.write("""
 [core]  # make sure core is loaded first
 workspace_base = "/opt/files/workspace"
 
@@ -386,8 +367,7 @@ model = "test-model"
 [security]
 confirmation_mode = false
 security_analyzer = "semgrep"
-"""
-        )
+""")
 
     load_from_toml(default_config, temp_toml_file)
     assert default_config.security.confirmation_mode is False
@@ -421,9 +401,9 @@ def test_defaults_dict_after_updates(default_config):
     updated_config.get_llm_config().api_key = 'updated-api-key'
     updated_config.get_llm_config('llm').api_key = 'updated-api-key'
     updated_config.get_llm_config_from_agent('agent').api_key = 'updated-api-key'
-    updated_config.get_llm_config_from_agent(
-        'BrowsingAgent'
-    ).api_key = 'updated-api-key'
+    updated_config.get_llm_config_from_agent('BrowsingAgent').api_key = (
+        'updated-api-key'
+    )
     updated_config.default_agent = 'BrowsingAgent'
 
     defaults_after_updates = updated_config.defaults_dict
@@ -733,9 +713,8 @@ max_events = 15
     assert agent_config.condenser.max_events == 15
 
     # We can also verify the function works directly
-    from openhands.core.config.condenser_config import (
-        condenser_config_from_toml_section,
-    )
+    from openhands.core.config.condenser_config import \
+        condenser_config_from_toml_section
 
     condenser_data = {'type': 'recent', 'keep_first': 3, 'max_events': 15}
     condenser_mapping = condenser_config_from_toml_section(condenser_data)
@@ -775,9 +754,8 @@ max_size = 50
     assert agent_config.condenser.llm_config.model == 'gpt-4'
 
     # Test the condenser config with the LLM reference
-    from openhands.core.config.condenser_config import (
-        condenser_config_from_toml_section,
-    )
+    from openhands.core.config.condenser_config import \
+        condenser_config_from_toml_section
 
     condenser_data = {
         'type': 'llm',
@@ -812,9 +790,8 @@ max_size = 50
     load_from_toml(default_config, temp_toml_file)
 
     # Test the condenser config with a missing LLM reference
-    from openhands.core.config.condenser_config import (
-        condenser_config_from_toml_section,
-    )
+    from openhands.core.config.condenser_config import \
+        condenser_config_from_toml_section
 
     condenser_data = {
         'type': 'llm',
@@ -843,9 +820,8 @@ type = "invalid_type"
     load_from_toml(default_config, temp_toml_file)
 
     # Test the condenser config with an invalid type
-    from openhands.core.config.condenser_config import (
-        condenser_config_from_toml_section,
-    )
+    from openhands.core.config.condenser_config import \
+        condenser_config_from_toml_section
 
     condenser_data = {'type': 'invalid_type'}
     condenser_mapping = condenser_config_from_toml_section(condenser_data)
@@ -870,9 +846,8 @@ max_events = 0   # Invalid: must be >= 1
     load_from_toml(default_config, temp_toml_file)
 
     # Test the condenser config with validation errors
-    from openhands.core.config.condenser_config import (
-        condenser_config_from_toml_section,
-    )
+    from openhands.core.config.condenser_config import \
+        condenser_config_from_toml_section
 
     condenser_data = {'type': 'recent', 'keep_first': -1, 'max_events': 0}
     condenser_mapping = condenser_config_from_toml_section(condenser_data)
@@ -975,24 +950,24 @@ def test_api_keys_repr_str():
             not attr_name.startswith('__')
             and attr_name not in known_key_token_attrs_llm
         ):
-            assert 'key' not in attr_name.lower(), (
-                f"Unexpected attribute '{attr_name}' contains 'key' in LLMConfig"
-            )
-            assert 'token' not in attr_name.lower() or 'tokens' in attr_name.lower(), (
-                f"Unexpected attribute '{attr_name}' contains 'token' in LLMConfig"
-            )
+            assert (
+                'key' not in attr_name.lower()
+            ), f"Unexpected attribute '{attr_name}' contains 'key' in LLMConfig"
+            assert (
+                'token' not in attr_name.lower() or 'tokens' in attr_name.lower()
+            ), f"Unexpected attribute '{attr_name}' contains 'token' in LLMConfig"
 
     # Test AgentConfig
     # No attrs in AgentConfig have 'key' or 'token' in their name
     agent_config = AgentConfig(enable_prompt_extensions=True, enable_browsing=False)
     for attr_name in AgentConfig.model_fields.keys():
         if not attr_name.startswith('__'):
-            assert 'key' not in attr_name.lower(), (
-                f"Unexpected attribute '{attr_name}' contains 'key' in AgentConfig"
-            )
-            assert 'token' not in attr_name.lower() or 'tokens' in attr_name.lower(), (
-                f"Unexpected attribute '{attr_name}' contains 'token' in AgentConfig"
-            )
+            assert (
+                'key' not in attr_name.lower()
+            ), f"Unexpected attribute '{attr_name}' contains 'key' in AgentConfig"
+            assert (
+                'token' not in attr_name.lower() or 'tokens' in attr_name.lower()
+            ), f"Unexpected attribute '{attr_name}' contains 'token' in AgentConfig"
 
     # Test OpenHandsConfig
     app_config = OpenHandsConfig(
@@ -1014,12 +989,12 @@ def test_api_keys_repr_str():
             not attr_name.startswith('__')
             and attr_name not in known_key_token_attrs_app
         ):
-            assert 'key' not in attr_name.lower(), (
-                f"Unexpected attribute '{attr_name}' contains 'key' in OpenHandsConfig"
-            )
-            assert 'token' not in attr_name.lower() or 'tokens' in attr_name.lower(), (
-                f"Unexpected attribute '{attr_name}' contains 'token' in OpenHandsConfig"
-            )
+            assert (
+                'key' not in attr_name.lower()
+            ), f"Unexpected attribute '{attr_name}' contains 'key' in OpenHandsConfig"
+            assert (
+                'token' not in attr_name.lower() or 'tokens' in attr_name.lower()
+            ), f"Unexpected attribute '{attr_name}' contains 'token' in OpenHandsConfig"
 
 
 def test_max_iterations_and_max_budget_per_task_from_toml(temp_toml_file):
@@ -1213,8 +1188,7 @@ def test_agent_config_system_prompt_filename_toml_integration(
 ):
     """Test that system_prompt_filename is correctly loaded from TOML configuration."""
     with open(temp_toml_file, 'w', encoding='utf-8') as toml_file:
-        toml_file.write(
-            """
+        toml_file.write("""
 [agent]
 enable_browsing = true
 system_prompt_filename = "custom_prompt.j2"
@@ -1222,8 +1196,7 @@ system_prompt_filename = "custom_prompt.j2"
 [agent.CodeReviewAgent]
 system_prompt_filename = "code_review_prompt.j2"
 enable_browsing = false
-"""
-        )
+""")
 
     load_from_toml(default_config, temp_toml_file)
 

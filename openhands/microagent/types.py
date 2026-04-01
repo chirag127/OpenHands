@@ -3,9 +3,7 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
-from openhands.core.config.mcp_config import (
-    MCPConfig,
-)
+from openhands.core.config.mcp_config import MCPConfig
 
 
 class MicroagentType(str, Enum):

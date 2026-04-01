@@ -1,16 +1,13 @@
-"""
-Tests for Linear view classes and factory.
+"""Tests for Linear view classes and factory.
 """
 
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from integrations.linear.linear_types import StartingConvoException
-from integrations.linear.linear_view import (
-    LinearExistingConversationView,
-    LinearFactory,
-    LinearNewConversationView,
-)
+from integrations.linear.linear_view import (LinearExistingConversationView,
+                                             LinearFactory,
+                                             LinearNewConversationView)
 
 from openhands.core.schema.agent import AgentState
 

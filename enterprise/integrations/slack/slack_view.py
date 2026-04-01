@@ -4,19 +4,16 @@ from uuid import UUID, uuid4
 
 from integrations.models import Message
 from integrations.resolver_context import ResolverUserContext
-from integrations.slack.slack_types import (
-    SlackMessageView,
-    SlackViewInterface,
-    StartingConvoException,
-)
-from integrations.slack.slack_v1_callback_processor import SlackV1CallbackProcessor
-from integrations.utils import (
-    CONVERSATION_URL,
-    ENABLE_V1_SLACK_RESOLVER,
-    get_final_agent_observation,
-    get_user_v1_enabled_setting,
-)
+from integrations.slack.slack_types import (SlackMessageView,
+                                            SlackViewInterface,
+                                            StartingConvoException)
+from integrations.slack.slack_v1_callback_processor import \
+    SlackV1CallbackProcessor
+from integrations.utils import (CONVERSATION_URL, ENABLE_V1_SLACK_RESOLVER,
+                                get_final_agent_observation,
+                                get_user_v1_enabled_setting)
 from jinja2 import Environment
+from openhands.sdk import TextContent
 from slack_sdk import WebClient
 from storage.slack_conversation import SlackConversation
 from storage.slack_conversation_store import SlackConversationStore
@@ -24,10 +21,8 @@ from storage.slack_team_store import SlackTeamStore
 from storage.slack_user import SlackUser
 
 from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationStartRequest,
-    AppConversationStartTaskStatus,
-    SendMessageRequest,
-)
+    AppConversationStartRequest, AppConversationStartTaskStatus,
+    SendMessageRequest)
 from openhands.app_server.config import get_app_conversation_service
 from openhands.app_server.sandbox.sandbox_models import SandboxStatus
 from openhands.app_server.services.injector import InjectorState
@@ -37,16 +32,13 @@ from openhands.core.schema.agent import AgentState
 from openhands.events.action import MessageAction
 from openhands.events.serialization.event import event_to_dict
 from openhands.integrations.provider import ProviderHandler, ProviderType
-from openhands.sdk import TextContent
 from openhands.server.services.conversation_service import (
-    create_new_conversation,
-    setup_init_conversation_settings,
-)
-from openhands.server.shared import ConversationStoreImpl, config, conversation_manager
+    create_new_conversation, setup_init_conversation_settings)
+from openhands.server.shared import (ConversationStoreImpl, config,
+                                     conversation_manager)
 from openhands.server.user_auth.user_auth import UserAuth
-from openhands.storage.data_models.conversation_metadata import (
-    ConversationTrigger,
-)
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationTrigger
 from openhands.utils.async_utils import GENERAL_TIMEOUT
 
 # =================================================
@@ -396,20 +388,15 @@ class SlackUpdateExistingConversationView(SlackNewConversationView):
         """Send a message to a v1 conversation using the agent server API."""
         # Import services within the method to avoid circular imports
         from openhands.agent_server.models import SendMessageRequest
+
         from openhands.app_server.config import (
-            get_app_conversation_info_service,
-            get_httpx_client,
-            get_sandbox_service,
-        )
+            get_app_conversation_info_service, get_httpx_client,
+            get_sandbox_service)
         from openhands.app_server.event_callback.util import (
-            ensure_conversation_found,
-            get_agent_server_url_from_sandbox,
-        )
+            ensure_conversation_found, get_agent_server_url_from_sandbox)
         from openhands.app_server.services.injector import InjectorState
         from openhands.app_server.user.specifiy_user_context import (
-            ADMIN,
-            USER_CONTEXT_ATTR,
-        )
+            ADMIN, USER_CONTEXT_ATTR)
 
         # Create injector state for dependency injection
         state = InjectorState()

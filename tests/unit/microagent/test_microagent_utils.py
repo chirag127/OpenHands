@@ -5,14 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from openhands.microagent import (
-    BaseMicroagent,
-    KnowledgeMicroagent,
-    MicroagentMetadata,
-    MicroagentType,
-    RepoMicroagent,
-    load_microagents_from_dir,
-)
+from openhands.microagent import (BaseMicroagent, KnowledgeMicroagent,
+                                  MicroagentMetadata, MicroagentType,
+                                  RepoMicroagent, load_microagents_from_dir)
 
 CONTENT = '# dummy header\ndummy content\n## dummy subheader\ndummy subcontent\n'
 

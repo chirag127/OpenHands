@@ -12,28 +12,16 @@ This is similar to the functionality of `CodeActResponseParser`.
 
 import json
 
-from litellm import (
-    ChatCompletionToolParam,
-    ModelResponse,
-)
+from litellm import ChatCompletionToolParam, ModelResponse
 
 from openhands.agenthub.codeact_agent.function_calling import combine_thought
 from openhands.agenthub.codeact_agent.tools import FinishTool
 from openhands.agenthub.loc_agent.tools import (
-    SearchEntityTool,
-    SearchRepoTool,
-    create_explore_tree_structure_tool,
-)
-from openhands.core.exceptions import (
-    FunctionCallNotExistsError,
-)
+    SearchEntityTool, SearchRepoTool, create_explore_tree_structure_tool)
+from openhands.core.exceptions import FunctionCallNotExistsError
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    Action,
-    AgentFinishAction,
-    IPythonRunCellAction,
-    MessageAction,
-)
+from openhands.events.action import (Action, AgentFinishAction,
+                                     IPythonRunCellAction, MessageAction)
 from openhands.events.tool import ToolCallMetadata
 
 

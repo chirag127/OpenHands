@@ -15,7 +15,8 @@ from sqlalchemy import select, update
 from sqlalchemy.orm import joinedload
 from storage.database import a_session_maker
 from storage.encrypt_utils import encrypt_value
-from storage.lite_llm_manager import LiteLlmManager, get_openhands_cloud_key_alias
+from storage.lite_llm_manager import (LiteLlmManager,
+                                      get_openhands_cloud_key_alias)
 from storage.org import Org
 from storage.org_member import OrgMember
 from storage.org_store import OrgStore
@@ -38,8 +39,7 @@ class SaasSettingsStore(SettingsStore):
     async def _get_user_settings_by_keycloak_id_async(
         self, keycloak_user_id: str, session=None
     ) -> UserSettings | None:
-        """
-        Get UserSettings by keycloak_user_id (async version).
+        """Get UserSettings by keycloak_user_id (async version).
 
         Args:
             keycloak_user_id: The keycloak user ID to search for
@@ -297,7 +297,6 @@ class SaasSettingsStore(SettingsStore):
         First checks if an existing key exists for the user and verifies it
         is valid in LiteLLM. If valid, reuses it. Otherwise, generates a new key.
         """
-
         # First, check if our current key is valid
         if item.llm_api_key and not await LiteLlmManager.verify_existing_key(
             item.llm_api_key.get_secret_value(),

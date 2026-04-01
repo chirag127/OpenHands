@@ -15,19 +15,12 @@ from openhands_aci.utils.diff import get_diff  # type: ignore
 
 from openhands.core.config import OpenHandsConfig
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    FileEditAction,
-    FileReadAction,
-    FileWriteAction,
-    IPythonRunCellAction,
-)
-from openhands.events.observation import (
-    ErrorObservation,
-    FileEditObservation,
-    FileReadObservation,
-    FileWriteObservation,
-    Observation,
-)
+from openhands.events.action import (FileEditAction, FileReadAction,
+                                     FileWriteAction, IPythonRunCellAction)
+from openhands.events.observation import (ErrorObservation,
+                                          FileEditObservation,
+                                          FileReadObservation,
+                                          FileWriteObservation, Observation)
 from openhands.linter import DefaultLinter
 from openhands.llm.llm import LLM
 from openhands.llm.llm_registry import LLMRegistry

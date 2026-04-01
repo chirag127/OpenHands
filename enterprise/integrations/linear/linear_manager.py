@@ -5,23 +5,19 @@ from typing import Dict, Optional, Tuple
 import httpx
 from fastapi import Request
 from integrations.linear.linear_types import LinearViewInterface
-from integrations.linear.linear_view import (
-    LinearExistingConversationView,
-    LinearFactory,
-    LinearNewConversationView,
-)
+from integrations.linear.linear_view import (LinearExistingConversationView,
+                                             LinearFactory,
+                                             LinearNewConversationView)
 from integrations.manager import Manager
 from integrations.models import JobContext, Message
-from integrations.utils import (
-    HOST_URL,
-    OPENHANDS_RESOLVER_TEMPLATES_DIR,
-    filter_potential_repos_by_user_msg,
-    get_session_expired_message,
-)
+from integrations.utils import (HOST_URL, OPENHANDS_RESOLVER_TEMPLATES_DIR,
+                                filter_potential_repos_by_user_msg,
+                                get_session_expired_message)
 from jinja2 import Environment, FileSystemLoader
 from server.auth.saas_user_auth import get_user_auth_from_keycloak_id
 from server.auth.token_manager import TokenManager
-from server.utils.conversation_callback_utils import register_callback_processor
+from server.utils.conversation_callback_utils import \
+    register_callback_processor
 from storage.linear_integration_store import LinearIntegrationStore
 from storage.linear_user import LinearUser
 from storage.linear_workspace import LinearWorkspace
@@ -30,11 +26,8 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.provider import ProviderHandler
 from openhands.integrations.service_types import Repository
 from openhands.server.shared import server_config
-from openhands.server.types import (
-    LLMAuthenticationError,
-    MissingSettingsError,
-    SessionExpiredError,
-)
+from openhands.server.types import (LLMAuthenticationError,
+                                    MissingSettingsError, SessionExpiredError)
 from openhands.server.user_auth.user_auth import UserAuth
 from openhands.utils.http_session import httpx_verify_option
 
@@ -52,7 +45,6 @@ class LinearManager(Manager[LinearViewInterface]):
         self, linear_user_id: str, workspace_id: int
     ) -> tuple[LinearUser | None, UserAuth | None]:
         """Authenticate Linear user and get their OpenHands user auth."""
-
         # Find active Linear user by Linear user ID and workspace ID
         linear_user = await self.integration_store.get_active_user(
             linear_user_id, workspace_id
@@ -311,10 +303,8 @@ class LinearManager(Manager[LinearViewInterface]):
     async def is_job_requested(
         self, message: Message, linear_view: LinearViewInterface
     ) -> bool:
+        """Check if a job is requested and handle repository selection.
         """
-        Check if a job is requested and handle repository selection.
-        """
-
         if isinstance(linear_view, LinearExistingConversationView):
             return True
 
@@ -346,9 +336,8 @@ class LinearManager(Manager[LinearViewInterface]):
     async def start_job(self, linear_view: LinearViewInterface) -> None:
         """Start a Linear job/conversation."""
         # Import here to prevent circular import
-        from server.conversation_callback_processor.linear_callback_processor import (
-            LinearCallbackProcessor,
-        )
+        from server.conversation_callback_processor.linear_callback_processor import \
+            LinearCallbackProcessor
 
         try:
             user_info: LinearUser = linear_view.linear_user

@@ -25,41 +25,26 @@ from typing import AsyncGenerator
 from uuid import UUID
 
 from fastapi import Request
-from sqlalchemy import (
-    Boolean,
-    Column,
-    DateTime,
-    Float,
-    Integer,
-    Select,
-    String,
-    func,
-    select,
-)
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from openhands.agent_server.utils import utc_now
-from openhands.app_server.app_conversation.app_conversation_info_service import (
-    AppConversationInfoService,
-    AppConversationInfoServiceInjector,
-)
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-    AppConversationInfoPage,
-    AppConversationSortOrder,
-)
-from openhands.app_server.services.injector import InjectorState
-from openhands.app_server.user.user_context import UserContext
-from openhands.app_server.utils.sql_utils import (
-    Base,
-    create_json_type_decorator,
-)
-from openhands.integrations.provider import ProviderType
 from openhands.sdk.conversation.conversation_stats import ConversationStats
 from openhands.sdk.event import ConversationStateUpdateEvent
 from openhands.sdk.llm import MetricsSnapshot
 from openhands.sdk.llm.utils.metrics import TokenUsage
-from openhands.storage.data_models.conversation_metadata import ConversationTrigger
+from sqlalchemy import (Boolean, Column, DateTime, Float, Integer, Select,
+                        String, func, select)
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from openhands.app_server.app_conversation.app_conversation_info_service import (
+    AppConversationInfoService, AppConversationInfoServiceInjector)
+from openhands.app_server.app_conversation.app_conversation_models import (
+    AppConversationInfo, AppConversationInfoPage, AppConversationSortOrder)
+from openhands.app_server.services.injector import InjectorState
+from openhands.app_server.user.user_context import UserContext
+from openhands.app_server.utils.sql_utils import (Base,
+                                                  create_json_type_decorator)
+from openhands.integrations.provider import ProviderType
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationTrigger
 
 logger = logging.getLogger(__name__)
 
@@ -589,10 +574,8 @@ class SQLAppConversationInfoServiceInjector(AppConversationInfoServiceInjector):
         self, state: InjectorState, request: Request | None = None
     ) -> AsyncGenerator[AppConversationInfoService, None]:
         # Define inline to prevent circular lookup
-        from openhands.app_server.config import (
-            get_db_session,
-            get_user_context,
-        )
+        from openhands.app_server.config import (get_db_session,
+                                                 get_user_context)
 
         async with (
             get_user_context(state, request) as user_context,

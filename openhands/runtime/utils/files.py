@@ -8,12 +8,9 @@
 import os
 from pathlib import Path
 
-from openhands.events.observation import (
-    ErrorObservation,
-    FileReadObservation,
-    FileWriteObservation,
-    Observation,
-)
+from openhands.events.observation import (ErrorObservation,
+                                          FileReadObservation,
+                                          FileWriteObservation, Observation)
 
 
 def resolve_path(

@@ -9,13 +9,16 @@ from pydantic import SecretStr
 
 from openhands.integrations.bitbucket.bitbucket_service import BitBucketService
 from openhands.integrations.provider import ProviderToken, ProviderType
-from openhands.integrations.service_types import OwnerType, Repository
-from openhands.integrations.service_types import ProviderType as ServiceProviderType
+from openhands.integrations.service_types import OwnerType
+from openhands.integrations.service_types import \
+    ProviderType as ServiceProviderType
+from openhands.integrations.service_types import Repository
 from openhands.integrations.utils import validate_provider_token
 from openhands.resolver.interfaces.bitbucket import BitbucketIssueHandler
 from openhands.resolver.interfaces.issue import Issue
 from openhands.resolver.interfaces.issue_definitions import ServiceContextIssue
-from openhands.resolver.send_pull_request import PR_SIGNATURE, send_pull_request
+from openhands.resolver.send_pull_request import (PR_SIGNATURE,
+                                                  send_pull_request)
 from openhands.runtime.base import Runtime
 from openhands.server.routes.secrets import check_provider_tokens
 from openhands.server.settings import POSTProviderModel
@@ -715,7 +718,8 @@ async def test_bitbucket_get_repositories_mixed_owner_types():
 @pytest.mark.asyncio
 async def test_resolve_primary_email_selects_primary_confirmed():
     """_resolve_primary_email returns the email marked primary and confirmed."""
-    from openhands.integrations.bitbucket.service.base import BitBucketMixinBase
+    from openhands.integrations.bitbucket.service.base import \
+        BitBucketMixinBase
 
     emails = [
         {'email': 'secondary@example.com', 'is_primary': False, 'is_confirmed': True},
@@ -733,7 +737,8 @@ async def test_resolve_primary_email_selects_primary_confirmed():
 @pytest.mark.asyncio
 async def test_resolve_primary_email_returns_none_when_no_primary():
     """_resolve_primary_email returns None when no email is marked primary."""
-    from openhands.integrations.bitbucket.service.base import BitBucketMixinBase
+    from openhands.integrations.bitbucket.service.base import \
+        BitBucketMixinBase
 
     emails = [
         {'email': 'a@example.com', 'is_primary': False, 'is_confirmed': True},
@@ -746,7 +751,8 @@ async def test_resolve_primary_email_returns_none_when_no_primary():
 @pytest.mark.asyncio
 async def test_resolve_primary_email_returns_none_when_primary_not_confirmed():
     """_resolve_primary_email returns None when primary email is not confirmed."""
-    from openhands.integrations.bitbucket.service.base import BitBucketMixinBase
+    from openhands.integrations.bitbucket.service.base import \
+        BitBucketMixinBase
 
     emails = [
         {'email': 'primary@example.com', 'is_primary': True, 'is_confirmed': False},
@@ -759,7 +765,8 @@ async def test_resolve_primary_email_returns_none_when_primary_not_confirmed():
 @pytest.mark.asyncio
 async def test_resolve_primary_email_returns_none_for_empty_list():
     """_resolve_primary_email returns None for an empty list."""
-    from openhands.integrations.bitbucket.service.base import BitBucketMixinBase
+    from openhands.integrations.bitbucket.service.base import \
+        BitBucketMixinBase
 
     result = BitBucketMixinBase._resolve_primary_email([])
     assert result is None

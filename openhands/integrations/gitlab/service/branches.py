@@ -1,10 +1,10 @@
 from openhands.integrations.gitlab.service.base import GitLabMixinBase
-from openhands.integrations.service_types import Branch, PaginatedBranchesResponse
+from openhands.integrations.service_types import (Branch,
+                                                  PaginatedBranchesResponse)
 
 
 class GitLabBranchesMixin(GitLabMixinBase):
-    """
-    Methods for interacting with GitLab branches
+    """Methods for interacting with GitLab branches
     """
 
     async def get_branches(self, repository: str) -> list[Branch]:

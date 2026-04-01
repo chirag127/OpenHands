@@ -21,17 +21,12 @@ from typing import Iterable
 
 from litellm import ChatCompletionToolParam
 
-from openhands.core.exceptions import (
-    FunctionCallConversionError,
-    FunctionCallValidationError,
-)
-from openhands.llm.tool_names import (
-    BROWSER_TOOL_NAME,
-    EXECUTE_BASH_TOOL_NAME,
-    FINISH_TOOL_NAME,
-    LLM_BASED_EDIT_TOOL_NAME,
-    STR_REPLACE_EDITOR_TOOL_NAME,
-)
+from openhands.core.exceptions import (FunctionCallConversionError,
+                                       FunctionCallValidationError)
+from openhands.llm.tool_names import (BROWSER_TOOL_NAME,
+                                      EXECUTE_BASH_TOOL_NAME, FINISH_TOOL_NAME,
+                                      LLM_BASED_EDIT_TOOL_NAME,
+                                      STR_REPLACE_EDITOR_TOOL_NAME)
 
 # Inspired by: https://docs.together.ai/docs/llama-3-function-calling#function-calling-w-llama-31-70b
 SYSTEM_PROMPT_SUFFIX_TEMPLATE = """
@@ -245,8 +240,7 @@ Review the changes and make sure they are as expected. Edit the file again if ne
 
 """,
     },
-    'browser': {
-        'view_page': """
+    'browser': {'view_page': """
 ASSISTANT:
 Let me check how the page looks in the browser:
 <function=browser>
@@ -258,8 +252,7 @@ noop(1000)  # Wait for page to load
 
 USER: EXECUTION RESULT of [browser]:
 [Browser shows the numbers in a table format]
-"""
-    },
+"""},
     'edit_file': {
         'create_file': """
 ASSISTANT: There is no `app.py` file in the current directory. Let me create a Python file `app.py`:
@@ -312,15 +305,13 @@ The file /workspace/app.py has been edited. Here's the result of running `cat -n
 Review the changes and make sure they are as expected. Edit the file again if necessary.
 """,
     },
-    'finish': {
-        'example': """
+    'finish': {'example': """
 ASSISTANT:
 The server is running on port 5000 with PID 126. You can access the list of numbers in a table format by visiting http://127.0.0.1:5000. Let me know if you have any further requests!
 <function=finish>
 <parameter=message>The task has been completed. The web server is running and displaying numbers 1-10 in a table format at http://127.0.0.1:5000.</parameter>
 </function>
-"""
-    },
+"""},
 }
 
 
@@ -836,9 +827,11 @@ def convert_non_fncall_messages_to_fncall_messages(
                     {
                         'role': 'tool',
                         'name': tool_name,
-                        'content': [{'type': 'text', 'text': tool_result}]
-                        if isinstance(content, list)
-                        else tool_result,
+                        'content': (
+                            [{'type': 'text', 'text': tool_result}]
+                            if isinstance(content, list)
+                            else tool_result
+                        ),
                         'tool_call_id': f'toolu_{tool_call_counter - 1:02d}',  # Use last generated ID
                     }
                 )
@@ -962,14 +955,14 @@ def convert_from_multiple_tool_calls_to_single_tool_call_messages(
                 # add the tool result
                 converted_messages.append(message)
             else:
-                assert len(pending_tool_calls) == 0, (
-                    f'Found pending tool calls but not found in pending list: {pending_tool_calls=}'
-                )
+                assert (
+                    len(pending_tool_calls) == 0
+                ), f'Found pending tool calls but not found in pending list: {pending_tool_calls=}'
                 converted_messages.append(message)
         else:
-            assert len(pending_tool_calls) == 0, (
-                f'Found pending tool calls but not expect to handle it with role {role}: {pending_tool_calls=}, {message=}'
-            )
+            assert (
+                len(pending_tool_calls) == 0
+            ), f'Found pending tool calls but not expect to handle it with role {role}: {pending_tool_calls=}, {message=}'
             converted_messages.append(message)
 
     if not ignore_final_tool_result and len(pending_tool_calls) > 0:

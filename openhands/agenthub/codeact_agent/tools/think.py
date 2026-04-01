@@ -5,7 +5,8 @@
 #   - V1 application server (in this repo): openhands/app_server/
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
-from litellm import ChatCompletionToolParam, ChatCompletionToolParamFunctionChunk
+from litellm import (ChatCompletionToolParam,
+                     ChatCompletionToolParamFunctionChunk)
 
 _THINK_DESCRIPTION = """Use the tool to think about something. It will not obtain new information or make any changes to the repository, but just log the thought. Use it when complex reasoning or brainstorming is needed.
 

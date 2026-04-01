@@ -4,10 +4,10 @@ from abc import ABC, abstractmethod
 from typing import Iterable
 
 from openhands.core.config.openhands_config import OpenHandsConfig
-from openhands.storage.data_models.conversation_metadata import ConversationMetadata
-from openhands.storage.data_models.conversation_metadata_result_set import (
-    ConversationMetadataResultSet,
-)
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationMetadata
+from openhands.storage.data_models.conversation_metadata_result_set import \
+    ConversationMetadataResultSet
 from openhands.utils.async_utils import wait_all
 
 

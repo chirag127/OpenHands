@@ -5,11 +5,8 @@ from typing import Any
 
 from pydantic import SecretStr
 
-from openhands.integrations.provider import (
-    CustomSecret,
-    ProviderToken,
-    ProviderType,
-)
+from openhands.integrations.provider import (CustomSecret, ProviderToken,
+                                             ProviderType)
 from openhands.storage.data_models.secrets import Secrets
 
 

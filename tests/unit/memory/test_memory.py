@@ -14,28 +14,20 @@ from openhands.core.schema.agent import AgentState
 from openhands.events.action.agent import RecallAction
 from openhands.events.action.message import MessageAction, SystemMessageAction
 from openhands.events.event import EventSource
-from openhands.events.observation.agent import (
-    RecallObservation,
-    RecallType,
-)
+from openhands.events.observation.agent import RecallObservation, RecallType
 from openhands.events.serialization.observation import observation_from_dict
 from openhands.events.stream import EventStream
 from openhands.llm import LLM
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.llm.metrics import Metrics
 from openhands.memory.memory import Memory
-from openhands.runtime.impl.action_execution.action_execution_client import (
-    ActionExecutionClient,
-)
+from openhands.runtime.impl.action_execution.action_execution_client import \
+    ActionExecutionClient
 from openhands.server.services.conversation_stats import ConversationStats
 from openhands.server.session.agent_session import AgentSession
 from openhands.storage.memory import InMemoryFileStore
-from openhands.utils.prompt import (
-    ConversationInstructions,
-    PromptManager,
-    RepositoryInfo,
-    RuntimeInfo,
-)
+from openhands.utils.prompt import (ConversationInstructions, PromptManager,
+                                    RepositoryInfo, RuntimeInfo)
 
 
 @pytest.fixture

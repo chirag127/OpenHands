@@ -1,20 +1,11 @@
 from integrations.types import PRStatus
-from sqlalchemy import (
-    Boolean,
-    Column,
-    DateTime,
-    Enum,
-    Identity,
-    Integer,
-    String,
-    text,
-)
+from sqlalchemy import (Boolean, Column, DateTime, Enum, Identity, Integer,
+                        String, text)
 from storage.base import Base
 
 
 class OpenhandsPR(Base):  # type: ignore
-    """
-    Represents a pull request created by OpenHands.
+    """Represents a pull request created by OpenHands.
     """
 
     __tablename__ = 'openhands_prs'

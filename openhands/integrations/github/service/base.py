@@ -6,18 +6,14 @@ from pydantic import SecretStr
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.protocols.http_client import HTTPClient
-from openhands.integrations.service_types import (
-    BaseGitService,
-    RequestMethod,
-    UnknownException,
-    User,
-)
+from openhands.integrations.service_types import (BaseGitService,
+                                                  RequestMethod,
+                                                  UnknownException, User)
 from openhands.utils.http_session import httpx_verify_option
 
 
 class GitHubMixinBase(BaseGitService, HTTPClient):
-    """
-    Declares common attributes and method signatures used across mixins.
+    """Declares common attributes and method signatures used across mixins.
     """
 
     BASE_URL: str

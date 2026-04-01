@@ -4,11 +4,8 @@ from unittest.mock import patch
 
 import pytest
 
-from openhands.core.config.mcp_config import (
-    MCPConfig,
-    MCPSSEServerConfig,
-    MCPStdioServerConfig,
-)
+from openhands.core.config.mcp_config import (MCPConfig, MCPSSEServerConfig,
+                                              MCPStdioServerConfig)
 from openhands.storage.data_models.settings import Settings
 
 

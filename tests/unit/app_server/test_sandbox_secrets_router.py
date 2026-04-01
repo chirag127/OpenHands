@@ -14,27 +14,21 @@ from unittest.mock import AsyncMock, patch
 import pytest
 from fastapi import FastAPI, HTTPException
 from fastapi.testclient import TestClient
+from openhands.sdk.secret import StaticSecret
 from pydantic import SecretStr
 
-from openhands.app_server.sandbox.sandbox_models import (
-    SandboxInfo,
-    SandboxStatus,
-    SecretNamesResponse,
-)
-from openhands.app_server.sandbox.sandbox_router import (
-    get_secret_value,
-    list_secret_names,
-)
+from openhands.app_server.sandbox.sandbox_models import (SandboxInfo,
+                                                         SandboxStatus,
+                                                         SecretNamesResponse)
+from openhands.app_server.sandbox.sandbox_router import (get_secret_value,
+                                                         list_secret_names)
 from openhands.app_server.sandbox.session_auth import validate_session_key
 from openhands.app_server.user.auth_user_context import AuthUserContext
 from openhands.app_server.user.user_models import UserInfo
 from openhands.app_server.user.user_router import (
-    _validate_session_key_ownership,
-    get_current_user,
-)
+    _validate_session_key_ownership, get_current_user)
 from openhands.integrations.provider import ProviderHandler, ProviderToken
 from openhands.integrations.service_types import ProviderType
-from openhands.sdk.secret import StaticSecret
 
 SANDBOX_ID = 'sb-test-123'
 USER_ID = 'test-user-id'
@@ -409,9 +403,8 @@ def _build_integration_test_app(
     env var) are overridden to no-ops so we can exercise the endpoint-level auth logic
     in isolation.
     """
-    from openhands.app_server.sandbox.sandbox_router import (
-        router as sandbox_router,
-    )
+    from openhands.app_server.sandbox.sandbox_router import \
+        router as sandbox_router
     from openhands.app_server.user.user_router import router as user_router
     from openhands.server.dependencies import check_session_api_key
 

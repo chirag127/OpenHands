@@ -6,52 +6,36 @@ from openhands.core.config.agent_config import AgentConfig
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.message import ImageContent, Message, TextContent
 from openhands.core.schema import ActionType
-from openhands.events.action import (
-    Action,
-    AgentDelegateAction,
-    AgentFinishAction,
-    AgentThinkAction,
-    BrowseInteractiveAction,
-    BrowseURLAction,
-    CmdRunAction,
-    FileEditAction,
-    FileReadAction,
-    IPythonRunCellAction,
-    MessageAction,
-    TaskTrackingAction,
-)
+from openhands.events.action import (Action, AgentDelegateAction,
+                                     AgentFinishAction, AgentThinkAction,
+                                     BrowseInteractiveAction, BrowseURLAction,
+                                     CmdRunAction, FileEditAction,
+                                     FileReadAction, IPythonRunCellAction,
+                                     MessageAction, TaskTrackingAction)
 from openhands.events.action.mcp import MCPAction
 from openhands.events.action.message import SystemMessageAction
 from openhands.events.event import Event
-from openhands.events.observation import (
-    AgentCondensationObservation,
-    AgentDelegateObservation,
-    AgentThinkObservation,
-    BrowserOutputObservation,
-    CmdOutputObservation,
-    FileDownloadObservation,
-    FileEditObservation,
-    FileReadObservation,
-    IPythonRunCellObservation,
-    LoopDetectionObservation,
-    TaskTrackingObservation,
-    UserRejectObservation,
-)
-from openhands.events.observation.agent import (
-    MicroagentKnowledge,
-    RecallObservation,
-)
+from openhands.events.observation import (AgentCondensationObservation,
+                                          AgentDelegateObservation,
+                                          AgentThinkObservation,
+                                          BrowserOutputObservation,
+                                          CmdOutputObservation,
+                                          FileDownloadObservation,
+                                          FileEditObservation,
+                                          FileReadObservation,
+                                          IPythonRunCellObservation,
+                                          LoopDetectionObservation,
+                                          TaskTrackingObservation,
+                                          UserRejectObservation)
+from openhands.events.observation.agent import (MicroagentKnowledge,
+                                                RecallObservation)
 from openhands.events.observation.error import ErrorObservation
 from openhands.events.observation.mcp import MCPObservation
 from openhands.events.observation.observation import Observation
 from openhands.events.recall_type import RecallType
 from openhands.events.serialization.event import truncate_content
-from openhands.utils.prompt import (
-    ConversationInstructions,
-    PromptManager,
-    RepositoryInfo,
-    RuntimeInfo,
-)
+from openhands.utils.prompt import (ConversationInstructions, PromptManager,
+                                    RepositoryInfo, RuntimeInfo)
 
 
 class ConversationMemory:
@@ -272,9 +256,11 @@ class ConversationMemory:
             pending_tool_call_action_messages[llm_response.id] = Message(
                 role=getattr(assistant_msg, 'role', 'assistant'),
                 # tool call content SHOULD BE a string
-                content=[TextContent(text=assistant_msg.content)]
-                if assistant_msg.content and assistant_msg.content.strip()
-                else [],
+                content=(
+                    [TextContent(text=assistant_msg.content)]
+                    if assistant_msg.content and assistant_msg.content.strip()
+                    else []
+                ),
                 tool_calls=assistant_msg.tool_calls,
             )
             return []
@@ -703,9 +689,9 @@ class ConversationMemory:
         # NOTE: this is only needed for anthropic
         for message in reversed(messages):
             if message.role in ('user', 'tool'):
-                message.content[
-                    -1
-                ].cache_prompt = True  # Last item inside the message content
+                message.content[-1].cache_prompt = (
+                    True  # Last item inside the message content
+                )
                 break
 
     def _filter_agents_in_microagent_obs(

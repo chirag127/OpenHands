@@ -28,27 +28,19 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.core.main import create_runtime, run_controller
 from openhands.events.action import CmdRunAction, MessageAction
 from openhands.events.event import Event
-from openhands.events.observation import (
-    CmdOutputObservation,
-    ErrorObservation,
-    Observation,
-)
+from openhands.events.observation import (CmdOutputObservation,
+                                          ErrorObservation, Observation)
 from openhands.events.stream import EventStreamSubscriber
 from openhands.integrations.service_types import ProviderType
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.resolver.interfaces.issue import Issue
 from openhands.resolver.interfaces.issue_definitions import (
-    ServiceContextIssue,
-    ServiceContextPR,
-)
+    ServiceContextIssue, ServiceContextPR)
 from openhands.resolver.issue_handler_factory import IssueHandlerFactory
 from openhands.resolver.resolver_output import ResolverOutput
-from openhands.resolver.utils import (
-    codeact_user_response,
-    get_unique_uid,
-    identify_token,
-    reset_logger_for_multiprocessing,
-)
+from openhands.resolver.utils import (codeact_user_response, get_unique_uid,
+                                      identify_token,
+                                      reset_logger_for_multiprocessing)
 from openhands.runtime.base import Runtime
 from openhands.utils.async_utils import GENERAL_TIMEOUT, call_async_from_sync
 
@@ -137,13 +129,19 @@ class IssueResolver:
             base_domain = (
                 'github.com'
                 if platform == ProviderType.GITHUB
-                else 'gitlab.com'
-                if platform == ProviderType.GITLAB
-                else 'bitbucket.org'
-                if platform == ProviderType.BITBUCKET
-                else 'bitbucket.example.com'
-                if platform == ProviderType.BITBUCKET_DATA_CENTER
-                else 'dev.azure.com'
+                else (
+                    'gitlab.com'
+                    if platform == ProviderType.GITLAB
+                    else (
+                        'bitbucket.org'
+                        if platform == ProviderType.BITBUCKET
+                        else (
+                            'bitbucket.example.com'
+                            if platform == ProviderType.BITBUCKET_DATA_CENTER
+                            else 'dev.azure.com'
+                        )
+                    )
+                )
             )
 
         self.output_dir = args.output_dir

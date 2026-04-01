@@ -5,21 +5,16 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from openhands.app_server.app_conversation.app_conversation_service import (
-    AppConversationService,
-)
+from openhands.app_server.app_conversation.app_conversation_service import \
+    AppConversationService
 from openhands.integrations.provider import ProviderHandler
-from openhands.server.data_models.conversation_info_result_set import (
-    ConversationInfoResultSet,
-)
-from openhands.server.routes.manage_conversations import (
-    get_microagent_management_conversations,
-)
+from openhands.server.data_models.conversation_info_result_set import \
+    ConversationInfoResultSet
+from openhands.server.routes.manage_conversations import \
+    get_microagent_management_conversations
 from openhands.storage.conversation.conversation_store import ConversationStore
 from openhands.storage.data_models.conversation_metadata import (
-    ConversationMetadata,
-    ConversationTrigger,
-)
+    ConversationMetadata, ConversationTrigger)
 
 
 def _create_mock_app_conversation_service():

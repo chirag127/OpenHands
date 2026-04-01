@@ -10,34 +10,23 @@ from typing import AsyncGenerator
 from uuid import UUID, uuid4
 
 from fastapi import Request
+from openhands.agent_server.utils import utc_now
+from openhands.sdk import Event
 from sqlalchemy import UUID as SQLUUID
 from sqlalchemy import Column, Enum, String, and_, func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from openhands.agent_server.utils import utc_now
 from openhands.app_server.event_callback.event_callback_models import (
-    CreateEventCallbackRequest,
-    EventCallback,
-    EventCallbackPage,
-    EventCallbackProcessor,
-    EventCallbackStatus,
-    EventKind,
-)
-from openhands.app_server.event_callback.event_callback_result_models import (
-    EventCallbackResultStatus,
-)
+    CreateEventCallbackRequest, EventCallback, EventCallbackPage,
+    EventCallbackProcessor, EventCallbackStatus, EventKind)
+from openhands.app_server.event_callback.event_callback_result_models import \
+    EventCallbackResultStatus
 from openhands.app_server.event_callback.event_callback_service import (
-    EventCallbackService,
-    EventCallbackServiceInjector,
-)
+    EventCallbackService, EventCallbackServiceInjector)
 from openhands.app_server.services.injector import InjectorState
-from openhands.app_server.utils.sql_utils import (
-    Base,
-    UtcDateTime,
-    create_json_type_decorator,
-    row2dict,
-)
-from openhands.sdk import Event
+from openhands.app_server.utils.sql_utils import (Base, UtcDateTime,
+                                                  create_json_type_decorator,
+                                                  row2dict)
 
 _logger = logging.getLogger(__name__)
 

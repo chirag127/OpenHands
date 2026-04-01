@@ -32,23 +32,21 @@ from openhands.server.config.server_config import ServerConfig
 from openhands.server.constants import ROOM_KEY
 from openhands.server.data_models.agent_loop_info import AgentLoopInfo
 from openhands.server.monitoring import MonitoringListener
-from openhands.server.session.agent_session import WAIT_TIME_BEFORE_CLOSE, AgentSession
+from openhands.server.session.agent_session import (WAIT_TIME_BEFORE_CLOSE,
+                                                    AgentSession)
 from openhands.server.session.conversation import ServerConversation
 from openhands.server.session.session import WebSession as Session
 from openhands.storage.conversation.conversation_store import ConversationStore
-from openhands.storage.data_models.conversation_metadata import ConversationMetadata
-from openhands.storage.data_models.conversation_status import ConversationStatus
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationMetadata
+from openhands.storage.data_models.conversation_status import \
+    ConversationStatus
 from openhands.storage.data_models.settings import Settings
 from openhands.storage.files import FileStore
-from openhands.utils.async_utils import (
-    call_sync_from_async,
-    run_in_loop,
-    wait_all,
-)
+from openhands.utils.async_utils import (call_sync_from_async, run_in_loop,
+                                         wait_all)
 from openhands.utils.conversation_summary import (
-    auto_generate_title,
-    get_default_conversation_title,
-)
+    auto_generate_title, get_default_conversation_title)
 from openhands.utils.import_utils import get_impl
 from openhands.utils.shutdown_listener import should_continue
 from openhands.utils.utils import create_registry_and_conversation_stats
@@ -343,7 +341,7 @@ class StandaloneConversationManager(ConversationManager):
                         status_update_dict,
                         to=ROOM_KEY.format(sid=oldest_conversation_id),
                     ),
-                    self._loop,  # type:ignore
+                    self._loop,  # type: ignore
                 )
                 await self.close_session(oldest_conversation_id)
 
@@ -508,7 +506,8 @@ class StandaloneConversationManager(ConversationManager):
         Raises:
             ValueError: If the runtime is not available.
         """
-        from openhands.events.observation import ErrorObservation, FileReadObservation
+        from openhands.events.observation import (ErrorObservation,
+                                                  FileReadObservation)
 
         agent_session = self.get_agent_session(sid)
         if not agent_session or not agent_session.runtime:
@@ -702,7 +701,7 @@ class StandaloneConversationManager(ConversationManager):
                             status_update_dict,
                             to=ROOM_KEY.format(sid=conversation_id),
                         ),
-                        self._loop,  # type:ignore
+                        self._loop,  # type: ignore
                     )
                 except Exception as e:
                     logger.error(f'Error emitting title update event: {e}')
@@ -712,8 +711,7 @@ class StandaloneConversationManager(ConversationManager):
         await conversation_store.save_metadata(conversation)
 
     def _is_git_related_event(self, event) -> bool:
-        """
-        Determine if an event is related to git operations that could change the branch.
+        """Determine if an event is related to git operations that could change the branch.
 
         Args:
             event: The event to check
@@ -757,8 +755,7 @@ class StandaloneConversationManager(ConversationManager):
         return False
 
     async def _update_conversation_branch(self, conversation: ConversationMetadata):
-        """
-        Update the conversation's current branch if it has changed.
+        """Update the conversation's current branch if it has changed.
 
         Args:
             conversation: The conversation metadata to update
@@ -790,8 +787,7 @@ class StandaloneConversationManager(ConversationManager):
     def _get_session_and_runtime(
         self, conversation_id: str
     ) -> tuple[Session | None, Any | None]:
-        """
-        Get the session and runtime for a conversation.
+        """Get the session and runtime for a conversation.
 
         Args:
             conversation_id: The conversation ID
@@ -807,8 +803,7 @@ class StandaloneConversationManager(ConversationManager):
     def _get_current_workspace_branch(
         self, runtime: Any, selected_repository: str | None
     ) -> str | None:
-        """
-        Get the current branch from the workspace.
+        """Get the current branch from the workspace.
 
         Args:
             runtime: The runtime instance
@@ -829,8 +824,7 @@ class StandaloneConversationManager(ConversationManager):
     def _should_update_branch(
         self, current_branch: str | None, new_branch: str | None
     ) -> bool:
-        """
-        Determine if the branch should be updated.
+        """Determine if the branch should be updated.
 
         Args:
             current_branch: The current branch in conversation metadata
@@ -844,8 +838,7 @@ class StandaloneConversationManager(ConversationManager):
     def _update_branch_in_conversation(
         self, conversation: ConversationMetadata, new_branch: str | None
     ):
-        """
-        Update the branch in the conversation metadata.
+        """Update the branch in the conversation metadata.
 
         Args:
             conversation: The conversation metadata to update

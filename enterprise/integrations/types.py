@@ -10,7 +10,8 @@ if TYPE_CHECKING:
 
     from openhands.integrations.provider import PROVIDER_TOKEN_TYPE
     from openhands.server.user_auth.user_auth import UserAuth
-    from openhands.storage.data_models.conversation_metadata import ConversationMetadata
+    from openhands.storage.data_models.conversation_metadata import \
+        ConversationMetadata
 
 
 class GitLabResourceType(Enum):

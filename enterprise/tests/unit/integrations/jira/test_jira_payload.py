@@ -1,5 +1,4 @@
-"""
-Tests for JiraPayloadParser.
+"""Tests for JiraPayloadParser.
 
 These tests verify the parsing behavior of Jira webhook payloads,
 including the handling of optional fields like user_email which
@@ -7,13 +6,10 @@ may not be present in webhook payloads from Jira.
 """
 
 import pytest
-from integrations.jira.jira_payload import (
-    JiraEventType,
-    JiraPayloadError,
-    JiraPayloadParser,
-    JiraPayloadSkipped,
-    JiraPayloadSuccess,
-)
+from integrations.jira.jira_payload import (JiraEventType, JiraPayloadError,
+                                            JiraPayloadParser,
+                                            JiraPayloadSkipped,
+                                            JiraPayloadSuccess)
 
 
 @pytest.fixture

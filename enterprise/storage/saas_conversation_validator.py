@@ -7,15 +7,15 @@ from storage.api_key_store import ApiKeyStore
 from openhands.core.config import load_openhands_config
 from openhands.core.logger import openhands_logger as logger
 from openhands.server.shared import ConversationStoreImpl
-from openhands.storage.conversation.conversation_validator import ConversationValidator
+from openhands.storage.conversation.conversation_validator import \
+    ConversationValidator
 
 
 class SaasConversationValidator(ConversationValidator):
     """Storage for conversation metadata. May or may not support multiple users depending on the environment."""
 
     async def _validate_api_key(self, api_key: str) -> str | None:
-        """
-        Validate an API key and return the user_id if valid.
+        """Validate an API key and return the user_id if valid.
 
         Args:
             api_key: The API key to validate
@@ -51,8 +51,7 @@ class SaasConversationValidator(ConversationValidator):
     async def _validate_conversation_access(
         self, conversation_id: str, user_id: str
     ) -> bool:
-        """
-        Validate that the user has access to the conversation.
+        """Validate that the user has access to the conversation.
 
         Args:
             conversation_id: The ID of the conversation
@@ -83,8 +82,7 @@ class SaasConversationValidator(ConversationValidator):
         cookies_str: str,
         authorization_header: str | None = None,
     ) -> str | None:
-        """
-        Validate the conversation access using either an API key from the Authorization header
+        """Validate the conversation access using either an API key from the Authorization header
         or a keycloak_auth cookie.
 
         Args:

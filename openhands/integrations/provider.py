@@ -7,43 +7,33 @@ from typing import Any, Coroutine, Literal, cast, overload
 from urllib.parse import quote
 
 import httpx
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    SecretStr,
-)
+from pydantic import BaseModel, ConfigDict, Field, SecretStr
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.events.action.action import Action
 from openhands.events.action.commands import CmdRunAction
 from openhands.events.stream import EventStream
-from openhands.integrations.azure_devops.azure_devops_service import (
-    AzureDevOpsServiceImpl,
-)
-from openhands.integrations.bitbucket.bitbucket_service import BitBucketServiceImpl
-from openhands.integrations.bitbucket_data_center.bitbucket_dc_service import (
-    BitbucketDCServiceImpl,
-)
+from openhands.integrations.azure_devops.azure_devops_service import \
+    AzureDevOpsServiceImpl
+from openhands.integrations.bitbucket.bitbucket_service import \
+    BitBucketServiceImpl
+from openhands.integrations.bitbucket_data_center.bitbucket_dc_service import \
+    BitbucketDCServiceImpl
 from openhands.integrations.forgejo.forgejo_service import ForgejoServiceImpl
 from openhands.integrations.github.github_service import GithubServiceImpl
 from openhands.integrations.gitlab.gitlab_service import GitLabServiceImpl
-from openhands.integrations.service_types import (
-    AuthenticationError,
-    Branch,
-    GitService,
-    InstallationsService,
-    MicroagentParseError,
-    PaginatedBranchesResponse,
-    ProviderTimeoutError,
-    ProviderType,
-    Repository,
-    ResourceNotFoundError,
-    SuggestedTask,
-    TokenResponse,
-    User,
-)
-from openhands.microagent.types import MicroagentContentResponse, MicroagentResponse
+from openhands.integrations.service_types import (AuthenticationError, Branch,
+                                                  GitService,
+                                                  InstallationsService,
+                                                  MicroagentParseError,
+                                                  PaginatedBranchesResponse,
+                                                  ProviderTimeoutError,
+                                                  ProviderType, Repository,
+                                                  ResourceNotFoundError,
+                                                  SuggestedTask, TokenResponse,
+                                                  User)
+from openhands.microagent.types import (MicroagentContentResponse,
+                                        MicroagentResponse)
 from openhands.server.types import AppMode
 from openhands.utils.http_session import httpx_verify_option
 

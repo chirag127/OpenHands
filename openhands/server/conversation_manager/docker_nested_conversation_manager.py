@@ -28,23 +28,26 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.events.action import MessageAction
 from openhands.events.nested_event_store import NestedEventStore
 from openhands.events.stream import EventStream
-from openhands.integrations.provider import PROVIDER_TOKEN_TYPE, ProviderHandler
+from openhands.integrations.provider import (PROVIDER_TOKEN_TYPE,
+                                             ProviderHandler)
 from openhands.runtime import get_runtime_cls
 from openhands.runtime.impl.docker.docker_runtime import DockerRuntime
 from openhands.runtime.runtime_status import RuntimeStatus
 from openhands.server.config.server_config import ServerConfig
 from openhands.server.constants import ROOM_KEY
-from openhands.server.conversation_manager.conversation_manager import (
-    ConversationManager,
-)
+from openhands.server.conversation_manager.conversation_manager import \
+    ConversationManager
 from openhands.server.data_models.agent_loop_info import AgentLoopInfo
 from openhands.server.monitoring import MonitoringListener
 from openhands.server.session.conversation import ServerConversation
-from openhands.server.session.conversation_init_data import ConversationInitData
+from openhands.server.session.conversation_init_data import \
+    ConversationInitData
 from openhands.server.session.session import WebSession as Session
 from openhands.storage.conversation.conversation_store import ConversationStore
-from openhands.storage.data_models.conversation_metadata import ConversationMetadata
-from openhands.storage.data_models.conversation_status import ConversationStatus
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationMetadata
+from openhands.storage.data_models.conversation_status import \
+    ConversationStatus
 from openhands.storage.data_models.settings import Settings
 from openhands.storage.files import FileStore
 from openhands.storage.locations import get_conversation_dir
@@ -491,7 +494,7 @@ class DockerNestedConversationManager(ConversationManager):
         return nested_url
 
     def _get_session_api_key_for_conversation(self, conversation_id: str) -> str:
-        jwt_secret = self.config.jwt_secret.get_secret_value()  # type:ignore
+        jwt_secret = self.config.jwt_secret.get_secret_value()  # type: ignore
         conversation_key = f'{jwt_secret}:{conversation_id}'.encode()
         session_api_key = (
             urlsafe_b64encode(hashlib.sha256(conversation_key).digest())
@@ -623,7 +626,7 @@ class DockerNestedConversationManager(ConversationManager):
         )
 
         # Hack - disable setting initial env.
-        runtime.setup_initial_env = lambda: None  # type:ignore
+        runtime.setup_initial_env = lambda: None  # type: ignore
 
         return runtime
 

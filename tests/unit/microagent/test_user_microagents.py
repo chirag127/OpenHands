@@ -8,7 +8,8 @@ import pytest
 
 from openhands.events.stream import EventStream
 from openhands.memory.memory import Memory
-from openhands.microagent import KnowledgeMicroagent, MicroagentType, RepoMicroagent
+from openhands.microagent import (KnowledgeMicroagent, MicroagentType,
+                                  RepoMicroagent)
 from openhands.storage import get_file_store
 
 

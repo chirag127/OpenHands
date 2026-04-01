@@ -8,14 +8,13 @@ from openhands.core.config import OpenHandsConfig
 from openhands.core.config.mcp_config import MCPConfig, MCPStdioServerConfig
 from openhands.events.action import Action
 from openhands.events.action.commands import CmdRunAction
-from openhands.events.observation import (
-    CmdOutputObservation,
-    NullObservation,
-    Observation,
-)
+from openhands.events.observation import (CmdOutputObservation,
+                                          NullObservation, Observation)
 from openhands.events.stream import EventStream
-from openhands.integrations.provider import ProviderHandler, ProviderToken, ProviderType
-from openhands.integrations.service_types import AuthenticationError, Repository
+from openhands.integrations.provider import (ProviderHandler, ProviderToken,
+                                             ProviderType)
+from openhands.integrations.service_types import (AuthenticationError,
+                                                  Repository)
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.runtime.base import Runtime
 from openhands.storage import get_file_store
@@ -31,9 +30,7 @@ class MockRuntime(Runtime):
             config = (
                 kwargs.get('config')
                 if 'config' in kwargs
-                else args[0]
-                if args
-                else OpenHandsConfig()
+                else args[0] if args else OpenHandsConfig()
             )
             kwargs['llm_registry'] = LLMRegistry(config=config)
         super().__init__(*args, **kwargs)

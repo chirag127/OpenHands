@@ -5,17 +5,12 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from server.sharing.shared_conversation_info_service import (
-    SharedConversationInfoService,
-)
+from server.sharing.shared_conversation_info_service import \
+    SharedConversationInfoService
 from server.sharing.shared_conversation_models import (
-    SharedConversation,
-    SharedConversationPage,
-    SharedConversationSortOrder,
-)
-from server.sharing.sql_shared_conversation_info_service import (
-    SQLSharedConversationInfoServiceInjector,
-)
+    SharedConversation, SharedConversationPage, SharedConversationSortOrder)
+from server.sharing.sql_shared_conversation_info_service import \
+    SQLSharedConversationInfoServiceInjector
 
 router = APIRouter(prefix='/api/shared-conversations', tags=['Sharing'])
 shared_conversation_info_service_dependency = Depends(

@@ -1,11 +1,11 @@
-"""
-Tests for conversation_callback_utils.py
+"""Tests for conversation_callback_utils.py
 """
 
 from unittest.mock import Mock, patch
 
 import pytest
-from server.utils.conversation_callback_utils import update_active_working_seconds
+from server.utils.conversation_callback_utils import \
+    update_active_working_seconds
 from storage.conversation_work import ConversationWork
 
 from openhands.core.schema.agent import AgentState
@@ -411,7 +411,6 @@ class TestInvokeConversationCallbacks:
     @pytest.fixture
     def mock_observation(self):
         """Create a mock AgentStateChangedObservation."""
-
         observation = Mock(spec=AgentStateChangedObservation)
         observation.agent_state = AgentState.FINISHED
         return observation
@@ -461,9 +460,8 @@ class TestInvokeConversationCallbacks:
             'server.utils.conversation_callback_utils.a_session_maker',
             mock_context_manager,
         ):
-            from server.utils.conversation_callback_utils import (
-                invoke_conversation_callbacks,
-            )
+            from server.utils.conversation_callback_utils import \
+                invoke_conversation_callbacks
 
             await invoke_conversation_callbacks(conversation_id, mock_observation)
 
@@ -486,9 +484,8 @@ class TestInvokeConversationCallbacks:
             'server.utils.conversation_callback_utils.a_session_maker',
             mock_context_manager,
         ):
-            from server.utils.conversation_callback_utils import (
-                invoke_conversation_callbacks,
-            )
+            from server.utils.conversation_callback_utils import \
+                invoke_conversation_callbacks
 
             await invoke_conversation_callbacks(conversation_id, mock_observation)
 
@@ -515,13 +512,15 @@ class TestInvokeConversationCallbacks:
         mock_context_manager, mock_session = create_mock_async_session([mock_callback])
 
         # Act
-        with patch(
-            'server.utils.conversation_callback_utils.a_session_maker',
-            mock_context_manager,
-        ), patch('server.utils.conversation_callback_utils.logger') as mock_logger:
-            from server.utils.conversation_callback_utils import (
-                invoke_conversation_callbacks,
-            )
+        with (
+            patch(
+                'server.utils.conversation_callback_utils.a_session_maker',
+                mock_context_manager,
+            ),
+            patch('server.utils.conversation_callback_utils.logger') as mock_logger,
+        ):
+            from server.utils.conversation_callback_utils import \
+                invoke_conversation_callbacks
             from storage.conversation_callback import CallbackStatus
 
             await invoke_conversation_callbacks(conversation_id, mock_observation)

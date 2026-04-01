@@ -9,10 +9,9 @@ import importlib
 
 from openhands.runtime.base import Runtime
 from openhands.runtime.impl.cli.cli_runtime import CLIRuntime
-from openhands.runtime.impl.docker.docker_runtime import (
-    DockerRuntime,
-)
-from openhands.runtime.impl.kubernetes.kubernetes_runtime import KubernetesRuntime
+from openhands.runtime.impl.docker.docker_runtime import DockerRuntime
+from openhands.runtime.impl.kubernetes.kubernetes_runtime import \
+    KubernetesRuntime
 from openhands.runtime.impl.local.local_runtime import LocalRuntime
 from openhands.runtime.impl.remote.remote_runtime import RemoteRuntime
 from openhands.utils.import_utils import get_impl

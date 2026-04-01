@@ -1,12 +1,8 @@
 import json
 
 from openhands.events.observation.commands import (
-    CMD_OUTPUT_METADATA_PS1_REGEX,
-    CMD_OUTPUT_PS1_BEGIN,
-    CMD_OUTPUT_PS1_END,
-    CmdOutputMetadata,
-    CmdOutputObservation,
-)
+    CMD_OUTPUT_METADATA_PS1_REGEX, CMD_OUTPUT_PS1_BEGIN, CMD_OUTPUT_PS1_END,
+    CmdOutputMetadata, CmdOutputObservation)
 
 
 def test_ps1_metadata_format():

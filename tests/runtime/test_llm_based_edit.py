@@ -39,9 +39,9 @@ def test_edit_from_scratch(temp_dir, runtime_cls, run_as_openhands):
         obs = runtime.run_action(action)
         logger.info(obs, extra={'msg_type': 'OBSERVATION'})
 
-        assert isinstance(obs, FileEditObservation), (
-            'The observation should be a FileEditObservation.'
-        )
+        assert isinstance(
+            obs, FileEditObservation
+        ), 'The observation should be a FileEditObservation.'
 
         action = FileReadAction(
             path=os.path.join('/workspace', 'app.py'),
@@ -78,9 +78,9 @@ def test_edit(temp_dir, runtime_cls, run_as_openhands):
         obs = runtime.run_action(action)
         logger.info(obs, extra={'msg_type': 'OBSERVATION'})
 
-        assert isinstance(obs, FileEditObservation), (
-            'The observation should be a FileEditObservation.'
-        )
+        assert isinstance(
+            obs, FileEditObservation
+        ), 'The observation should be a FileEditObservation.'
 
         action = FileReadAction(
             path=os.path.join('/workspace', 'app.py'),
@@ -138,9 +138,9 @@ def test_edit_long_file(temp_dir, runtime_cls, run_as_openhands):
         obs = runtime.run_action(action)
         logger.info(obs, extra={'msg_type': 'OBSERVATION'})
 
-        assert isinstance(obs, FileEditObservation), (
-            'The observation should be a FileEditObservation.'
-        )
+        assert isinstance(
+            obs, FileEditObservation
+        ), 'The observation should be a FileEditObservation.'
 
         action = FileReadAction(
             path=os.path.join('/workspace', 'app.py'),
@@ -199,9 +199,7 @@ def test_edit_obs_insert_only():
         old_content=ORIGINAL_LONG,
         new_content=EDIT_LONG_INSERT_ONLY,
     )
-    assert (
-        str(obs).strip()
-        == """
+    assert str(obs).strip() == """
 [Existing file /workspace/app.py is edited with 1 changes.]
 [begin of edit 1 / 1]
 (content before edit)
@@ -218,7 +216,6 @@ def test_edit_obs_insert_only():
  103|This is line 101
 [end of edit 1 / 1]
 """.strip()
-    )
 
 
 def test_edit_obs_replace():
@@ -237,9 +234,7 @@ def test_edit_obs_replace():
         new_content=_new_content,
     )
     print(str(obs))
-    assert (
-        str(obs).strip()
-        == """
+    assert str(obs).strip() == """
 [Existing file /workspace/app.py is edited with 1 changes.]
 [begin of edit 1 / 1]
 (content before edit)
@@ -258,7 +253,6 @@ def test_edit_obs_replace():
  103|This is line 103
 [end of edit 1 / 1]
 """.strip()
-    )
 
 
 def test_edit_obs_replace_with_empty_line():
@@ -278,9 +272,7 @@ def test_edit_obs_replace_with_empty_line():
         new_content=_new_content,
     )
     print(str(obs))
-    assert (
-        str(obs).strip()
-        == """
+    assert str(obs).strip() == """
 [Existing file /workspace/app.py is edited with 1 changes.]
 [begin of edit 1 / 1]
 (content before edit)
@@ -300,7 +292,6 @@ def test_edit_obs_replace_with_empty_line():
  104|This is line 103
 [end of edit 1 / 1]
 """.strip()
-    )
 
 
 def test_edit_obs_multiple_edits():
@@ -320,9 +311,7 @@ def test_edit_obs_multiple_edits():
         old_content=ORIGINAL_LONG,
         new_content=_new_content,
     )
-    assert (
-        str(obs).strip()
-        == """
+    assert str(obs).strip() == """
 [Existing file /workspace/app.py is edited with 2 changes.]
 [begin of edit 1 / 2]
 (content before edit)
@@ -355,7 +344,6 @@ def test_edit_obs_multiple_edits():
  104|This is line 103
 [end of edit 2 / 2]
 """.strip()
-    )
 
 
 def test_edit_visualize_failed_edit():
@@ -375,9 +363,7 @@ def test_edit_visualize_failed_edit():
         old_content=ORIGINAL_LONG,
         new_content=_new_content,
     )
-    assert (
-        obs.visualize_diff(change_applied=False).strip()
-        == """
+    assert obs.visualize_diff(change_applied=False).strip() == """
 [Changes are NOT applied to /workspace/app.py - Here's how the file looks like if changes are applied.]
 [begin of ATTEMPTED edit 1 / 2]
 (content before ATTEMPTED edit)
@@ -410,4 +396,3 @@ def test_edit_visualize_failed_edit():
  104|This is line 103
 [end of ATTEMPTED edit 2 / 2]
 """.strip()
-    )

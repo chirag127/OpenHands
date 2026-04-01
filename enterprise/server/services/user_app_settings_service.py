@@ -10,11 +10,9 @@ from dataclasses import dataclass
 from typing import AsyncGenerator
 
 from fastapi import Request
-from server.routes.user_app_settings_models import (
-    UserAppSettingsResponse,
-    UserAppSettingsUpdate,
-    UserNotFoundError,
-)
+from server.routes.user_app_settings_models import (UserAppSettingsResponse,
+                                                    UserAppSettingsUpdate,
+                                                    UserNotFoundError)
 from storage.user_app_settings_store import UserAppSettingsStore
 
 from openhands.app_server.services.injector import Injector, InjectorState
@@ -116,7 +114,8 @@ class UserAppSettingsServiceInjector(Injector[UserAppSettingsService]):
         self, state: InjectorState, request: Request | None = None
     ) -> AsyncGenerator[UserAppSettingsService, None]:
         # Local imports to avoid circular dependencies
-        from openhands.app_server.config import get_db_session, get_user_context
+        from openhands.app_server.config import (get_db_session,
+                                                 get_user_context)
 
         async with (
             get_user_context(state, request) as user_context,

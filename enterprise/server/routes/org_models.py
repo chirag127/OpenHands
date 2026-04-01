@@ -1,13 +1,7 @@
 from typing import Annotated
 
-from pydantic import (
-    BaseModel,
-    EmailStr,
-    Field,
-    SecretStr,
-    StringConstraints,
-    field_validator,
-)
+from pydantic import (BaseModel, EmailStr, Field, SecretStr, StringConstraints,
+                      field_validator)
 from storage.org import Org
 from storage.org_member import OrgMember
 from storage.role import Role
@@ -195,13 +189,17 @@ class OrgResponse(BaseModel):
             default_llm_api_key_for_byor=None,
             default_llm_base_url=org.default_llm_base_url,
             remote_runtime_resource_factor=org.remote_runtime_resource_factor,
-            enable_default_condenser=org.enable_default_condenser
-            if org.enable_default_condenser is not None
-            else True,
+            enable_default_condenser=(
+                org.enable_default_condenser
+                if org.enable_default_condenser is not None
+                else True
+            ),
             billing_margin=org.billing_margin,
-            enable_proactive_conversation_starters=org.enable_proactive_conversation_starters
-            if org.enable_proactive_conversation_starters is not None
-            else True,
+            enable_proactive_conversation_starters=(
+                org.enable_proactive_conversation_starters
+                if org.enable_proactive_conversation_starters is not None
+                else True
+            ),
             sandbox_base_container_image=org.sandbox_base_container_image,
             sandbox_runtime_container_image=org.sandbox_runtime_container_image,
             org_version=org.org_version if org.org_version is not None else 0,
@@ -293,9 +291,11 @@ class OrgLLMSettingsResponse(BaseModel):
             agent=org.agent,
             confirmation_mode=org.confirmation_mode,
             security_analyzer=org.security_analyzer,
-            enable_default_condenser=org.enable_default_condenser
-            if org.enable_default_condenser is not None
-            else True,
+            enable_default_condenser=(
+                org.enable_default_condenser
+                if org.enable_default_condenser is not None
+                else True
+            ),
             condenser_max_size=org.condenser_max_size,
             default_max_iterations=org.default_max_iterations,
         )
@@ -462,9 +462,11 @@ class OrgAppSettingsResponse(BaseModel):
             OrgAppSettingsResponse with app settings
         """
         return cls(
-            enable_proactive_conversation_starters=org.enable_proactive_conversation_starters
-            if org.enable_proactive_conversation_starters is not None
-            else True,
+            enable_proactive_conversation_starters=(
+                org.enable_proactive_conversation_starters
+                if org.enable_proactive_conversation_starters is not None
+                else True
+            ),
             enable_solvability_analysis=org.enable_solvability_analysis,
             max_budget_per_task=org.max_budget_per_task,
         )

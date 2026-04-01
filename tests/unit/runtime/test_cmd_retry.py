@@ -9,11 +9,9 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from openhands.events.observation import CmdOutputObservation, ErrorObservation
-from openhands.runtime.base import (
-    CMD_RETRY_BASE_DELAY_SECONDS,
-    CMD_RETRY_MAX_ATTEMPTS,
-    CMD_RETRY_TIMEOUT_EXIT_CODE,
-)
+from openhands.runtime.base import (CMD_RETRY_BASE_DELAY_SECONDS,
+                                    CMD_RETRY_MAX_ATTEMPTS,
+                                    CMD_RETRY_TIMEOUT_EXIT_CODE)
 
 
 class TestCmdRetryHelpers:

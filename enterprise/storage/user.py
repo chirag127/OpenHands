@@ -1,19 +1,10 @@
-"""
-SQLAlchemy model for User.
+"""SQLAlchemy model for User.
 """
 
 from uuid import uuid4
 
-from sqlalchemy import (
-    JSON,
-    UUID,
-    Boolean,
-    Column,
-    DateTime,
-    ForeignKey,
-    Integer,
-    String,
-)
+from sqlalchemy import (JSON, UUID, Boolean, Column, DateTime, ForeignKey,
+                        Integer, String)
 from sqlalchemy.orm import relationship
 from storage.base import Base
 

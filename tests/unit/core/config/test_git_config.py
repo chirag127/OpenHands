@@ -4,7 +4,8 @@ import os
 from unittest.mock import patch
 
 from openhands.core.config import OpenHandsConfig, load_from_env
-from openhands.runtime.utils.command import get_action_execution_server_startup_command
+from openhands.runtime.utils.command import \
+    get_action_execution_server_startup_command
 
 
 class TestGitConfig:

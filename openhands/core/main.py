@@ -16,24 +16,16 @@ from typing import Callable, Protocol
 import openhands.agenthub  # noqa F401 (we import this to get the agents registered)
 from openhands.controller.replay import ReplayManager
 from openhands.controller.state.state import State
-from openhands.core.config import (
-    OpenHandsConfig,
-    parse_arguments,
-    setup_config_from_args,
-)
+from openhands.core.config import (OpenHandsConfig, parse_arguments,
+                                   setup_config_from_args)
 from openhands.core.config.mcp_config import OpenHandsMCPConfigImpl
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.loop import run_agent_until_done
 from openhands.core.schema import AgentState
-from openhands.core.setup import (
-    create_agent,
-    create_controller,
-    create_memory,
-    create_runtime,
-    generate_sid,
-    get_provider_tokens,
-    initialize_repository_for_runtime,
-)
+from openhands.core.setup import (create_agent, create_controller,
+                                  create_memory, create_runtime, generate_sid,
+                                  get_provider_tokens,
+                                  initialize_repository_for_runtime)
 from openhands.events import EventSource, EventStreamSubscriber
 from openhands.events.action import MessageAction, NullAction
 from openhands.events.action.action import Action
@@ -175,9 +167,9 @@ async def run_controller(
         agent, runtime, config, conversation_stats, replay_events=replay_events
     )
 
-    assert isinstance(initial_user_action, Action), (
-        f'initial user actions must be an Action, got {type(initial_user_action)}'
-    )
+    assert isinstance(
+        initial_user_action, Action
+    ), f'initial user actions must be an Action, got {type(initial_user_action)}'
     logger.debug(
         f'Agent Controller Initialized: Running agent {agent.name}, model '
         f'{agent.llm.config.model}, with actions: {initial_user_action}'
@@ -388,8 +380,8 @@ if __name__ == '__main__':
             config=config,
             initial_user_action=initial_user_action,
             sid=sid,
-            fake_user_response_fn=None
-            if args.no_auto_continue
-            else auto_continue_response,
+            fake_user_response_fn=(
+                None if args.no_auto_continue else auto_continue_response
+            ),
         )
     )

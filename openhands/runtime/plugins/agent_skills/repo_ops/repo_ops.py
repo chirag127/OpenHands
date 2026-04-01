@@ -5,11 +5,9 @@
 #   - V1 application server (in this repo): openhands/app_server/
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
-from openhands_aci.indexing.locagent.tools import (
-    explore_tree_structure,
-    get_entity_contents,
-    search_code_snippets,
-)
+from openhands_aci.indexing.locagent.tools import (explore_tree_structure,
+                                                   get_entity_contents,
+                                                   search_code_snippets)
 
 __all__ = [
     'get_entity_contents',

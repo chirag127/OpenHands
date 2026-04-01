@@ -6,22 +6,16 @@ from typing import Optional
 from uuid import UUID
 
 from server.auth.token_manager import TokenManager
-from server.constants import (
-    DEFAULT_V1_ENABLED,
-    LITE_LLM_API_URL,
-    ORG_SETTINGS_VERSION,
-    PERSONAL_WORKSPACE_VERSION_TO_MODEL,
-    get_default_litellm_model,
-)
+from server.constants import (DEFAULT_V1_ENABLED, LITE_LLM_API_URL,
+                              ORG_SETTINGS_VERSION,
+                              PERSONAL_WORKSPACE_VERSION_TO_MODEL,
+                              get_default_litellm_model)
 from server.logger import logger
 from sqlalchemy import select, text
 from sqlalchemy.orm import selectinload
 from storage.database import a_session_maker
-from storage.encrypt_utils import (
-    decrypt_legacy_model,
-    decrypt_legacy_value,
-    encrypt_legacy_value,
-)
+from storage.encrypt_utils import (decrypt_legacy_model, decrypt_legacy_value,
+                                   encrypt_legacy_value)
 from storage.org import Org
 from storage.org_member import OrgMember
 from storage.role_store import RoleStore
@@ -979,12 +973,16 @@ class UserStore:
         return UserSettings(
             keycloak_user_id=user_id,
             # OrgMember fields
-            llm_api_key=org_member.llm_api_key.get_secret_value()
-            if org_member.llm_api_key
-            else None,
-            llm_api_key_for_byor=org_member.llm_api_key_for_byor.get_secret_value()
-            if org_member.llm_api_key_for_byor
-            else None,
+            llm_api_key=(
+                org_member.llm_api_key.get_secret_value()
+                if org_member.llm_api_key
+                else None
+            ),
+            llm_api_key_for_byor=(
+                org_member.llm_api_key_for_byor.get_secret_value()
+                if org_member.llm_api_key_for_byor
+                else None
+            ),
             llm_model=llm_model,
             llm_base_url=llm_base_url,
             max_iterations=max_iterations,
@@ -1009,12 +1007,12 @@ class UserStore:
             sandbox_runtime_container_image=org.sandbox_runtime_container_image,
             user_version=org.org_version,
             mcp_config=org.mcp_config,
-            search_api_key=org.search_api_key.get_secret_value()
-            if org.search_api_key
-            else None,
-            sandbox_api_key=org.sandbox_api_key.get_secret_value()
-            if org.sandbox_api_key
-            else None,
+            search_api_key=(
+                org.search_api_key.get_secret_value() if org.search_api_key else None
+            ),
+            sandbox_api_key=(
+                org.sandbox_api_key.get_secret_value() if org.sandbox_api_key else None
+            ),
             max_budget_per_task=org.max_budget_per_task,
             enable_solvability_analysis=org.enable_solvability_analysis,
             v1_enabled=org.v1_enabled,

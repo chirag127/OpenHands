@@ -3,7 +3,8 @@
 from datetime import datetime
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.integrations.azure_devops.service.base import AzureDevOpsMixinBase
+from openhands.integrations.azure_devops.service.base import \
+    AzureDevOpsMixinBase
 from openhands.integrations.service_types import Comment, RequestMethod
 
 

@@ -5,13 +5,12 @@
 #   - V1 application server (in this repo): openhands/app_server/
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
-from openhands.controller.state.control_flags import (
-    BudgetControlFlag,
-    IterationControlFlag,
-)
+from openhands.controller.state.control_flags import (BudgetControlFlag,
+                                                      IterationControlFlag)
 from openhands.controller.state.state import State
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action.agent import AgentDelegateAction, ChangeAgentStateAction
+from openhands.events.action.agent import (AgentDelegateAction,
+                                           ChangeAgentStateAction)
 from openhands.events.action.empty import NullAction
 from openhands.events.event import Event
 from openhands.events.event_filter import EventFilter
@@ -87,12 +86,14 @@ class StateTracker:
                     current_value=0,
                     max_value=max_iterations,
                 ),
-                budget_flag=None
-                if not max_budget_per_task
-                else BudgetControlFlag(
-                    limit_increase_amount=max_budget_per_task,
-                    current_value=0,
-                    max_value=max_budget_per_task,
+                budget_flag=(
+                    None
+                    if not max_budget_per_task
+                    else BudgetControlFlag(
+                        limit_increase_amount=max_budget_per_task,
+                        current_value=0,
+                        max_value=max_budget_per_task,
+                    )
                 ),
                 confirmation_mode=confirmation_mode,
             )

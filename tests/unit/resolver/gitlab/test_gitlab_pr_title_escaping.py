@@ -72,9 +72,9 @@ def test_pr_title_with_quotes(monkeypatch):
         data = kwargs.get('json', {})
         title = data.get('title', '')
         expected = "Fix issue #123: Issue with 'quotes' and \"double quotes\" and <class 'ValueError'>"
-        assert title == expected, (
-            f'PR title was incorrectly escaped.\nExpected: {expected}\nGot: {title}'
-        )
+        assert (
+            title == expected
+        ), f'PR title was incorrectly escaped.\nExpected: {expected}\nGot: {title}'
         return MockResponse()
 
     class MockGetResponse:

@@ -7,7 +7,8 @@
 # Tag: Legacy-V0
 import os
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import (BaseModel, ConfigDict, Field, ValidationError,
+                      model_validator)
 
 from openhands.core.logger import openhands_logger as logger
 

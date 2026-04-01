@@ -11,9 +11,8 @@ import pytest
 from pydantic import SecretStr
 
 from openhands.integrations.provider import ProviderToken, ProviderType
-from openhands.server.services.conversation_service import (
-    setup_init_conversation_settings,
-)
+from openhands.server.services.conversation_service import \
+    setup_init_conversation_settings
 from openhands.server.types import AppMode
 from openhands.storage.data_models.settings import Settings
 
@@ -87,17 +86,17 @@ async def test_setup_with_provided_tokens_uses_real_tokens(
                 # Verify real tokens are used
                 assert result.git_provider_tokens is not None
                 assert result.git_provider_tokens == mock_provider_tokens
-                assert ProviderType.GITHUB in result.git_provider_tokens, (
-                    'GitHub provider should be in tokens'
-                )
+                assert (
+                    ProviderType.GITHUB in result.git_provider_tokens
+                ), 'GitHub provider should be in tokens'
 
                 github_token = result.git_provider_tokens[ProviderType.GITHUB]
                 assert (
                     github_token.token.get_secret_value() == 'ghp_real_token_test123'
                 ), 'Should use real token, not None'
-                assert github_token.user_id == 'test_user_456', (
-                    'Should preserve user_id from real token'
-                )
+                assert (
+                    github_token.user_id == 'test_user_456'
+                ), 'Should preserve user_id from real token'
 
 
 @pytest.mark.asyncio

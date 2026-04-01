@@ -36,12 +36,8 @@ from keycloak.exceptions import KeycloakError
 from resend.exceptions import ResendError
 from server.auth.token_manager import get_keycloak_admin
 from storage.resend_synced_user_store import ResendSyncedUserStore
-from tenacity import (
-    retry,
-    retry_if_exception_type,
-    stop_after_attempt,
-    wait_exponential,
-)
+from tenacity import (retry, retry_if_exception_type, stop_after_attempt,
+                      wait_exponential)
 
 from openhands.core.logger import openhands_logger as logger
 

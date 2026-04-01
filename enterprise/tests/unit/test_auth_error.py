@@ -1,9 +1,5 @@
-from server.auth.auth_error import (
-    AuthError,
-    BearerTokenError,
-    CookieError,
-    NoCredentialsError,
-)
+from server.auth.auth_error import (AuthError, BearerTokenError, CookieError,
+                                    NoCredentialsError)
 
 
 def test_auth_error_inheritance():

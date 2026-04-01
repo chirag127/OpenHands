@@ -11,23 +11,15 @@ from openhands.controller.agent import Agent
 from openhands.controller.state.state import State
 from openhands.core.config import AgentConfig
 from openhands.core.schema import AgentState
-from openhands.events.action import (
-    Action,
-    AgentFinishAction,
-    AgentRejectAction,
-    CmdRunAction,
-    FileReadAction,
-    FileWriteAction,
-    MessageAction,
-)
-from openhands.events.observation import (
-    AgentStateChangedObservation,
-    CmdOutputMetadata,
-    CmdOutputObservation,
-    FileReadObservation,
-    FileWriteObservation,
-    Observation,
-)
+from openhands.events.action import (Action, AgentFinishAction,
+                                     AgentRejectAction, CmdRunAction,
+                                     FileReadAction, FileWriteAction,
+                                     MessageAction)
+from openhands.events.observation import (AgentStateChangedObservation,
+                                          CmdOutputMetadata,
+                                          CmdOutputObservation,
+                                          FileReadObservation,
+                                          FileWriteObservation, Observation)
 from openhands.events.serialization.event import event_to_dict
 from openhands.llm.llm_registry import LLMRegistry
 

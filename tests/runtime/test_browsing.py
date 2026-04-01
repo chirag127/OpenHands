@@ -7,17 +7,12 @@ import pytest
 from conftest import _close_test_runtime, _load_runtime
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    BrowseInteractiveAction,
-    BrowseURLAction,
-    CmdRunAction,
-)
-from openhands.events.observation import (
-    BrowserOutputObservation,
-    CmdOutputObservation,
-    ErrorObservation,
-    FileDownloadObservation,
-)
+from openhands.events.action import (BrowseInteractiveAction, BrowseURLAction,
+                                     CmdRunAction)
+from openhands.events.observation import (BrowserOutputObservation,
+                                          CmdOutputObservation,
+                                          ErrorObservation,
+                                          FileDownloadObservation)
 
 # ============================================================================================================================
 # Browsing tests, without evaluation (poetry install --without evaluation)
@@ -418,21 +413,21 @@ def test_browser_form_interactions(
         button_bid = find_element_by_text(axtree_elements, 'Test Button')
 
         # Verify we found the correct elements
-        assert text_input_bid is not None, (
-            f'Could not find text input element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
-        )
-        assert textarea_bid is not None, (
-            f'Could not find textarea element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
-        )
-        assert button_bid is not None, (
-            f'Could not find button element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
-        )
-        assert select_bid is not None, (
-            f'Could not find select element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
-        )
-        assert text_input_bid != button_bid, (
-            'Text input bid should be different from button bid'
-        )
+        assert (
+            text_input_bid is not None
+        ), f'Could not find text input element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
+        assert (
+            textarea_bid is not None
+        ), f'Could not find textarea element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
+        assert (
+            button_bid is not None
+        ), f'Could not find button element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
+        assert (
+            select_bid is not None
+        ), f'Could not find select element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
+        assert (
+            text_input_bid != button_bid
+        ), 'Text input bid should be different from button bid'
 
         # Test fill action with real bid values
         action_browse = BrowseInteractiveAction(
@@ -448,26 +443,26 @@ fill("{textarea_bid}", "This is a test message")
 
         assert isinstance(obs, BrowserOutputObservation)
         # Verify the action executed successfully
-        assert not obs.error, (
-            f'Browser action failed with error: {obs.last_browser_action_error}'
-        )
+        assert (
+            not obs.error
+        ), f'Browser action failed with error: {obs.last_browser_action_error}'
 
         # Parse the updated axtree to verify the text was actually filled
         updated_axtree_elements = parse_axtree_content(obs.content)
 
         # Check that the text input now contains our text
-        assert text_input_bid in updated_axtree_elements, (
-            f'Text input element {text_input_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
-        )
+        assert (
+            text_input_bid in updated_axtree_elements
+        ), f'Text input element {text_input_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
         text_input_desc = updated_axtree_elements[text_input_bid]
         # The filled value should appear in the element description (axtree shows values differently)
-        assert 'Hello World' in text_input_desc or "'Hello World'" in text_input_desc, (
-            f"Text input should contain 'Hello World' but description is: {text_input_desc}"
-        )
+        assert (
+            'Hello World' in text_input_desc or "'Hello World'" in text_input_desc
+        ), f"Text input should contain 'Hello World' but description is: {text_input_desc}"
 
-        assert textarea_bid in updated_axtree_elements, (
-            f'Textarea element {textarea_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
-        )
+        assert (
+            textarea_bid in updated_axtree_elements
+        ), f'Textarea element {textarea_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
         textarea_desc = updated_axtree_elements[textarea_bid]
         assert (
             'This is a test message' in textarea_desc
@@ -484,20 +479,20 @@ fill("{textarea_bid}", "This is a test message")
         logger.info(obs, extra={'msg_type': 'OBSERVATION'})
 
         assert isinstance(obs, BrowserOutputObservation)
-        assert not obs.error, (
-            f'Select option action failed: {obs.last_browser_action_error}'
-        )
+        assert (
+            not obs.error
+        ), f'Select option action failed: {obs.last_browser_action_error}'
 
         # Verify that option2 is now selected
         updated_axtree_elements = parse_axtree_content(obs.content)
-        assert select_bid in updated_axtree_elements, (
-            f'Select element {select_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
-        )
+        assert (
+            select_bid in updated_axtree_elements
+        ), f'Select element {select_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
         select_desc = updated_axtree_elements[select_bid]
         # The selected option should be reflected in the select element description
-        assert 'option2' in select_desc or 'Option 2' in select_desc, (
-            f"Select element should show 'option2' as selected but description is: {select_desc}"
-        )
+        assert (
+            'option2' in select_desc or 'Option 2' in select_desc
+        ), f"Select element should show 'option2' as selected but description is: {select_desc}"
 
         # Test click action with real bid
         action_browse = BrowseInteractiveAction(
@@ -513,9 +508,9 @@ fill("{textarea_bid}", "This is a test message")
         result_found = any(
             'Button clicked!' in desc for desc in updated_axtree_elements.values()
         )
-        assert result_found, (
-            f"Button click should have triggered JavaScript to show 'Button clicked!' but not found in: {dict(list(updated_axtree_elements.items())[:10])}"
-        )
+        assert (
+            result_found
+        ), f"Button click should have triggered JavaScript to show 'Button clicked!' but not found in: {dict(list(updated_axtree_elements.items())[:10])}"
 
         # Test clear action with real bid
         action_browse = BrowseInteractiveAction(
@@ -530,17 +525,15 @@ fill("{textarea_bid}", "This is a test message")
         assert text_input_bid in updated_axtree_elements
         text_input_desc = updated_axtree_elements[text_input_bid]
         # After clearing, the input should not contain the previous text
-        assert 'Hello World' not in text_input_desc, (
-            f'Text input should be cleared but still contains text: {text_input_desc}'
-        )
+        assert (
+            'Hello World' not in text_input_desc
+        ), f'Text input should be cleared but still contains text: {text_input_desc}'
         # Check that it's back to showing placeholder text or is empty
         assert (
             'Enter text' in text_input_desc  # placeholder text
             or 'textbox' in text_input_desc.lower()  # generic textbox description
             or text_input_desc.strip() == ''  # empty description
-        ), (
-            f'Cleared text input should show placeholder or be empty but description is: {text_input_desc}'
-        )
+        ), f'Cleared text input should show placeholder or be empty but description is: {text_input_desc}'
 
         # Clean up
         action_cmd = CmdRunAction(command='pkill -f "python3 -m http.server" || true')
@@ -639,9 +632,9 @@ def test_browser_interactive_actions(
         assert isinstance(obs, BrowserOutputObservation)
         assert not obs.error, f'Scroll action failed: {obs.last_browser_action_error}'
         # Verify the scroll action was recorded correctly
-        assert 'scroll(0, 300)' in obs.last_browser_action, (
-            f'Expected scroll action in browser history but got: {obs.last_browser_action}'
-        )
+        assert (
+            'scroll(0, 300)' in obs.last_browser_action
+        ), f'Expected scroll action in browser history but got: {obs.last_browser_action}'
 
         # Parse the axtree to get actual bid values for interactive elements
         axtree_elements = parse_axtree_content(obs.content)
@@ -651,12 +644,12 @@ def test_browser_interactive_actions(
         focus_input_bid = find_element_by_text(axtree_elements, 'Focus me and type')
 
         # Verify we found the required elements
-        assert hover_div_bid is not None, (
-            f'Could not find hover div element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
-        )
-        assert focus_input_bid is not None, (
-            f'Could not find focus input element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
-        )
+        assert (
+            hover_div_bid is not None
+        ), f'Could not find hover div element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
+        assert (
+            focus_input_bid is not None
+        ), f'Could not find focus input element in axtree. Available elements: {dict(list(axtree_elements.items())[:5])}'
 
         # Test hover action with real bid
         action_browse = BrowseInteractiveAction(
@@ -681,9 +674,9 @@ def test_browser_interactive_actions(
         assert not obs.error, f'Focus action failed: {obs.last_browser_action_error}'
 
         # Verify that the input element is now focused
-        assert obs.focused_element_bid == focus_input_bid, (
-            f'Expected focused element to be {focus_input_bid}, but got {obs.focused_element_bid}'
-        )
+        assert (
+            obs.focused_element_bid == focus_input_bid
+        ), f'Expected focused element to be {focus_input_bid}, but got {obs.focused_element_bid}'
 
         # Test fill action (type in focused input) with real bid
         action_browse = BrowseInteractiveAction(
@@ -699,13 +692,13 @@ def test_browser_interactive_actions(
 
         # Verify that the text was actually entered
         updated_axtree_elements = parse_axtree_content(obs.content)
-        assert focus_input_bid in updated_axtree_elements, (
-            f'Focus input element {focus_input_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
-        )
+        assert (
+            focus_input_bid in updated_axtree_elements
+        ), f'Focus input element {focus_input_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
         input_desc = updated_axtree_elements[focus_input_bid]
-        assert 'TestValue123' in input_desc or "'TestValue123'" in input_desc, (
-            f"Input should contain 'TestValue123' but description is: {input_desc}"
-        )
+        assert (
+            'TestValue123' in input_desc or "'TestValue123'" in input_desc
+        ), f"Input should contain 'TestValue123' but description is: {input_desc}"
 
         # Test press action (for pressing individual keys) with real bid
         action_browse = BrowseInteractiveAction(
@@ -721,13 +714,13 @@ def test_browser_interactive_actions(
 
         # Verify the backspace removed the last character (3 from TestValue123)
         updated_axtree_elements = parse_axtree_content(obs.content)
-        assert focus_input_bid in updated_axtree_elements, (
-            f'Focus input element {focus_input_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
-        )
+        assert (
+            focus_input_bid in updated_axtree_elements
+        ), f'Focus input element {focus_input_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
         input_desc = updated_axtree_elements[focus_input_bid]
-        assert 'TestValue12' in input_desc or "'TestValue12'" in input_desc, (
-            f"Input should contain 'TestValue12' after backspace but description is: {input_desc}"
-        )
+        assert (
+            'TestValue12' in input_desc or "'TestValue12'" in input_desc
+        ), f"Input should contain 'TestValue12' after backspace but description is: {input_desc}"
 
         # Test multiple actions in sequence
         action_browse = BrowseInteractiveAction(
@@ -743,9 +736,9 @@ scroll(0, 400)
         logger.info(obs, extra={'msg_type': 'OBSERVATION'})
 
         assert isinstance(obs, BrowserOutputObservation)
-        assert not obs.error, (
-            f'Multiple actions sequence failed: {obs.last_browser_action_error}'
-        )
+        assert (
+            not obs.error
+        ), f'Multiple actions sequence failed: {obs.last_browser_action_error}'
         # Verify the last action in the sequence was recorded
         assert (
             'scroll(0, 400)' in obs.last_browser_action
@@ -854,9 +847,9 @@ def test_browser_file_upload(temp_dir, runtime_cls, run_as_openhands, dynamic_po
         upload_button_bid = find_element_by_text(axtree_elements, 'Upload File')
 
         # Test upload_file action with real bid
-        assert file_input_bid is not None, (
-            f'Could not find file input element in axtree. Available elements: {dict(list(axtree_elements.items())[:10])}'
-        )
+        assert (
+            file_input_bid is not None
+        ), f'Could not find file input element in axtree. Available elements: {dict(list(axtree_elements.items())[:10])}'
 
         action_browse = BrowseInteractiveAction(
             browser_actions=f'upload_file("{file_input_bid}", "/workspace/upload_test.txt")',
@@ -867,15 +860,15 @@ def test_browser_file_upload(temp_dir, runtime_cls, run_as_openhands, dynamic_po
         logger.info(obs, extra={'msg_type': 'OBSERVATION'})
 
         assert isinstance(obs, BrowserOutputObservation)
-        assert not obs.error, (
-            f'File upload action failed: {obs.last_browser_action_error}'
-        )
+        assert (
+            not obs.error
+        ), f'File upload action failed: {obs.last_browser_action_error}'
 
         # Verify the file input now shows the selected file
         updated_axtree_elements = parse_axtree_content(obs.content)
-        assert file_input_bid in updated_axtree_elements, (
-            f'File input element {file_input_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
-        )
+        assert (
+            file_input_bid in updated_axtree_elements
+        ), f'File input element {file_input_bid} should be present in updated axtree. Available elements: {list(updated_axtree_elements.keys())[:10]}'
         file_input_desc = updated_axtree_elements[file_input_bid]
         # File inputs typically show the filename when a file is selected
         assert (
@@ -895,9 +888,9 @@ def test_browser_file_upload(temp_dir, runtime_cls, run_as_openhands, dynamic_po
             logger.info(obs, extra={'msg_type': 'OBSERVATION'})
 
             assert isinstance(obs, BrowserOutputObservation)
-            assert not obs.error, (
-                f'Upload button click failed: {obs.last_browser_action_error}'
-            )
+            assert (
+                not obs.error
+            ), f'Upload button click failed: {obs.last_browser_action_error}'
 
             # Check if the JavaScript function executed and updated the result div
             final_axtree_elements = parse_axtree_content(obs.content)
@@ -906,9 +899,9 @@ def test_browser_file_upload(temp_dir, runtime_cls, run_as_openhands, dynamic_po
                 'File selected:' in desc or 'upload_test.txt' in desc
                 for desc in final_axtree_elements.values()
             )
-            assert result_found, (
-                f'JavaScript upload handler should have updated the page but no result found in: {dict(list(final_axtree_elements.items())[:10])}'
-            )
+            assert (
+                result_found
+            ), f'JavaScript upload handler should have updated the page but no result found in: {dict(list(final_axtree_elements.items())[:10])}'
 
         # Clean up
         action_cmd = CmdRunAction(command='pkill -f "python3 -m http.server" || true')

@@ -12,42 +12,32 @@ to JiraFactory, keeping the orchestration logic clean and traceable.
 """
 
 import httpx
-from integrations.jira.jira_payload import (
-    JiraPayloadError,
-    JiraPayloadParser,
-    JiraPayloadSkipped,
-    JiraPayloadSuccess,
-    JiraWebhookPayload,
-)
-from integrations.jira.jira_types import (
-    JiraViewInterface,
-    RepositoryNotFoundError,
-    StartingConvoException,
-)
+from integrations.jira.jira_payload import (JiraPayloadError,
+                                            JiraPayloadParser,
+                                            JiraPayloadSkipped,
+                                            JiraPayloadSuccess,
+                                            JiraWebhookPayload)
+from integrations.jira.jira_types import (JiraViewInterface,
+                                          RepositoryNotFoundError,
+                                          StartingConvoException)
 from integrations.jira.jira_view import JiraFactory, JiraNewConversationView
 from integrations.manager import Manager
 from integrations.models import Message
-from integrations.utils import (
-    HOST,
-    HOST_URL,
-    OPENHANDS_RESOLVER_TEMPLATES_DIR,
-    get_oh_labels,
-    get_session_expired_message,
-)
+from integrations.utils import (HOST, HOST_URL,
+                                OPENHANDS_RESOLVER_TEMPLATES_DIR,
+                                get_oh_labels, get_session_expired_message)
 from jinja2 import Environment, FileSystemLoader
 from server.auth.saas_user_auth import get_user_auth_from_keycloak_id
 from server.auth.token_manager import TokenManager
-from server.utils.conversation_callback_utils import register_callback_processor
+from server.utils.conversation_callback_utils import \
+    register_callback_processor
 from storage.jira_integration_store import JiraIntegrationStore
 from storage.jira_user import JiraUser
 from storage.jira_workspace import JiraWorkspace
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.server.types import (
-    LLMAuthenticationError,
-    MissingSettingsError,
-    SessionExpiredError,
-)
+from openhands.server.types import (LLMAuthenticationError,
+                                    MissingSettingsError, SessionExpiredError)
 from openhands.server.user_auth.user_auth import UserAuth
 from openhands.utils.http_session import httpx_verify_option
 
@@ -260,9 +250,8 @@ class JiraManager(Manager[JiraViewInterface]):
     async def start_job(self, view: JiraViewInterface) -> None:
         """Start a Jira job/conversation."""
         # Import here to prevent circular import
-        from server.conversation_callback_processor.jira_callback_processor import (
-            JiraCallbackProcessor,
-        )
+        from server.conversation_callback_processor.jira_callback_processor import \
+            JiraCallbackProcessor
 
         try:
             logger.info(

@@ -10,10 +10,7 @@ import psutil
 import pytest
 
 from openhands.app_server.sandbox.process_sandbox_service import (
-    ProcessInfo,
-    ProcessSandboxService,
-    ProcessSandboxServiceInjector,
-)
+    ProcessInfo, ProcessSandboxService, ProcessSandboxServiceInjector)
 from openhands.app_server.sandbox.sandbox_models import SandboxStatus
 
 

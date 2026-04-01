@@ -1,16 +1,13 @@
-"""
-Tests for Jira DC view classes and factory.
+"""Tests for Jira DC view classes and factory.
 """
 
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from integrations.jira_dc.jira_dc_types import StartingConvoException
-from integrations.jira_dc.jira_dc_view import (
-    JiraDcExistingConversationView,
-    JiraDcFactory,
-    JiraDcNewConversationView,
-)
+from integrations.jira_dc.jira_dc_view import (JiraDcExistingConversationView,
+                                               JiraDcFactory,
+                                               JiraDcNewConversationView)
 
 from openhands.core.schema.agent import AgentState
 

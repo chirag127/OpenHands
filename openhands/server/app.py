@@ -16,10 +16,7 @@ from fastapi.routing import Mount
 with warnings.catch_warnings():
     warnings.simplefilter('ignore')
 
-from fastapi import (
-    FastAPI,
-    Request,
-)
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 import openhands.agenthub  # noqa F401 (we import this to get the agents registered)
@@ -31,9 +28,8 @@ from openhands.server.routes.feedback import app as feedback_api_router
 from openhands.server.routes.files import app as files_api_router
 from openhands.server.routes.git import app as git_api_router
 from openhands.server.routes.health import add_health_endpoints
-from openhands.server.routes.manage_conversations import (
-    app as manage_conversation_api_router,
-)
+from openhands.server.routes.manage_conversations import \
+    app as manage_conversation_api_router
 from openhands.server.routes.mcp import mcp_server
 from openhands.server.routes.public import app as public_api_router
 from openhands.server.routes.secrets import app as secrets_router

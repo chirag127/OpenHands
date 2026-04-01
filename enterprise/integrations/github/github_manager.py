@@ -3,45 +3,32 @@ from types import MappingProxyType
 from github import Auth, Github, GithubIntegration
 from integrations.github.data_collector import GitHubDataCollector
 from integrations.github.github_solvability import summarize_issue_solvability
-from integrations.github.github_view import (
-    GithubFactory,
-    GithubFailingAction,
-    GithubInlinePRComment,
-    GithubIssue,
-    GithubIssueComment,
-    GithubPRComment,
-    GithubViewType,
-)
+from integrations.github.github_view import (GithubFactory,
+                                             GithubFailingAction,
+                                             GithubInlinePRComment,
+                                             GithubIssue, GithubIssueComment,
+                                             GithubPRComment, GithubViewType)
 from integrations.manager import Manager
-from integrations.models import (
-    Message,
-    SourceType,
-)
+from integrations.models import Message, SourceType
 from integrations.types import ResolverViewInterface
-from integrations.utils import (
-    CONVERSATION_URL,
-    ENABLE_SOLVABILITY_ANALYSIS,
-    HOST_URL,
-    OPENHANDS_RESOLVER_TEMPLATES_DIR,
-    get_session_expired_message,
-    get_user_not_found_message,
-)
+from integrations.utils import (CONVERSATION_URL, ENABLE_SOLVABILITY_ANALYSIS,
+                                HOST_URL, OPENHANDS_RESOLVER_TEMPLATES_DIR,
+                                get_session_expired_message,
+                                get_user_not_found_message)
 from integrations.v1_utils import get_saas_user_auth
 from jinja2 import Environment, FileSystemLoader
 from pydantic import SecretStr
 from server.auth.auth_error import ExpiredError
 from server.auth.constants import GITHUB_APP_CLIENT_ID, GITHUB_APP_PRIVATE_KEY
 from server.auth.token_manager import TokenManager
-from server.utils.conversation_callback_utils import register_callback_processor
+from server.utils.conversation_callback_utils import \
+    register_callback_processor
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.provider import ProviderToken, ProviderType
 from openhands.integrations.service_types import AuthenticationError
-from openhands.server.types import (
-    LLMAuthenticationError,
-    MissingSettingsError,
-    SessionExpiredError,
-)
+from openhands.server.types import (LLMAuthenticationError,
+                                    MissingSettingsError, SessionExpiredError)
 from openhands.storage.data_models.secrets import Secrets
 
 
@@ -211,7 +198,9 @@ class GithubManager(Manager[GithubViewType]):
             message
         ) and GithubFailingAction.unqiue_suggestions_header in payload.get(
             'comment', {}
-        ).get('body', ''):
+        ).get(
+            'body', ''
+        ):
             return False
 
         # Check event types before making expensive API calls (e.g., _user_has_write_access_to_repo)
@@ -325,9 +314,8 @@ class GithubManager(Manager[GithubViewType]):
         3. Save interaction data
         """
         # Importing here prevents circular import
-        from server.conversation_callback_processor.github_callback_processor import (
-            GithubCallbackProcessor,
-        )
+        from server.conversation_callback_processor.github_callback_processor import \
+            GithubCallbackProcessor
 
         try:
             msg_info: str = ''

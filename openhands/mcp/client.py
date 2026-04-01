@@ -2,20 +2,15 @@ import asyncio
 from typing import Optional
 
 from fastmcp import Client
-from fastmcp.client.transports import (
-    SSETransport,
-    StdioTransport,
-    StreamableHttpTransport,
-)
+from fastmcp.client.transports import (SSETransport, StdioTransport,
+                                       StreamableHttpTransport)
 from mcp import McpError
 from mcp.types import CallToolResult
 from pydantic import BaseModel, ConfigDict, Field
 
-from openhands.core.config.mcp_config import (
-    MCPSHTTPServerConfig,
-    MCPSSEServerConfig,
-    MCPStdioServerConfig,
-)
+from openhands.core.config.mcp_config import (MCPSHTTPServerConfig,
+                                              MCPSSEServerConfig,
+                                              MCPStdioServerConfig)
 from openhands.core.logger import openhands_logger as logger
 from openhands.mcp.error_collector import mcp_error_collector
 from openhands.mcp.tool import MCPClientTool
@@ -103,9 +98,9 @@ class MCPClient(BaseModel):
             logger.error(error_msg)
             mcp_error_collector.add_error(
                 server_name=server_url,
-                server_type='shttp'
-                if isinstance(server, MCPSHTTPServerConfig)
-                else 'sse',
+                server_type=(
+                    'shttp' if isinstance(server, MCPSHTTPServerConfig) else 'sse'
+                ),
                 error_message=error_msg,
                 exception_details=str(e),
             )
@@ -116,9 +111,9 @@ class MCPClient(BaseModel):
             logger.error(error_msg)
             mcp_error_collector.add_error(
                 server_name=server_url,
-                server_type='shttp'
-                if isinstance(server, MCPSHTTPServerConfig)
-                else 'sse',
+                server_type=(
+                    'shttp' if isinstance(server, MCPSHTTPServerConfig) else 'sse'
+                ),
                 error_message=error_msg,
                 exception_details=str(e),
             )

@@ -9,7 +9,8 @@ from pydantic import BaseModel, SecretStr
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.microagent.microagent import BaseMicroagent
-from openhands.microagent.types import MicroagentContentResponse, MicroagentResponse
+from openhands.microagent.types import (MicroagentContentResponse,
+                                        MicroagentResponse)
 from openhands.server.types import AppMode
 
 

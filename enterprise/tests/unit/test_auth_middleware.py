@@ -4,12 +4,8 @@ import pytest
 from fastapi import Request, Response, status
 from fastapi.responses import JSONResponse
 from pydantic import SecretStr
-from server.auth.auth_error import (
-    AuthError,
-    CookieError,
-    ExpiredError,
-    NoCredentialsError,
-)
+from server.auth.auth_error import (AuthError, CookieError, ExpiredError,
+                                    NoCredentialsError)
 from server.auth.saas_user_auth import SaasUserAuth
 from server.middleware import SetAuthCookieMiddleware
 

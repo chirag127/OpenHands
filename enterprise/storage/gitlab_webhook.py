@@ -1,16 +1,8 @@
 import sys
 from enum import IntEnum
 
-from sqlalchemy import (
-    ARRAY,
-    Boolean,
-    Column,
-    DateTime,
-    Integer,
-    String,
-    Text,
-    text,
-)
+from sqlalchemy import (ARRAY, Boolean, Column, DateTime, Integer, String,
+                        Text, text)
 from storage.base import Base
 
 
@@ -22,8 +14,7 @@ class WebhookStatus(IntEnum):
 
 
 class GitlabWebhook(Base):  # type: ignore
-    """
-    Represents a Gitlab webhook configuration for a repository or group.
+    """Represents a Gitlab webhook configuration for a repository or group.
     """
 
     __tablename__ = 'gitlab_webhook'

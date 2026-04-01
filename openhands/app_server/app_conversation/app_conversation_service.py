@@ -4,18 +4,16 @@ from datetime import datetime
 from typing import AsyncGenerator
 from uuid import UUID
 
+from openhands.sdk.utils.models import DiscriminatedUnionMixin
+from openhands.sdk.workspace.remote.async_remote_workspace import \
+    AsyncRemoteWorkspace
+
 from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversation,
-    AppConversationPage,
-    AppConversationSortOrder,
-    AppConversationStartRequest,
-    AppConversationStartTask,
-    AppConversationUpdateRequest,
-)
+    AppConversation, AppConversationPage, AppConversationSortOrder,
+    AppConversationStartRequest, AppConversationStartTask,
+    AppConversationUpdateRequest)
 from openhands.app_server.sandbox.sandbox_models import SandboxInfo
 from openhands.app_server.services.injector import Injector
-from openhands.sdk.utils.models import DiscriminatedUnionMixin
-from openhands.sdk.workspace.remote.async_remote_workspace import AsyncRemoteWorkspace
 
 
 class AppConversationService(ABC):
@@ -93,9 +91,8 @@ class AppConversationService(ABC):
         → STARTING_CONVERSATION → READY (or ERROR at any point).
         """
         # This is an abstract method - concrete implementations should provide real values
-        from openhands.app_server.app_conversation.app_conversation_models import (
-            AppConversationStartRequest,
-        )
+        from openhands.app_server.app_conversation.app_conversation_models import \
+            AppConversationStartRequest
 
         dummy_request = AppConversationStartRequest()
         yield AppConversationStartTask(

@@ -6,8 +6,10 @@ import pytest
 from pydantic import SecretStr
 
 from openhands.integrations.bitbucket.bitbucket_service import BitBucketService
-from openhands.integrations.service_types import OwnerType, Repository
-from openhands.integrations.service_types import ProviderType as ServiceProviderType
+from openhands.integrations.service_types import OwnerType
+from openhands.integrations.service_types import \
+    ProviderType as ServiceProviderType
+from openhands.integrations.service_types import Repository
 from openhands.server.types import AppMode
 
 

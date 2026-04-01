@@ -6,11 +6,9 @@ from fastapi import Request
 from pydantic import Field
 from server.auth.email_validation import extract_base_email
 from server.auth.token_manager import KeycloakUserInfo, TokenManager
-from server.auth.user.user_authorizer import (
-    UserAuthorizationResponse,
-    UserAuthorizer,
-    UserAuthorizerInjector,
-)
+from server.auth.user.user_authorizer import (UserAuthorizationResponse,
+                                              UserAuthorizer,
+                                              UserAuthorizerInjector)
 from storage.user_authorization import UserAuthorizationType
 from storage.user_authorization_store import UserAuthorizationStore
 

@@ -2,23 +2,10 @@
 
 from dataclasses import dataclass
 
-from server.verified_models.verified_model_models import (
-    VerifiedModel,
-    VerifiedModelPage,
-)
-from sqlalchemy import (
-    Boolean,
-    Column,
-    DateTime,
-    Identity,
-    Integer,
-    String,
-    UniqueConstraint,
-    and_,
-    func,
-    select,
-    text,
-)
+from server.verified_models.verified_model_models import (VerifiedModel,
+                                                          VerifiedModelPage)
+from sqlalchemy import (Boolean, Column, DateTime, Identity, Integer, String,
+                        UniqueConstraint, and_, func, select, text)
 from sqlalchemy.ext.asyncio import AsyncSession
 from storage.base import Base
 

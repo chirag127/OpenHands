@@ -3,25 +3,16 @@ import json
 from enum import Enum
 from typing import Annotated, Tuple
 
-from fastapi import (
-    APIRouter,
-    BackgroundTasks,
-    Header,
-    HTTPException,
-    Request,
-    Response,
-    status,
-)
+from fastapi import (APIRouter, BackgroundTasks, Header, HTTPException,
+                     Request, Response, status)
 from pydantic import BaseModel
 from server.logger import logger
 from server.utils.conversation_callback_utils import (
-    process_event,
-    update_agent_state,
-    update_conversation_metadata,
-    update_conversation_stats,
-)
+    process_event, update_agent_state, update_conversation_metadata,
+    update_conversation_stats)
 from storage.database import session_maker
-from storage.stored_conversation_metadata_saas import StoredConversationMetadataSaas
+from storage.stored_conversation_metadata_saas import \
+    StoredConversationMetadataSaas
 
 from openhands.server.shared import conversation_manager
 

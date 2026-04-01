@@ -3,16 +3,12 @@ from datetime import datetime
 
 from integrations.gitlab.gitlab_manager import GitlabManager
 from integrations.gitlab.gitlab_view import GitlabViewType
-from integrations.utils import (
-    extract_summary_from_conversation_manager,
-    get_summary_instruction,
-)
+from integrations.utils import (extract_summary_from_conversation_manager,
+                                get_summary_instruction)
 from server.auth.token_manager import TokenManager
-from storage.conversation_callback import (
-    CallbackStatus,
-    ConversationCallback,
-    ConversationCallbackProcessor,
-)
+from storage.conversation_callback import (CallbackStatus,
+                                           ConversationCallback,
+                                           ConversationCallbackProcessor)
 from storage.database import a_session_maker
 
 from openhands.core.logger import openhands_logger as logger
@@ -61,8 +57,7 @@ class GitlabCallbackProcessor(ConversationCallbackProcessor):
         callback: ConversationCallback,
         observation: AgentStateChangedObservation,
     ) -> None:
-        """
-        Process a conversation event by sending a summary to GitLab.
+        """Process a conversation event by sending a summary to GitLab.
 
         Args:
             callback: The conversation callback

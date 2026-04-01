@@ -19,13 +19,10 @@ from starlette.datastructures import State
 
 from openhands.app_server.errors import SandboxError
 from openhands.app_server.sandbox.docker_sandbox_spec_service import (
-    DockerSandboxSpecServiceInjector,
-    get_default_sandbox_specs,
-    get_docker_client,
-)
-from openhands.app_server.sandbox.preset_sandbox_spec_service import (
-    PresetSandboxSpecService,
-)
+    DockerSandboxSpecServiceInjector, get_default_sandbox_specs,
+    get_docker_client)
+from openhands.app_server.sandbox.preset_sandbox_spec_service import \
+    PresetSandboxSpecService
 from openhands.app_server.sandbox.sandbox_spec_models import SandboxSpecInfo
 
 

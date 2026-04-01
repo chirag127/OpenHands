@@ -21,20 +21,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from openhands.app_server.errors import SandboxError
 from openhands.app_server.sandbox.remote_sandbox_service import (
-    ALLOW_CORS_ORIGINS_VARIABLE,
-    STATUS_MAPPING,
-    WEBHOOK_CALLBACK_VARIABLE,
-    RemoteSandboxService,
-    StoredRemoteSandbox,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    VSCODE,
-    WORKER_1,
-    WORKER_2,
-    SandboxInfo,
-    SandboxStatus,
-)
+    ALLOW_CORS_ORIGINS_VARIABLE, STATUS_MAPPING, WEBHOOK_CALLBACK_VARIABLE,
+    RemoteSandboxService, StoredRemoteSandbox)
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER, VSCODE,
+                                                         WORKER_1, WORKER_2,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
 from openhands.app_server.sandbox.sandbox_spec_models import SandboxSpecInfo
 from openhands.app_server.user.user_context import UserContext
 
@@ -992,9 +984,8 @@ class TestGetSandboxBySessionApiKey:
         self, remote_sandbox_service
     ):
         """Test finding sandbox by session API key using stored hash."""
-        from openhands.app_server.sandbox.remote_sandbox_service import (
-            _hash_session_api_key,
-        )
+        from openhands.app_server.sandbox.remote_sandbox_service import \
+            _hash_session_api_key
 
         # Setup
         session_api_key = 'test-session-key'
@@ -1055,9 +1046,8 @@ class TestGetSandboxBySessionApiKey:
         self, remote_sandbox_service
     ):
         """Test legacy fallback finding sandbox via /list API and backfilling hash."""
-        from openhands.app_server.sandbox.remote_sandbox_service import (
-            _hash_session_api_key,
-        )
+        from openhands.app_server.sandbox.remote_sandbox_service import \
+            _hash_session_api_key
 
         # Setup
         session_api_key = 'test-session-key'
@@ -1104,9 +1094,8 @@ class TestGetSandboxBySessionApiKey:
         self, remote_sandbox_service
     ):
         """Test legacy fallback checking each sandbox's runtime when /list API fails."""
-        from openhands.app_server.sandbox.remote_sandbox_service import (
-            _hash_session_api_key,
-        )
+        from openhands.app_server.sandbox.remote_sandbox_service import \
+            _hash_session_api_key
 
         # Setup
         session_api_key = 'test-session-key'
@@ -1153,9 +1142,8 @@ class TestGetSandboxBySessionApiKey:
         self, remote_sandbox_service
     ):
         """Test handling runtime error when getting sandbox."""
-        from openhands.app_server.sandbox.remote_sandbox_service import (
-            _hash_session_api_key,
-        )
+        from openhands.app_server.sandbox.remote_sandbox_service import \
+            _hash_session_api_key
 
         # Setup
         session_api_key = 'test-session-key'
@@ -1186,9 +1174,8 @@ class TestUtilityFunctions:
 
     def test_build_service_url_subdomain_mode(self):
         """Test _build_service_url function with subdomain-based routing."""
-        from openhands.app_server.sandbox.remote_sandbox_service import (
-            _build_service_url,
-        )
+        from openhands.app_server.sandbox.remote_sandbox_service import \
+            _build_service_url
 
         # Test HTTPS URL with path (subdomain mode)
         result = _build_service_url(
@@ -1208,9 +1195,8 @@ class TestUtilityFunctions:
 
     def test_build_service_url_path_mode(self):
         """Test _build_service_url function with path-based routing."""
-        from openhands.app_server.sandbox.remote_sandbox_service import (
-            _build_service_url,
-        )
+        from openhands.app_server.sandbox.remote_sandbox_service import \
+            _build_service_url
 
         # Test path-based routing where URL path starts with /{runtime_id}
         result = _build_service_url(
@@ -1232,9 +1218,8 @@ class TestUtilityFunctions:
 
     def test_hash_session_api_key(self):
         """Test _hash_session_api_key function."""
-        from openhands.app_server.sandbox.remote_sandbox_service import (
-            _hash_session_api_key,
-        )
+        from openhands.app_server.sandbox.remote_sandbox_service import \
+            _hash_session_api_key
 
         # Test that same input always produces same hash
         key = 'test-session-api-key'

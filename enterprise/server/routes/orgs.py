@@ -2,49 +2,32 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from server.auth.authorization import (
-    Permission,
-    require_financial_data_access,
-    require_permission,
-)
+from server.auth.authorization import (Permission,
+                                       require_financial_data_access,
+                                       require_permission)
 from server.email_validation import get_admin_user_id
-from server.routes.org_models import (
-    CannotModifySelfError,
-    InsufficientPermissionError,
-    InvalidRoleError,
-    LastOwnerError,
-    LiteLLMIntegrationError,
-    MemberUpdateError,
-    MeResponse,
-    OrgAppSettingsResponse,
-    OrgAppSettingsUpdate,
-    OrgAuthorizationError,
-    OrgCreate,
-    OrgDatabaseError,
-    OrgLLMSettingsResponse,
-    OrgLLMSettingsUpdate,
-    OrgMemberFinancialPage,
-    OrgMemberNotFoundError,
-    OrgMemberPage,
-    OrgMemberResponse,
-    OrgMemberUpdate,
-    OrgNameExistsError,
-    OrgNotFoundError,
-    OrgPage,
-    OrgResponse,
-    OrgUpdate,
-    OrphanedUserError,
-    RoleNotFoundError,
-)
+from server.routes.org_models import (CannotModifySelfError,
+                                      InsufficientPermissionError,
+                                      InvalidRoleError, LastOwnerError,
+                                      LiteLLMIntegrationError,
+                                      MemberUpdateError, MeResponse,
+                                      OrgAppSettingsResponse,
+                                      OrgAppSettingsUpdate,
+                                      OrgAuthorizationError, OrgCreate,
+                                      OrgDatabaseError, OrgLLMSettingsResponse,
+                                      OrgLLMSettingsUpdate,
+                                      OrgMemberFinancialPage,
+                                      OrgMemberNotFoundError, OrgMemberPage,
+                                      OrgMemberResponse, OrgMemberUpdate,
+                                      OrgNameExistsError, OrgNotFoundError,
+                                      OrgPage, OrgResponse, OrgUpdate,
+                                      OrphanedUserError, RoleNotFoundError)
 from server.services.org_app_settings_service import (
-    OrgAppSettingsService,
-    OrgAppSettingsServiceInjector,
-)
+    OrgAppSettingsService, OrgAppSettingsServiceInjector)
 from server.services.org_llm_settings_service import (
-    OrgLLMSettingsService,
-    OrgLLMSettingsServiceInjector,
-)
-from server.services.org_member_financial_service import OrgMemberFinancialService
+    OrgLLMSettingsService, OrgLLMSettingsServiceInjector)
+from server.services.org_member_financial_service import \
+    OrgMemberFinancialService
 from server.services.org_member_service import OrgMemberService
 from storage.org_service import OrgService
 from storage.user_store import UserStore

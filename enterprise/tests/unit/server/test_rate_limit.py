@@ -7,13 +7,9 @@ import limits
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from server.rate_limit import (
-    RateLimiter,
-    RateLimitException,
-    RateLimitResult,
-    _rate_limit_exceeded_handler,
-    setup_rate_limit_handler,
-)
+from server.rate_limit import (RateLimiter, RateLimitException,
+                               RateLimitResult, _rate_limit_exceeded_handler,
+                               setup_rate_limit_handler)
 from starlette.requests import Request
 from starlette.responses import Response
 

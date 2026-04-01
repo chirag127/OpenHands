@@ -6,7 +6,8 @@ import pytest
 from pydantic import SecretStr
 
 from openhands.integrations.gitlab.gitlab_service import GitLabService
-from openhands.integrations.service_types import OwnerType, ProviderType, Repository
+from openhands.integrations.service_types import (OwnerType, ProviderType,
+                                                  Repository)
 from openhands.server.types import AppMode
 
 

@@ -13,27 +13,20 @@ from typing import Any
 from openhands.core.config.mcp_config import MCPConfig
 from openhands.core.logger import openhands_logger as logger
 from openhands.events.action.message import MessageAction
-from openhands.integrations.provider import (
-    CUSTOM_SECRETS_TYPE,
-    PROVIDER_TOKEN_TYPE,
-    ProviderToken,
-)
+from openhands.integrations.provider import (CUSTOM_SECRETS_TYPE,
+                                             PROVIDER_TOKEN_TYPE,
+                                             ProviderToken)
 from openhands.integrations.service_types import ProviderType
 from openhands.server.data_models.agent_loop_info import AgentLoopInfo
-from openhands.server.session.conversation_init_data import ConversationInitData
-from openhands.server.shared import (
-    ConversationStoreImpl,
-    SecretsStoreImpl,
-    SettingsStoreImpl,
-    config,
-    conversation_manager,
-    server_config,
-)
-from openhands.server.types import AppMode, LLMAuthenticationError, MissingSettingsError
+from openhands.server.session.conversation_init_data import \
+    ConversationInitData
+from openhands.server.shared import (ConversationStoreImpl, SecretsStoreImpl,
+                                     SettingsStoreImpl, config,
+                                     conversation_manager, server_config)
+from openhands.server.types import (AppMode, LLMAuthenticationError,
+                                    MissingSettingsError)
 from openhands.storage.data_models.conversation_metadata import (
-    ConversationMetadata,
-    ConversationTrigger,
-)
+    ConversationMetadata, ConversationTrigger)
 from openhands.storage.data_models.secrets import Secrets
 from openhands.utils.conversation_summary import get_default_conversation_title
 

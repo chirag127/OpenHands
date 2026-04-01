@@ -26,63 +26,38 @@ import httpx
 
 from openhands.core.config import OpenHandsConfig, SandboxConfig
 from openhands.core.config.mcp_config import MCPConfig, MCPStdioServerConfig
-from openhands.core.exceptions import (
-    AgentRuntimeDisconnectedError,
-)
+from openhands.core.exceptions import AgentRuntimeDisconnectedError
 from openhands.core.logger import openhands_logger as logger
 from openhands.events import EventSource, EventStream, EventStreamSubscriber
-from openhands.events.action import (
-    Action,
-    ActionConfirmationStatus,
-    AgentThinkAction,
-    BrowseInteractiveAction,
-    BrowseURLAction,
-    CmdRunAction,
-    FileEditAction,
-    FileReadAction,
-    FileWriteAction,
-    IPythonRunCellAction,
-    TaskTrackingAction,
-)
+from openhands.events.action import (Action, ActionConfirmationStatus,
+                                     AgentThinkAction, BrowseInteractiveAction,
+                                     BrowseURLAction, CmdRunAction,
+                                     FileEditAction, FileReadAction,
+                                     FileWriteAction, IPythonRunCellAction,
+                                     TaskTrackingAction)
 from openhands.events.action.mcp import MCPAction
 from openhands.events.event import Event
-from openhands.events.observation import (
-    AgentThinkObservation,
-    CmdOutputObservation,
-    ErrorObservation,
-    FileReadObservation,
-    NullObservation,
-    Observation,
-    TaskTrackingObservation,
-    UserRejectObservation,
-)
+from openhands.events.observation import (AgentThinkObservation,
+                                          CmdOutputObservation,
+                                          ErrorObservation,
+                                          FileReadObservation, NullObservation,
+                                          Observation, TaskTrackingObservation,
+                                          UserRejectObservation)
 from openhands.events.serialization.action import ACTION_TYPE_TO_CLASS
-from openhands.integrations.provider import (
-    PROVIDER_TOKEN_TYPE,
-    ProviderHandler,
-    ProviderType,
-)
+from openhands.integrations.provider import (PROVIDER_TOKEN_TYPE,
+                                             ProviderHandler, ProviderType)
 from openhands.integrations.service_types import AuthenticationError
 from openhands.llm.llm_registry import LLMRegistry
-from openhands.microagent import (
-    BaseMicroagent,
-    load_microagents_from_dir,
-)
-from openhands.runtime.plugins import (
-    JupyterRequirement,
-    PluginRequirement,
-    VSCodeRequirement,
-)
+from openhands.microagent import BaseMicroagent, load_microagents_from_dir
+from openhands.runtime.plugins import (JupyterRequirement, PluginRequirement,
+                                       VSCodeRequirement)
 from openhands.runtime.runtime_status import RuntimeStatus
 from openhands.runtime.utils.edit import FileEditRuntimeMixin
 from openhands.runtime.utils.git_handler import CommandResult, GitHandler
 from openhands.security import SecurityAnalyzer, options
 from openhands.storage.locations import get_conversation_dir
-from openhands.utils.async_utils import (
-    GENERAL_TIMEOUT,
-    call_async_from_sync,
-    call_sync_from_async,
-)
+from openhands.utils.async_utils import (GENERAL_TIMEOUT, call_async_from_sync,
+                                         call_sync_from_async)
 
 DISABLE_VSCODE_PLUGIN = os.getenv('DISABLE_VSCODE_PLUGIN', 'false').lower() == 'true'
 
@@ -255,7 +230,6 @@ class Runtime(FileEditRuntimeMixin):
         self, runtime_status: RuntimeStatus, msg: str = '', level: str = 'info'
     ):
         """Sends a status message if the callback function was provided."""
-
         self.runtime_status = runtime_status
         if self.status_callback:
             self.status_callback(level, runtime_status, msg)
@@ -276,7 +250,6 @@ class Runtime(FileEditRuntimeMixin):
         max_retries: int = CMD_RETRY_MAX_ATTEMPTS,
     ) -> CmdOutputObservation:
         """Run command with exponential backoff retry on bash session timeout."""
-
         if not cmd or not cmd.strip():
             raise ValueError('Command cannot be empty')
         if max_retries < 1:
@@ -1297,8 +1270,7 @@ fi
         return self.git_handler.get_git_diff(file_path)
 
     def get_workspace_branch(self, primary_repo_path: str | None = None) -> str | None:
-        """
-        Get the current branch of the workspace.
+        """Get the current branch of the workspace.
 
         Args:
             primary_repo_path: Path to the primary repository within the workspace.

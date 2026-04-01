@@ -222,9 +222,9 @@ class TestAgentControllerLoopRecovery:
                 )
             )
         ]
-        assert len(loop_recovery_events) == 0, (
-            'No loop recovery events should be added when not stuck'
-        )
+        assert (
+            len(loop_recovery_events) == 0
+        ), 'No loop recovery events should be added when not stuck'
 
     @pytest.mark.asyncio
     async def test_controller_state_transition_after_loop_recovery(
@@ -288,7 +288,8 @@ class TestAgentControllerLoopRecovery:
         """Test that controller correctly truncates history during loop recovery."""
         # Setup mock history with events
         from openhands.events.action import CmdRunAction
-        from openhands.events.observation import CmdOutputObservation, NullObservation
+        from openhands.events.observation import (CmdOutputObservation,
+                                                  NullObservation)
 
         # Create a realistic history with 10 events
         mock_history = []
@@ -357,21 +358,21 @@ class TestAgentControllerLoopRecovery:
 
         # Verify that history was truncated to the recovery point
         # The recovery point is index 5, so we should keep events 0-4 (5 events)
-        assert len(mock_controller.state.history) == 5, (
-            f'Expected 5 events after truncation, got {len(mock_controller.state.history)}'
-        )
+        assert (
+            len(mock_controller.state.history) == 5
+        ), f'Expected 5 events after truncation, got {len(mock_controller.state.history)}'
 
         # Verify the specific events that remain
         expected_ids = [1, 2, 3, 4, 5]
         for i, event in enumerate(mock_controller.state.history):
-            assert event.id == expected_ids[i], (
-                f'Event at index {i} should have id {expected_ids[i]}, got {event.id}'
-            )
+            assert (
+                event.id == expected_ids[i]
+            ), f'Event at index {i} should have id {expected_ids[i]}, got {event.id}'
 
         # Verify end_id was updated
-        assert mock_controller.state.end_id == 5, (
-            f'Expected end_id to be 5, got {mock_controller.state.end_id}'
-        )
+        assert (
+            mock_controller.state.end_id == 5
+        ), f'Expected end_id to be 5, got {mock_controller.state.end_id}'
 
     def test_stuck_detection_config_option_exists(self):
         """Test that the enable_stuck_detection config option exists and defaults to True."""

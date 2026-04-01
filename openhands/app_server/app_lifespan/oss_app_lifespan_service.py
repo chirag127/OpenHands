@@ -6,7 +6,8 @@ from pathlib import Path
 from alembic import command
 from alembic.config import Config
 
-from openhands.app_server.app_lifespan.app_lifespan_service import AppLifespanService
+from openhands.app_server.app_lifespan.app_lifespan_service import \
+    AppLifespanService
 
 
 class OssAppLifespanService(AppLifespanService):

@@ -1,5 +1,4 @@
-"""
-Unit tests for JiraDcManager.
+"""Unit tests for JiraDcManager.
 """
 
 import hashlib
@@ -11,18 +10,13 @@ import pytest
 from fastapi import Request
 from integrations.jira_dc.jira_dc_manager import JiraDcManager
 from integrations.jira_dc.jira_dc_types import JiraDcViewInterface
-from integrations.jira_dc.jira_dc_view import (
-    JiraDcExistingConversationView,
-    JiraDcNewConversationView,
-)
+from integrations.jira_dc.jira_dc_view import (JiraDcExistingConversationView,
+                                               JiraDcNewConversationView)
 from integrations.models import Message, SourceType
 
 from openhands.integrations.service_types import ProviderType, Repository
-from openhands.server.types import (
-    LLMAuthenticationError,
-    MissingSettingsError,
-    SessionExpiredError,
-)
+from openhands.server.types import (LLMAuthenticationError,
+                                    MissingSettingsError, SessionExpiredError)
 
 
 class TestJiraDcManagerInit:

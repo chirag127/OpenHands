@@ -10,10 +10,7 @@ import re
 
 from openhands.controller.action_parser import ActionParser, ResponseParser
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    Action,
-    BrowseInteractiveAction,
-)
+from openhands.events.action import Action, BrowseInteractiveAction
 
 
 class BrowsingResponseParser(ResponseParser):

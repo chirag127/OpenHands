@@ -10,26 +10,17 @@ from openhands.core.config.mcp_config import MCPConfig
 from openhands.core.logger import openhands_logger as logger
 from openhands.events.action.agent import RecallAction
 from openhands.events.event import Event, EventSource
-from openhands.events.observation.agent import (
-    MicroagentKnowledge,
-    RecallObservation,
-)
+from openhands.events.observation.agent import (MicroagentKnowledge,
+                                                RecallObservation)
 from openhands.events.observation.empty import NullObservation
 from openhands.events.recall_type import RecallType
 from openhands.events.stream import EventStream, EventStreamSubscriber
-from openhands.microagent import (
-    BaseMicroagent,
-    KnowledgeMicroagent,
-    RepoMicroagent,
-    load_microagents_from_dir,
-)
+from openhands.microagent import (BaseMicroagent, KnowledgeMicroagent,
+                                  RepoMicroagent, load_microagents_from_dir)
 from openhands.runtime.base import Runtime
 from openhands.runtime.runtime_status import RuntimeStatus
-from openhands.utils.prompt import (
-    ConversationInstructions,
-    RepositoryInfo,
-    RuntimeInfo,
-)
+from openhands.utils.prompt import (ConversationInstructions, RepositoryInfo,
+                                    RuntimeInfo)
 
 GLOBAL_MICROAGENTS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(openhands.__file__)),

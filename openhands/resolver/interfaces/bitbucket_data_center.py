@@ -5,11 +5,8 @@ from urllib.parse import quote
 import httpx
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.resolver.interfaces.issue import (
-    Issue,
-    IssueHandlerInterface,
-    ReviewThread,
-)
+from openhands.resolver.interfaces.issue import (Issue, IssueHandlerInterface,
+                                                 ReviewThread)
 from openhands.resolver.utils import extract_issue_references
 from openhands.utils.async_utils import GENERAL_TIMEOUT, call_async_from_sync
 from openhands.utils.http_session import httpx_verify_option

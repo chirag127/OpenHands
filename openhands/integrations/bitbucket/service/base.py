@@ -6,21 +6,15 @@ from pydantic import SecretStr
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.protocols.http_client import HTTPClient
-from openhands.integrations.service_types import (
-    BaseGitService,
-    OwnerType,
-    ProviderType,
-    Repository,
-    RequestMethod,
-    ResourceNotFoundError,
-    User,
-)
+from openhands.integrations.service_types import (BaseGitService, OwnerType,
+                                                  ProviderType, Repository,
+                                                  RequestMethod,
+                                                  ResourceNotFoundError, User)
 from openhands.utils.http_session import httpx_verify_option
 
 
 class BitBucketMixinBase(BaseGitService, HTTPClient):
-    """
-    Base mixin for BitBucket service containing common functionality
+    """Base mixin for BitBucket service containing common functionality
     """
 
     BASE_URL = 'https://api.bitbucket.org/2.0'

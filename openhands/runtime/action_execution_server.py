@@ -44,44 +44,35 @@ from openhands.core.config.mcp_config import MCPStdioServerConfig
 from openhands.core.exceptions import BrowserUnavailableException
 from openhands.core.logger import get_uvicorn_json_log_config
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    Action,
-    BrowseInteractiveAction,
-    BrowseURLAction,
-    CmdRunAction,
-    FileEditAction,
-    FileReadAction,
-    FileWriteAction,
-    IPythonRunCellAction,
-)
+from openhands.events.action import (Action, BrowseInteractiveAction,
+                                     BrowseURLAction, CmdRunAction,
+                                     FileEditAction, FileReadAction,
+                                     FileWriteAction, IPythonRunCellAction)
 from openhands.events.event import FileEditSource, FileReadSource
-from openhands.events.observation import (
-    CmdOutputObservation,
-    ErrorObservation,
-    FileDownloadObservation,
-    FileEditObservation,
-    FileReadObservation,
-    FileWriteObservation,
-    IPythonRunCellObservation,
-    Observation,
-)
+from openhands.events.observation import (CmdOutputObservation,
+                                          ErrorObservation,
+                                          FileDownloadObservation,
+                                          FileEditObservation,
+                                          FileReadObservation,
+                                          FileWriteObservation,
+                                          IPythonRunCellObservation,
+                                          Observation)
 from openhands.events.serialization import event_from_dict, event_to_dict
 from openhands.runtime.browser import browse
 from openhands.runtime.browser.browser_env import BrowserEnv
 from openhands.runtime.file_viewer_server import start_file_viewer_server
-
 # Import our custom MCP Proxy Manager
 from openhands.runtime.mcp.proxy import MCPProxyManager
-from openhands.runtime.plugins import ALL_PLUGINS, JupyterPlugin, Plugin, VSCodePlugin
+from openhands.runtime.plugins import (ALL_PLUGINS, JupyterPlugin, Plugin,
+                                       VSCodePlugin)
 from openhands.runtime.utils import find_available_tcp_port
 from openhands.runtime.utils.bash import BashSession
 from openhands.runtime.utils.files import insert_lines, read_lines
 from openhands.runtime.utils.memory_monitor import MemoryMonitor
-from openhands.runtime.utils.runtime_init import init_user_and_working_directory
-from openhands.runtime.utils.system_stats import (
-    get_system_stats,
-    update_last_execution_time,
-)
+from openhands.runtime.utils.runtime_init import \
+    init_user_and_working_directory
+from openhands.runtime.utils.system_stats import (get_system_stats,
+                                                  update_last_execution_time)
 from openhands.utils.async_utils import call_sync_from_async, wait_all
 
 if sys.platform == 'win32':

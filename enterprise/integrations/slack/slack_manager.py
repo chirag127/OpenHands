@@ -4,27 +4,20 @@ import jwt
 from integrations.manager import Manager
 from integrations.models import Message, SourceType
 from integrations.slack.slack_errors import SlackError, SlackErrorCode
-from integrations.slack.slack_types import (
-    SlackMessageView,
-    SlackViewInterface,
-    StartingConvoException,
-)
+from integrations.slack.slack_types import (SlackMessageView,
+                                            SlackViewInterface,
+                                            StartingConvoException)
 from integrations.slack.slack_view import (
-    SlackFactory,
-    SlackNewConversationFromRepoFormView,
-    SlackNewConversationView,
-    SlackUpdateExistingConversationView,
-)
-from integrations.utils import (
-    HOST_URL,
-    OPENHANDS_RESOLVER_TEMPLATES_DIR,
-    get_session_expired_message,
-    infer_repo_from_message,
-)
+    SlackFactory, SlackNewConversationFromRepoFormView,
+    SlackNewConversationView, SlackUpdateExistingConversationView)
+from integrations.utils import (HOST_URL, OPENHANDS_RESOLVER_TEMPLATES_DIR,
+                                get_session_expired_message,
+                                infer_repo_from_message)
 from integrations.v1_utils import get_saas_user_auth
 from jinja2 import Environment, FileSystemLoader
 from server.constants import SLACK_CLIENT_ID
-from server.utils.conversation_callback_utils import register_callback_processor
+from server.utils.conversation_callback_utils import \
+    register_callback_processor
 from slack_sdk.oauth import AuthorizeUrlGenerator
 from slack_sdk.web.async_client import AsyncWebClient
 from sqlalchemy import select
@@ -33,17 +26,12 @@ from storage.slack_user import SlackUser
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.provider import ProviderHandler
-from openhands.integrations.service_types import (
-    AuthenticationError,
-    ProviderTimeoutError,
-    Repository,
-)
+from openhands.integrations.service_types import (AuthenticationError,
+                                                  ProviderTimeoutError,
+                                                  Repository)
 from openhands.server.shared import config, server_config, sio
-from openhands.server.types import (
-    LLMAuthenticationError,
-    MissingSettingsError,
-    SessionExpiredError,
-)
+from openhands.server.types import (LLMAuthenticationError,
+                                    MissingSettingsError, SessionExpiredError)
 from openhands.server.user_auth.user_auth import UserAuth
 
 authorize_url_generator = AuthorizeUrlGenerator(
@@ -652,9 +640,8 @@ class SlackManager(Manager[SlackViewInterface]):
 
     async def start_job(self, slack_view: SlackViewInterface) -> None:
         # Importing here prevents circular import
-        from server.conversation_callback_processor.slack_callback_processor import (
-            SlackCallbackProcessor,
-        )
+        from server.conversation_callback_processor.slack_callback_processor import \
+            SlackCallbackProcessor
 
         try:
             msg_info = None

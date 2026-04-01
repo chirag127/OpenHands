@@ -15,15 +15,11 @@ from enum import Enum
 from typing import Any
 
 import openhands
-from openhands.controller.state.control_flags import (
-    BudgetControlFlag,
-    IterationControlFlag,
-)
+from openhands.controller.state.control_flags import (BudgetControlFlag,
+                                                      IterationControlFlag)
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.schema import AgentState
-from openhands.events.action import (
-    MessageAction,
-)
+from openhands.events.action import MessageAction
 from openhands.events.action.agent import AgentFinishAction
 from openhands.events.event import Event, EventSource
 from openhands.llm.metrics import Metrics

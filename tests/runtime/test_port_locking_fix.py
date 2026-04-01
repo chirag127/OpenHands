@@ -3,7 +3,8 @@
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from openhands.runtime.utils.port_lock import PortLock, find_available_port_with_lock
+from openhands.runtime.utils.port_lock import (PortLock,
+                                               find_available_port_with_lock)
 
 
 class TestPortLockingFix:
@@ -43,9 +44,9 @@ class TestPortLockingFix:
         successful_ports = [port for port in results if port is not None]
 
         # Verify no duplicate ports were allocated
-        assert len(successful_ports) == len(set(successful_ports)), (
-            f'Duplicate ports allocated: {successful_ports}'
-        )
+        assert len(successful_ports) == len(
+            set(successful_ports)
+        ), f'Duplicate ports allocated: {successful_ports}'
 
         # Clean up locks
         for lock in port_locks:
@@ -161,9 +162,9 @@ class TestPortLockingFix:
 
         # Verify no duplicate ports
         unique_ports = set(allocated_port_numbers)
-        assert len(allocated_port_numbers) == len(unique_ports), (
-            f'Duplicate ports found: {allocated_port_numbers}'
-        )
+        assert len(allocated_port_numbers) == len(
+            unique_ports
+        ), f'Duplicate ports found: {allocated_port_numbers}'
 
         # Clean up locks
         for lock in port_locks:

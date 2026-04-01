@@ -1,14 +1,13 @@
 from openhands.core.logger import openhands_logger as logger
-from openhands.integrations.bitbucket_data_center.service.base import (
-    BitbucketDCMixinBase,
-)
+from openhands.integrations.bitbucket_data_center.service.base import \
+    BitbucketDCMixinBase
 from openhands.integrations.service_types import ResourceNotFoundError
-from openhands.microagent.types import MicroagentContentResponse, MicroagentResponse
+from openhands.microagent.types import (MicroagentContentResponse,
+                                        MicroagentResponse)
 
 
 class BitbucketDCFeaturesMixin(BitbucketDCMixinBase):
-    """
-    Mixin for BitBucket data center feature operations (microagents, cursor rules, etc.)
+    """Mixin for BitBucket data center feature operations (microagents, cursor rules, etc.)
     """
 
     async def get_microagent_content(

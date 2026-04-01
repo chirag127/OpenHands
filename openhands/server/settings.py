@@ -8,11 +8,7 @@
 # This module belongs to the old V0 web server. The V1 application server lives under openhands/app_server/.
 from __future__ import annotations
 
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    SecretStr,
-)
+from pydantic import BaseModel, ConfigDict, SecretStr
 
 from openhands.core.config.mcp_config import MCPConfig
 from openhands.integrations.provider import CustomSecret, ProviderToken

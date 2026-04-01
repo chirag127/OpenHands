@@ -13,14 +13,8 @@ import shlex
 from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    ValidationError,
-    field_validator,
-    model_validator,
-)
+from pydantic import (BaseModel, ConfigDict, Field, ValidationError,
+                      field_validator, model_validator)
 
 if TYPE_CHECKING:
     from openhands.core.config.openhands_config import OpenHandsConfig

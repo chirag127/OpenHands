@@ -39,9 +39,7 @@ def test_browsergym_eval_env(runtime_cls, temp_dir):
         enable_browser=True,
     )
     from openhands.runtime.browser.browser_env import (
-        BROWSER_EVAL_GET_GOAL_ACTION,
-        BROWSER_EVAL_GET_REWARDS_ACTION,
-    )
+        BROWSER_EVAL_GET_GOAL_ACTION, BROWSER_EVAL_GET_REWARDS_ACTION)
 
     # Test browse
     action = BrowseInteractiveAction(

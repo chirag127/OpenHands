@@ -1,7 +1,5 @@
-from openhands.core.message_utils import (
-    get_token_usage_for_event,
-    get_token_usage_for_event_id,
-)
+from openhands.core.message_utils import (get_token_usage_for_event,
+                                          get_token_usage_for_event_id)
 from openhands.events.event import Event
 from openhands.events.tool import ToolCallMetadata
 from openhands.llm.metrics import Metrics, TokenUsage

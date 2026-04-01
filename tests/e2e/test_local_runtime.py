@@ -55,7 +55,7 @@ def test_headless_mode_with_dummy_agent_no_browser():
         run_proc = subprocess.run(run_cmd, capture_output=True, text=True)
         print('Docker run stdout:', run_proc.stdout)
         print('Docker run stderr:', run_proc.stderr)
-        assert run_proc.returncode == 0, (
-            f'Docker run failed with code {run_proc.returncode}'
-        )
+        assert (
+            run_proc.returncode == 0
+        ), f'Docker run failed with code {run_proc.returncode}'
         assert 'Warning: Observation mismatch' not in run_proc.stdout

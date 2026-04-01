@@ -3,13 +3,10 @@
 from unittest.mock import patch
 
 import pytest
-from integrations.utils import (
-    HOST_URL,
-    append_conversation_footer,
-    get_session_expired_message,
-    get_summary_for_agent_state,
-    get_user_not_found_message,
-)
+from integrations.utils import (HOST_URL, append_conversation_footer,
+                                get_session_expired_message,
+                                get_summary_for_agent_state,
+                                get_user_not_found_message)
 
 from openhands.core.schema.agent import AgentState
 from openhands.events.observation.agent import AgentStateChangedObservation

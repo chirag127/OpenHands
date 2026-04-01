@@ -8,11 +8,9 @@ from uuid import UUID
 import pytest
 
 from openhands.utils import shutdown_listener
-from openhands.utils.shutdown_listener import (
-    add_shutdown_listener,
-    remove_shutdown_listener,
-    should_continue,
-)
+from openhands.utils.shutdown_listener import (add_shutdown_listener,
+                                               remove_shutdown_listener,
+                                               should_continue)
 
 
 @pytest.fixture(autouse=True)

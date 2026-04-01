@@ -5,16 +5,11 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from pydantic import SecretStr
-from server.routes.org_models import (
-    CannotModifySelfError,
-    InvalidRoleError,
-    LastOwnerError,
-    MeResponse,
-    OrgMemberNotFoundError,
-    OrgMemberResponse,
-    OrgMemberUpdate,
-    RoleNotFoundError,
-)
+from server.routes.org_models import (CannotModifySelfError, InvalidRoleError,
+                                      LastOwnerError, MeResponse,
+                                      OrgMemberNotFoundError,
+                                      OrgMemberResponse, OrgMemberUpdate,
+                                      RoleNotFoundError)
 from server.services.org_member_service import OrgMemberService
 from storage.org_member import OrgMember
 from storage.role import Role

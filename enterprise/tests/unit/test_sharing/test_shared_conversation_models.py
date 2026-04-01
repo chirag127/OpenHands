@@ -4,10 +4,7 @@ from datetime import datetime
 from uuid import uuid4
 
 from server.sharing.shared_conversation_models import (
-    SharedConversation,
-    SharedConversationPage,
-    SharedConversationSortOrder,
-)
+    SharedConversation, SharedConversationPage, SharedConversationSortOrder)
 
 
 def test_public_conversation_creation():

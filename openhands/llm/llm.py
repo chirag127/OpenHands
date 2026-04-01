@@ -27,12 +27,8 @@ from litellm import Message as LiteLLMMessage
 from litellm import ModelInfo, PromptTokensDetails
 from litellm import completion as litellm_completion
 from litellm import completion_cost as litellm_completion_cost
-from litellm.exceptions import (
-    APIConnectionError,
-    BadGatewayError,
-    RateLimitError,
-    ServiceUnavailableError,
-)
+from litellm.exceptions import (APIConnectionError, BadGatewayError,
+                                RateLimitError, ServiceUnavailableError)
 from litellm.types.utils import CostPerToken, ModelResponse, Usage
 from litellm.utils import create_pretrained_tokenizer
 
@@ -41,10 +37,8 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.core.message import Message
 from openhands.llm.debug_mixin import DebugMixin
 from openhands.llm.fn_call_converter import (
-    STOP_WORDS,
-    convert_fncall_messages_to_non_fncall_messages,
-    convert_non_fncall_messages_to_fncall_messages,
-)
+    STOP_WORDS, convert_fncall_messages_to_non_fncall_messages,
+    convert_non_fncall_messages_to_fncall_messages)
 from openhands.llm.retry_mixin import RetryMixin
 
 __all__ = ['LLM']
@@ -221,9 +215,9 @@ class LLM(RetryMixin, DebugMixin):
         self._completion = partial(
             litellm_completion,
             model=self.config.model,
-            api_key=self.config.api_key.get_secret_value()
-            if self.config.api_key
-            else None,
+            api_key=(
+                self.config.api_key.get_secret_value() if self.config.api_key else None
+            ),
             base_url=self.config.base_url,
             api_version=self.config.api_version,
             custom_llm_provider=self.config.custom_llm_provider,
@@ -569,7 +563,6 @@ class LLM(RetryMixin, DebugMixin):
         Returns:
             bool: True if model is vision capable. Return False if model not supported by litellm.
         """
-
         # Allow manual override via environment variable
         if os.getenv('OPENHANDS_FORCE_VISION', '').lower() in (
             '1',

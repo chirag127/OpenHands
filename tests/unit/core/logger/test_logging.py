@@ -6,11 +6,8 @@ from unittest.mock import patch
 import pytest
 
 from openhands.core.config import LLMConfig, OpenHandsConfig
-from openhands.core.logger import (
-    LOG_JSON_LEVEL_KEY,
-    OpenHandsLoggerAdapter,
-    json_log_handler,
-)
+from openhands.core.logger import (LOG_JSON_LEVEL_KEY, OpenHandsLoggerAdapter,
+                                   json_log_handler)
 from openhands.core.logger import openhands_logger as openhands_logger
 
 

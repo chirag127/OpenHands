@@ -16,18 +16,14 @@ import openhands.agenthub  # noqa F401 (we import this to get the agents registe
 from openhands.controller import AgentController
 from openhands.controller.agent import Agent
 from openhands.controller.state.state import State
-from openhands.core.config import (
-    OpenHandsConfig,
-)
-from openhands.core.config.config_utils import DEFAULT_WORKSPACE_MOUNT_PATH_IN_SANDBOX
+from openhands.core.config import OpenHandsConfig
+from openhands.core.config.config_utils import \
+    DEFAULT_WORKSPACE_MOUNT_PATH_IN_SANDBOX
 from openhands.core.logger import openhands_logger as logger
 from openhands.events import EventStream
 from openhands.events.event import Event
-from openhands.integrations.provider import (
-    PROVIDER_TOKEN_TYPE,
-    ProviderToken,
-    ProviderType,
-)
+from openhands.integrations.provider import (PROVIDER_TOKEN_TYPE,
+                                             ProviderToken, ProviderType)
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.memory.memory import Memory
 from openhands.microagent.microagent import BaseMicroagent

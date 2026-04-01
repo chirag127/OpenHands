@@ -1,6 +1,5 @@
 from datetime import datetime
 from enum import Enum
-
 # Simplified imports to avoid dependency chain issues
 # from openhands.integrations.service_types import ProviderType
 # from openhands.sdk.llm import MetricsSnapshot
@@ -9,9 +8,8 @@ from enum import Enum
 from typing import Any
 from uuid import uuid4
 
-from pydantic import BaseModel, Field
-
 from openhands.agent_server.utils import OpenHandsUUID, utc_now
+from pydantic import BaseModel, Field
 
 ProviderType = Any
 MetricsSnapshot = Any

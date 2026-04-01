@@ -4,25 +4,21 @@ import jwt
 from fastapi import Request, Response, status
 from fastapi.responses import JSONResponse
 from pydantic import SecretStr
-from server.auth.auth_error import (
-    AuthError,
-    EmailNotVerifiedError,
-    NoCredentialsError,
-    TosNotAcceptedError,
-)
+from server.auth.auth_error import (AuthError, EmailNotVerifiedError,
+                                    NoCredentialsError, TosNotAcceptedError)
 from server.auth.gitlab_sync import schedule_gitlab_repo_sync
 from server.auth.saas_user_auth import SaasUserAuth, token_manager
 from server.routes.auth import set_response_cookie
 from server.utils.url_utils import get_cookie_domain, get_cookie_samesite
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.server.user_auth.user_auth import AuthType, UserAuth, get_user_auth
+from openhands.server.user_auth.user_auth import (AuthType, UserAuth,
+                                                  get_user_auth)
 from openhands.server.utils import config
 
 
 class SetAuthCookieMiddleware:
-    """
-    Update the auth cookie with the current authentication state if it was refreshed before sending response to user.
+    """Update the auth cookie with the current authentication state if it was refreshed before sending response to user.
     Deleting invalid cookies is handled by CookieError using FastAPIs standard error handling mechanism
     """
 

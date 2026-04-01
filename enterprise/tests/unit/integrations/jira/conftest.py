@@ -1,18 +1,12 @@
-"""
-Shared fixtures for Jira integration tests.
+"""Shared fixtures for Jira integration tests.
 """
 
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from integrations.jira.jira_manager import JiraManager
-from integrations.jira.jira_payload import (
-    JiraEventType,
-    JiraWebhookPayload,
-)
-from integrations.jira.jira_view import (
-    JiraNewConversationView,
-)
+from integrations.jira.jira_payload import JiraEventType, JiraWebhookPayload
+from integrations.jira.jira_view import JiraNewConversationView
 from jinja2 import DictLoader, Environment
 from storage.jira_conversation import JiraConversation
 from storage.jira_user import JiraUser

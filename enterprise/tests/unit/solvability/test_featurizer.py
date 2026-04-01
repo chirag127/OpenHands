@@ -1,5 +1,6 @@
 import pytest
-from integrations.solvability.models.featurizer import Feature, FeatureEmbedding
+from integrations.solvability.models.featurizer import (Feature,
+                                                        FeatureEmbedding)
 
 
 def test_feature_to_tool_description_field():

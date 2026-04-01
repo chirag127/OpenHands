@@ -10,61 +10,47 @@ import pytest
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.testclient import TestClient
-
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversation,
-    AppConversationPage,
-)
-from openhands.app_server.app_conversation.app_conversation_router import (
-    read_conversation_file,
-)
-from openhands.app_server.app_conversation.live_status_app_conversation_service import (
-    LiveStatusAppConversationService,
-)
-from openhands.app_server.app_conversation.sql_app_conversation_info_service import (
-    SQLAppConversationInfoService,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    ExposedUrl,
-    SandboxInfo,
-    SandboxStatus,
-)
-from openhands.app_server.sandbox.sandbox_spec_models import SandboxSpecInfo
-from openhands.app_server.user.user_context import UserContext
-from openhands.integrations.service_types import (
-    AuthenticationError,
-    CreateMicroagent,
-    ProviderType,
-    SuggestedTask,
-    TaskType,
-)
-from openhands.runtime.runtime_status import RuntimeStatus
 from openhands.sdk.conversation.state import ConversationExecutionStatus
 from openhands.sdk.workspace.models import FileOperationResult
-from openhands.sdk.workspace.remote.async_remote_workspace import (
-    AsyncRemoteWorkspace,
-)
+from openhands.sdk.workspace.remote.async_remote_workspace import \
+    AsyncRemoteWorkspace
+
+from openhands.app_server.app_conversation.app_conversation_models import (
+    AppConversation, AppConversationPage)
+from openhands.app_server.app_conversation.app_conversation_router import \
+    read_conversation_file
+from openhands.app_server.app_conversation.live_status_app_conversation_service import \
+    LiveStatusAppConversationService
+from openhands.app_server.app_conversation.sql_app_conversation_info_service import \
+    SQLAppConversationInfoService
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER,
+                                                         ExposedUrl,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
+from openhands.app_server.sandbox.sandbox_spec_models import SandboxSpecInfo
+from openhands.app_server.user.user_context import UserContext
+from openhands.integrations.service_types import (AuthenticationError,
+                                                  CreateMicroagent,
+                                                  ProviderType, SuggestedTask,
+                                                  TaskType)
+from openhands.runtime.runtime_status import RuntimeStatus
 from openhands.server.data_models.conversation_info import ConversationInfo
-from openhands.server.data_models.conversation_info_result_set import (
-    ConversationInfoResultSet,
-)
-from openhands.server.routes.manage_conversations import (
-    ConversationResponse,
-    InitSessionRequest,
-    delete_conversation,
-    get_conversation,
-    new_conversation,
-    search_conversations,
-)
-from openhands.server.routes.manage_conversations import app as conversation_app
+from openhands.server.data_models.conversation_info_result_set import \
+    ConversationInfoResultSet
+from openhands.server.routes.manage_conversations import (ConversationResponse,
+                                                          InitSessionRequest)
+from openhands.server.routes.manage_conversations import \
+    app as conversation_app
+from openhands.server.routes.manage_conversations import (delete_conversation,
+                                                          get_conversation,
+                                                          new_conversation,
+                                                          search_conversations)
 from openhands.server.types import LLMAuthenticationError, MissingSettingsError
 from openhands.server.user_auth.user_auth import AuthType
 from openhands.storage.data_models.conversation_metadata import (
-    ConversationMetadata,
-    ConversationTrigger,
-)
-from openhands.storage.data_models.conversation_status import ConversationStatus
+    ConversationMetadata, ConversationTrigger)
+from openhands.storage.data_models.conversation_status import \
+    ConversationStatus
 from openhands.storage.locations import get_conversation_metadata_filename
 from openhands.storage.memory import InMemoryFileStore
 

@@ -1,12 +1,9 @@
 from dataclasses import dataclass
 
 from openhands.app_server.sandbox.sandbox_spec_models import (
-    SandboxSpecInfo,
-    SandboxSpecInfoPage,
-)
-from openhands.app_server.sandbox.sandbox_spec_service import (
-    SandboxSpecService,
-)
+    SandboxSpecInfo, SandboxSpecInfoPage)
+from openhands.app_server.sandbox.sandbox_spec_service import \
+    SandboxSpecService
 
 
 @dataclass

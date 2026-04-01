@@ -5,11 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from uuid import UUID
 
-from server.constants import (
-    LITE_LLM_API_URL,
-    ORG_SETTINGS_VERSION,
-    get_default_litellm_model,
-)
+from server.constants import (LITE_LLM_API_URL, ORG_SETTINGS_VERSION,
+                              get_default_litellm_model)
 from server.routes.org_models import OrgAppSettingsUpdate
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession

@@ -3,16 +3,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import Annotated
 
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    SecretStr,
-    SerializationInfo,
-    field_serializer,
-    field_validator,
-    model_validator,
-)
+from pydantic import (BaseModel, ConfigDict, Field, SecretStr,
+                      SerializationInfo, field_serializer, field_validator,
+                      model_validator)
 
 from openhands.core.config.llm_config import LLMConfig
 from openhands.core.config.mcp_config import MCPConfig

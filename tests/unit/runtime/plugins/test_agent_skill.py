@@ -6,22 +6,10 @@ import docx
 import pytest
 
 from openhands.runtime.plugins.agent_skills.file_ops.file_ops import (
-    WINDOW,
-    _print_window,
-    find_file,
-    goto_line,
-    open_file,
-    scroll_down,
-    scroll_up,
-    search_dir,
-    search_file,
-)
+    WINDOW, _print_window, find_file, goto_line, open_file, scroll_down,
+    scroll_up, search_dir, search_file)
 from openhands.runtime.plugins.agent_skills.file_reader.file_readers import (
-    parse_docx,
-    parse_latex,
-    parse_pdf,
-    parse_pptx,
-)
+    parse_docx, parse_latex, parse_pdf, parse_pptx)
 
 
 # CURRENT_FILE must be reset for each test

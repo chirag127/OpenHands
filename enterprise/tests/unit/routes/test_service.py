@@ -5,12 +5,10 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from fastapi import HTTPException
-from server.routes.service import (
-    CreateUserApiKeyRequest,
-    delete_user_api_key,
-    get_or_create_api_key_for_user,
-    validate_service_api_key,
-)
+from server.routes.service import (CreateUserApiKeyRequest,
+                                   delete_user_api_key,
+                                   get_or_create_api_key_for_user,
+                                   validate_service_api_key)
 
 
 class TestValidateServiceApiKey:

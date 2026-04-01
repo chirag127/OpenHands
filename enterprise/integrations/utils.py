@@ -12,20 +12,17 @@ from storage.org_store import OrgStore
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.schema.agent import AgentState
 from openhands.events import Event, EventSource
-from openhands.events.action import (
-    AgentFinishAction,
-    MessageAction,
-)
+from openhands.events.action import AgentFinishAction, MessageAction
 from openhands.events.event_filter import EventFilter
 from openhands.events.event_store_abc import EventStoreABC
 from openhands.events.observation.agent import AgentStateChangedObservation
 from openhands.integrations.service_types import Repository
-from openhands.storage.data_models.conversation_status import ConversationStatus
+from openhands.storage.data_models.conversation_status import \
+    ConversationStatus
 
 if TYPE_CHECKING:
-    from openhands.server.conversation_manager.conversation_manager import (
-        ConversationManager,
-    )
+    from openhands.server.conversation_manager.conversation_manager import \
+        ConversationManager
 
 # ---- DO NOT REMOVE ----
 # WARNING: Langfuse depends on the WEB_HOST environment variable being set to track events.
@@ -306,8 +303,7 @@ def get_last_user_msg(event_store: EventStoreABC) -> list[MessageAction]:
 def extract_summary_from_event_store(
     event_store: EventStoreABC, conversation_id: str
 ) -> str:
-    """
-    Get agent summary or alternative message depending on current AgentState
+    """Get agent summary or alternative message depending on current AgentState
     """
     conversation_link = CONVERSATION_URL.format(conversation_id)
     summary_instruction = get_summary_instruction()
@@ -389,10 +385,8 @@ async def get_last_user_msg_from_conversation_manager(
 async def extract_summary_from_conversation_manager(
     conversation_manager: ConversationManager, conversation_id: str
 ) -> str:
+    """Get agent summary or alternative message depending on current AgentState
     """
-    Get agent summary or alternative message depending on current AgentState
-    """
-
     event_store = await get_event_store_from_conversation_manager(
         conversation_manager, conversation_id
     )
@@ -401,8 +395,7 @@ async def extract_summary_from_conversation_manager(
 
 
 def append_conversation_footer(message: str, conversation_id: str) -> str:
-    """
-    Append a small footer with the conversation URL to a message.
+    """Append a small footer with the conversation URL to a message.
 
     Args:
         message: The original message content
@@ -417,8 +410,7 @@ def append_conversation_footer(message: str, conversation_id: str) -> str:
 
 
 def infer_repo_from_message(user_msg: str) -> list[str]:
-    """
-    Extract all repository names in the format 'owner/repo' from various Git provider URLs
+    """Extract all repository names in the format 'owner/repo' from various Git provider URLs
     and direct mentions in text. Supports GitHub, GitLab, and BitBucket.
     """
     normalized_msg = re.sub(r'\s+', ' ', user_msg.strip())
@@ -491,10 +483,10 @@ def filter_potential_repos_by_user_msg(
 
 
 def markdown_to_jira_markup(markdown_text: str) -> str:
-    """
-    Convert markdown text to Jira Wiki Markup format.
+    """Convert markdown text to Jira Wiki Markup format.
     This function handles common markdown elements and converts them to their
     Jira Wiki Markup equivalents. It's designed to be exception-safe.
+
     Args:
         markdown_text: The markdown text to convert
     Returns:

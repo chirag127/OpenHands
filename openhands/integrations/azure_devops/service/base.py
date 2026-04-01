@@ -5,10 +5,7 @@ from urllib.parse import quote
 from pydantic import SecretStr
 
 from openhands.integrations.protocols.http_client import HTTPClient
-from openhands.integrations.service_types import (
-    BaseGitService,
-    RequestMethod,
-)
+from openhands.integrations.service_types import BaseGitService, RequestMethod
 
 
 class AzureDevOpsMixinBase(BaseGitService, HTTPClient):

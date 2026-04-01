@@ -1,20 +1,14 @@
 from openhands.core.schema.observation import ObservationType
 from openhands.events.action.files import FileEditSource
-from openhands.events.observation import (
-    CmdOutputMetadata,
-    CmdOutputObservation,
-    FileEditObservation,
-    Observation,
-    RecallObservation,
-)
+from openhands.events.observation import (CmdOutputMetadata,
+                                          CmdOutputObservation,
+                                          FileEditObservation, Observation,
+                                          RecallObservation)
 from openhands.events.observation.agent import MicroagentKnowledge
 from openhands.events.observation.commands import MAX_CMD_OUTPUT_SIZE
 from openhands.events.recall_type import RecallType
-from openhands.events.serialization import (
-    event_from_dict,
-    event_to_dict,
-    event_to_trajectory,
-)
+from openhands.events.serialization import (event_from_dict, event_to_dict,
+                                            event_to_trajectory)
 from openhands.events.serialization.observation import observation_from_dict
 
 
@@ -22,20 +16,20 @@ def serialization_deserialization(
     original_observation_dict, cls, max_message_chars: int = 10000
 ):
     observation_instance = event_from_dict(original_observation_dict)
-    assert isinstance(observation_instance, Observation), (
-        'The observation instance should be an instance of Observation.'
-    )
-    assert isinstance(observation_instance, cls), (
-        f'The observation instance should be an instance of {cls}.'
-    )
+    assert isinstance(
+        observation_instance, Observation
+    ), 'The observation instance should be an instance of Observation.'
+    assert isinstance(
+        observation_instance, cls
+    ), f'The observation instance should be an instance of {cls}.'
     serialized_observation_dict = event_to_dict(observation_instance)
     serialized_observation_trajectory = event_to_trajectory(observation_instance)
-    assert serialized_observation_dict == original_observation_dict, (
-        'The serialized observation should match the original observation dict.'
-    )
-    assert serialized_observation_trajectory == original_observation_dict, (
-        'The serialized observation trajectory should match the original observation dict.'
-    )
+    assert (
+        serialized_observation_dict == original_observation_dict
+    ), 'The serialized observation should match the original observation dict.'
+    assert (
+        serialized_observation_trajectory == original_observation_dict
+    ), 'The serialized observation trajectory should match the original observation dict.'
 
 
 # Additional tests for various observation subclasses can be included here

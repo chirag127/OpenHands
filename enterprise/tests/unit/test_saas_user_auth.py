@@ -6,19 +6,12 @@ import jwt
 import pytest
 from fastapi import Request
 from pydantic import SecretStr
-from server.auth.auth_error import (
-    AuthError,
-    BearerTokenError,
-    CookieError,
-    NoCredentialsError,
-)
-from server.auth.saas_user_auth import (
-    SaasUserAuth,
-    get_api_key_from_header,
-    saas_user_auth_from_bearer,
-    saas_user_auth_from_cookie,
-    saas_user_auth_from_signed_token,
-)
+from server.auth.auth_error import (AuthError, BearerTokenError, CookieError,
+                                    NoCredentialsError)
+from server.auth.saas_user_auth import (SaasUserAuth, get_api_key_from_header,
+                                        saas_user_auth_from_bearer,
+                                        saas_user_auth_from_cookie,
+                                        saas_user_auth_from_signed_token)
 from storage.api_key_store import ApiKeyValidationResult
 from storage.user_authorization import UserAuthorizationType
 
@@ -271,7 +264,7 @@ class TestGetProviderTokensBitbucketDCHost:
 
     @pytest.mark.asyncio
     async def test_host_derived_from_token_url(self):
-        """host is populated from BITBUCKET_DATA_CENTER_HOST when user secrets lack it."""
+        """Host is populated from BITBUCKET_DATA_CENTER_HOST when user secrets lack it."""
         with (
             patch('server.auth.saas_user_auth.token_manager') as mock_tm,
             patch('server.auth.saas_user_auth.a_session_maker') as mock_session_maker,
@@ -325,7 +318,7 @@ class TestGetProviderTokensBitbucketDCHost:
 
     @pytest.mark.asyncio
     async def test_host_remains_none_when_host_empty(self):
-        """host stays None when BITBUCKET_DATA_CENTER_HOST is empty."""
+        """Host stays None when BITBUCKET_DATA_CENTER_HOST is empty."""
         with (
             patch('server.auth.saas_user_auth.token_manager') as mock_tm,
             patch('server.auth.saas_user_auth.a_session_maker') as mock_session_maker,

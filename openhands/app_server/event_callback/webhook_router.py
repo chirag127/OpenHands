@@ -6,27 +6,26 @@ import logging
 import pkgutil
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
+from fastapi import (APIRouter, Depends, HTTPException, Request, Response,
+                     status)
 from fastapi.security import APIKeyHeader
 from jwt import InvalidTokenError
+from openhands.agent_server.models import ConversationInfo, Success
+from openhands.sdk import ConversationExecutionStatus, Event
+from openhands.sdk.event import ConversationStateUpdateEvent
 from pydantic import SecretStr
 
 from openhands import tools  # type: ignore[attr-defined]
-from openhands.agent_server.models import ConversationInfo, Success
-from openhands.app_server.app_conversation.app_conversation_info_service import (
-    AppConversationInfoService,
-)
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-)
-from openhands.app_server.config import (
-    depends_app_conversation_info_service,
-    depends_event_service,
-    depends_jwt_service,
-    get_event_callback_service,
-    get_global_config,
-    get_sandbox_service,
-)
+from openhands.app_server.app_conversation.app_conversation_info_service import \
+    AppConversationInfoService
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversationInfo
+from openhands.app_server.config import (depends_app_conversation_info_service,
+                                         depends_event_service,
+                                         depends_jwt_service,
+                                         get_event_callback_service,
+                                         get_global_config,
+                                         get_sandbox_service)
 from openhands.app_server.errors import AuthError
 from openhands.app_server.event.event_service import EventService
 from openhands.app_server.sandbox.sandbox_models import SandboxInfo
@@ -34,18 +33,12 @@ from openhands.app_server.services.injector import InjectorState
 from openhands.app_server.services.jwt_service import JwtService
 from openhands.app_server.user.auth_user_context import AuthUserContext
 from openhands.app_server.user.specifiy_user_context import (
-    ADMIN,
-    USER_CONTEXT_ATTR,
-    SpecifyUserContext,
-)
+    ADMIN, USER_CONTEXT_ATTR, SpecifyUserContext)
 from openhands.integrations.provider import ProviderType
-from openhands.sdk import ConversationExecutionStatus, Event
-from openhands.sdk.event import ConversationStateUpdateEvent
 from openhands.server.types import AppMode
 from openhands.server.user_auth.default_user_auth import DefaultUserAuth
-from openhands.server.user_auth.user_auth import (
-    get_for_user as get_user_auth_for_user,
-)
+from openhands.server.user_auth.user_auth import \
+    get_for_user as get_user_auth_for_user
 
 router = APIRouter(prefix='/webhooks', tags=['Webhooks'])
 event_service_dependency = depends_event_service()
@@ -62,7 +55,8 @@ async def valid_sandbox(
     ),
 ) -> SandboxInfo:
     """Use a session api key for validation, and get a sandbox. Subsequent actions
-    are executed in the context of the owner of the sandbox"""
+    are executed in the context of the owner of the sandbox
+    """
     if not session_api_key:
         raise HTTPException(
             status.HTTP_401_UNAUTHORIZED, detail='X-Session-API-Key header is required'
@@ -204,7 +198,8 @@ async def get_secret(
 ) -> Response:
     """Given an access token, retrieve a user secret. The access token
     is limited by user and provider type, and may include a timeout, limiting
-    the damage in the event that a token is ever leaked"""
+    the damage in the event that a token is ever leaked
+    """
     try:
         payload = jwt_service.verify_jws_token(access_token)
         user_id = payload['user_id']

@@ -5,14 +5,12 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from server.sharing.shared_event_service import (
-    SharedEventService,
-    SharedEventServiceInjector,
-)
-
 from openhands.agent_server.models import EventPage, EventSortOrder
-from openhands.app_server.event_callback.event_callback_models import EventKind
 from openhands.sdk import Event
+from server.sharing.shared_event_service import (SharedEventService,
+                                                 SharedEventServiceInjector)
+
+from openhands.app_server.event_callback.event_callback_models import EventKind
 from openhands.utils.environment import StorageProvider, get_storage_provider
 
 
@@ -28,22 +26,19 @@ def get_shared_event_service_injector() -> SharedEventServiceInjector:
     provider = get_storage_provider()
 
     if provider == StorageProvider.AWS:
-        from server.sharing.aws_shared_event_service import (
-            AwsSharedEventServiceInjector,
-        )
+        from server.sharing.aws_shared_event_service import \
+            AwsSharedEventServiceInjector
 
         return AwsSharedEventServiceInjector()
     elif provider == StorageProvider.FILESYSTEM:
-        from server.sharing.filesystem_shared_event_service import (
-            FilesystemSharedEventServiceInjector,
-        )
+        from server.sharing.filesystem_shared_event_service import \
+            FilesystemSharedEventServiceInjector
 
         return FilesystemSharedEventServiceInjector()
     else:
         # GCP is the default for shared events (including filesystem fallback)
-        from server.sharing.google_cloud_shared_event_service import (
-            GoogleCloudSharedEventServiceInjector,
-        )
+        from server.sharing.google_cloud_shared_event_service import \
+            GoogleCloudSharedEventServiceInjector
 
         return GoogleCloudSharedEventServiceInjector()
 

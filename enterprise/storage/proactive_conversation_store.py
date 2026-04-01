@@ -4,11 +4,8 @@ from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from typing import Callable
 
-from integrations.github.github_types import (
-    WorkflowRun,
-    WorkflowRunGroup,
-    WorkflowRunStatus,
-)
+from integrations.github.github_types import (WorkflowRun, WorkflowRunGroup,
+                                              WorkflowRunStatus)
 from sqlalchemy import and_, delete, select, update
 from storage.database import a_session_maker
 from storage.proactive_convos import ProactiveConversation
@@ -31,8 +28,7 @@ class ProactiveConversationStore:
         pr_number: int,
         get_all_workflows: Callable,
     ) -> WorkflowRunGroup | None:
-        """
-        1. Get the workflow based on repo_id, pr_number, commit
+        """1. Get the workflow based on repo_id, pr_number, commit
         2. If the field doesn't exist
             - Fetch the workflow statuses and store them
             - Create a new record
@@ -42,7 +38,6 @@ class ProactiveConversationStore:
         This method uses an explicit transaction with row-level locking to ensure
         thread safety when multiple processes access the same database rows.
         """
-
         should_send = False
         provider_repo_id = self.get_repo_id(provider, repo_id)
 
@@ -128,14 +123,12 @@ class ProactiveConversationStore:
         return final_workflow_group
 
     async def clean_old_convos(self, older_than_minutes=30):
-        """
-        Clean up proactive conversation records that are older than the specified time.
+        """Clean up proactive conversation records that are older than the specified time.
 
         Args:
             older_than_minutes: Number of minutes. Records older than this will be deleted.
                                 Defaults to 30 minutes.
         """
-
         # Calculate the cutoff time (current time - older_than_minutes)
         cutoff_time = datetime.now(UTC) - timedelta(minutes=older_than_minutes)
 

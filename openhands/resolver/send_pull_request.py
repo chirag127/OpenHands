@@ -20,15 +20,14 @@ from openhands.integrations.service_types import ProviderType
 from openhands.llm.llm import LLM
 from openhands.resolver.interfaces.azure_devops import AzureDevOpsIssueHandler
 from openhands.resolver.interfaces.bitbucket import BitbucketIssueHandler
-from openhands.resolver.interfaces.bitbucket_data_center import BitbucketDCIssueHandler
+from openhands.resolver.interfaces.bitbucket_data_center import \
+    BitbucketDCIssueHandler
 from openhands.resolver.interfaces.forgejo import ForgejoIssueHandler
 from openhands.resolver.interfaces.github import GithubIssueHandler
 from openhands.resolver.interfaces.gitlab import GitlabIssueHandler
 from openhands.resolver.interfaces.issue import Issue
 from openhands.resolver.interfaces.issue_definitions import ServiceContextIssue
-from openhands.resolver.io_utils import (
-    load_single_resolver_output,
-)
+from openhands.resolver.io_utils import load_single_resolver_output
 from openhands.resolver.patching import apply_diff, parse_patch
 from openhands.resolver.resolver_output import ResolverOutput
 from openhands.resolver.utils import identify_token
@@ -627,15 +626,23 @@ def process_single_issue(
         base_domain = (
             'github.com'
             if platform == ProviderType.GITHUB
-            else 'gitlab.com'
-            if platform == ProviderType.GITLAB
-            else 'dev.azure.com'
-            if platform == ProviderType.AZURE_DEVOPS
-            else 'bitbucket.org'
-            if platform == ProviderType.BITBUCKET
-            else 'bitbucket.example.com'
-            if platform == ProviderType.BITBUCKET_DATA_CENTER
-            else 'github.com'
+            else (
+                'gitlab.com'
+                if platform == ProviderType.GITLAB
+                else (
+                    'dev.azure.com'
+                    if platform == ProviderType.AZURE_DEVOPS
+                    else (
+                        'bitbucket.org'
+                        if platform == ProviderType.BITBUCKET
+                        else (
+                            'bitbucket.example.com'
+                            if platform == ProviderType.BITBUCKET_DATA_CENTER
+                            else 'github.com'
+                        )
+                    )
+                )
+            )
         )
     if not resolver_output.success and not send_on_failure:
         logger.info(

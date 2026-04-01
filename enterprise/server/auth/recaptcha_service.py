@@ -3,13 +3,9 @@ import hmac
 from dataclasses import dataclass
 
 from google.cloud import recaptchaenterprise_v1
-from server.auth.constants import (
-    RECAPTCHA_BLOCK_THRESHOLD,
-    RECAPTCHA_HMAC_SECRET,
-    RECAPTCHA_PROJECT_ID,
-    RECAPTCHA_SITE_KEY,
-    SUSPICIOUS_LABELS,
-)
+from server.auth.constants import (RECAPTCHA_BLOCK_THRESHOLD,
+                                   RECAPTCHA_HMAC_SECRET, RECAPTCHA_PROJECT_ID,
+                                   RECAPTCHA_SITE_KEY, SUSPICIOUS_LABELS)
 
 from openhands.core.logger import openhands_logger as logger
 

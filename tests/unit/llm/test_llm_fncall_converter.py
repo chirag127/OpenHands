@@ -7,17 +7,13 @@ import pytest
 from litellm import ChatCompletionToolParam
 
 from openhands.llm.fn_call_converter import (
-    IN_CONTEXT_LEARNING_EXAMPLE_PREFIX,
-    IN_CONTEXT_LEARNING_EXAMPLE_SUFFIX,
-    TOOL_EXAMPLES,
-    FunctionCallConversionError,
+    IN_CONTEXT_LEARNING_EXAMPLE_PREFIX, IN_CONTEXT_LEARNING_EXAMPLE_SUFFIX,
+    TOOL_EXAMPLES, FunctionCallConversionError,
     convert_fncall_messages_to_non_fncall_messages,
     convert_from_multiple_tool_calls_to_single_tool_call_messages,
     convert_non_fncall_messages_to_fncall_messages,
-    convert_tool_call_to_string,
-    convert_tools_to_description,
-    get_example_for_tools,
-)
+    convert_tool_call_to_string, convert_tools_to_description,
+    get_example_for_tools)
 
 FNCALL_TOOLS: list[ChatCompletionToolParam] = [
     {
@@ -101,9 +97,8 @@ def test_malformed_parameter_parsing_recovery():
 
     This simulates a tool call to str_replace_editor where the 'command' parameter is malformed.
     """
-    from openhands.llm.fn_call_converter import (
-        convert_non_fncall_messages_to_fncall_messages,
-    )
+    from openhands.llm.fn_call_converter import \
+        convert_non_fncall_messages_to_fncall_messages
 
     # Construct an assistant message with malformed parameter tag for 'command'
     assistant_message = {
@@ -145,9 +140,7 @@ def test_malformed_parameter_parsing_recovery():
 def test_convert_tools_to_description():
     formatted_tools = convert_tools_to_description(FNCALL_TOOLS)
     print(formatted_tools)
-    assert (
-        formatted_tools.strip()
-        == """---- BEGIN FUNCTION #1: execute_bash ----
+    assert formatted_tools.strip() == """---- BEGIN FUNCTION #1: execute_bash ----
 Description: Execute a bash command in the terminal.
 * Long running commands: For commands that may run indefinitely, it should be run in the background and the output should be redirected to a file, e.g. command = `python3 app.py > server.log 2>&1 &`.
 * Interactive: If a bash command returns exit code `-1`, this means the process is not yet finished. The assistant must then send a second call to terminal with an empty `command` (which will retrieve any additional logs), or it can send additional text (set `command` to the text) to STDIN of the running process, or it can send command=`ctrl+c` to interrupt the process.
@@ -185,7 +178,6 @@ Allowed values: [`view`, `create`, `str_replace`, `insert`, `undo_edit`]
   (6) insert_line (integer, optional): Required parameter of `insert` command. The `new_str` will be inserted AFTER the line `insert_line` of `path`.
   (7) view_range (array, optional): Optional parameter of `view` command when `path` points to a file. If none is given, the full file is shown. If provided, the file will be shown in the indicated line number range, e.g. [11, 12] will show lines 11 and 12. Indexing at 1 to start. Setting `[start_line, -1]` shows all lines from `start_line` to the end of the file.
 ---- END FUNCTION #3 ----""".strip()
-    )
 
 
 def test_get_example_for_tools_no_tools():

@@ -7,39 +7,24 @@ from server.auth.token_manager import TokenManager
 from storage.user_store import UserStore
 from utils.identity import resolve_display_name
 
-from openhands.integrations.provider import (
-    PROVIDER_TOKEN_TYPE,
-    ProviderHandler,
-)
-from openhands.integrations.service_types import (
-    Branch,
-    PaginatedBranchesResponse,
-    ProviderType,
-    Repository,
-    SuggestedTask,
-    User,
-)
-from openhands.microagent.types import (
-    MicroagentContentResponse,
-    MicroagentResponse,
-)
+from openhands.integrations.provider import (PROVIDER_TOKEN_TYPE,
+                                             ProviderHandler)
+from openhands.integrations.service_types import (Branch,
+                                                  PaginatedBranchesResponse,
+                                                  ProviderType, Repository,
+                                                  SuggestedTask, User)
+from openhands.microagent.types import (MicroagentContentResponse,
+                                        MicroagentResponse)
 from openhands.server.dependencies import get_dependencies
-from openhands.server.routes.git import (
-    get_repository_branches,
-    get_repository_microagent_content,
-    get_repository_microagents,
-    get_suggested_tasks,
-    get_user,
-    get_user_installations,
-    get_user_repositories,
-    search_branches,
-    search_repositories,
-)
-from openhands.server.user_auth import (
-    get_access_token,
-    get_provider_tokens,
-    get_user_id,
-)
+from openhands.server.routes.git import (get_repository_branches,
+                                         get_repository_microagent_content,
+                                         get_repository_microagents,
+                                         get_suggested_tasks, get_user,
+                                         get_user_installations,
+                                         get_user_repositories,
+                                         search_branches, search_repositories)
+from openhands.server.user_auth import (get_access_token, get_provider_tokens,
+                                        get_user_id)
 
 saas_user_router = APIRouter(prefix='/api/user', dependencies=get_dependencies())
 token_manager = TokenManager()

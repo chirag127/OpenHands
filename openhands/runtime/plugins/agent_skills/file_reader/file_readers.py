@@ -34,12 +34,8 @@ from pptx import Presentation
 from pylatexenc.latex2text import LatexNodes2Text
 
 from openhands.runtime.plugins.agent_skills.utils.config import (
-    _get_max_token,
-    _get_openai_api_key,
-    _get_openai_base_url,
-    _get_openai_client,
-    _get_openai_model,
-)
+    _get_max_token, _get_openai_api_key, _get_openai_base_url,
+    _get_openai_client, _get_openai_model)
 
 
 def parse_pdf(file_path: str) -> None:

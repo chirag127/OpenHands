@@ -18,19 +18,15 @@ sys.path.insert(0, str(project_root))
 # Import the Base metadata for autogenerate support
 # Import all models to ensure they are registered with the metadata
 # This is necessary for alembic autogenerate to detect all tables
-from openhands.app_server.app_conversation.sql_app_conversation_info_service import (  # noqa: E402
-    StoredConversationMetadata,  # noqa: F401
-)
-from openhands.app_server.app_conversation.sql_app_conversation_start_task_service import (  # noqa: E402
-    StoredAppConversationStartTask,  # noqa: F401
-)
+from openhands.app_server.app_conversation.sql_app_conversation_info_service import \
+    StoredConversationMetadata  # noqa: E402; noqa: F401
+from openhands.app_server.app_conversation.sql_app_conversation_start_task_service import \
+    StoredAppConversationStartTask  # noqa: E402; noqa: F401
 from openhands.app_server.config import get_global_config  # noqa: E402
-from openhands.app_server.event_callback.sql_event_callback_service import (  # noqa: E402
-    StoredEventCallback,  # noqa: F401
-)
-from openhands.app_server.sandbox.remote_sandbox_service import (  # noqa: E402
-    StoredRemoteSandbox,  # noqa: F401
-)
+from openhands.app_server.event_callback.sql_event_callback_service import \
+    StoredEventCallback  # noqa: E402; noqa: F401
+from openhands.app_server.sandbox.remote_sandbox_service import \
+    StoredRemoteSandbox  # noqa: E402; noqa: F401
 from openhands.app_server.utils.sql_utils import Base  # noqa: E402
 
 # this is the Alembic Config object, which provides

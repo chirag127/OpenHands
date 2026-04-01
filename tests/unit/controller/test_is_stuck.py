@@ -7,17 +7,11 @@ from pytest import TempPathFactory
 from openhands.controller.agent_controller import AgentController
 from openhands.controller.state.state import State
 from openhands.controller.stuck import StuckDetector
-from openhands.events.action import (
-    CmdRunAction,
-    FileReadAction,
-    MessageAction,
-)
+from openhands.events.action import CmdRunAction, FileReadAction, MessageAction
 from openhands.events.action.commands import IPythonRunCellAction
 from openhands.events.event import Event
-from openhands.events.observation import (
-    CmdOutputObservation,
-    FileReadObservation,
-)
+from openhands.events.observation import (CmdOutputObservation,
+                                          FileReadObservation)
 from openhands.events.observation.agent import AgentCondensationObservation
 from openhands.events.observation.commands import IPythonRunCellObservation
 from openhands.events.observation.empty import NullObservation

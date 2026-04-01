@@ -3,18 +3,12 @@ from typing import AsyncGenerator
 from fastapi import Request
 from pydantic import Field
 
-from openhands.app_server.sandbox.preset_sandbox_spec_service import (
-    PresetSandboxSpecService,
-)
-from openhands.app_server.sandbox.sandbox_spec_models import (
-    SandboxSpecInfo,
-)
+from openhands.app_server.sandbox.preset_sandbox_spec_service import \
+    PresetSandboxSpecService
+from openhands.app_server.sandbox.sandbox_spec_models import SandboxSpecInfo
 from openhands.app_server.sandbox.sandbox_spec_service import (
-    SandboxSpecService,
-    SandboxSpecServiceInjector,
-    get_agent_server_env,
-    get_agent_server_image,
-)
+    SandboxSpecService, SandboxSpecServiceInjector, get_agent_server_env,
+    get_agent_server_image)
 from openhands.app_server.services.injector import InjectorState
 
 

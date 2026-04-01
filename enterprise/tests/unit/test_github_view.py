@@ -2,7 +2,8 @@ from unittest import TestCase, mock
 from unittest.mock import MagicMock, patch
 
 import pytest
-from integrations.github.github_view import GithubFactory, GithubIssue, get_oh_labels
+from integrations.github.github_view import (GithubFactory, GithubIssue,
+                                             get_oh_labels)
 from integrations.models import Message, SourceType
 from integrations.types import UserData
 

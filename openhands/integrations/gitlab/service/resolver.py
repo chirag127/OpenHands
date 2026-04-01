@@ -5,8 +5,7 @@ from openhands.integrations.service_types import Comment
 
 
 class GitLabResolverMixin(GitLabMixinBase):
-    """
-    Helper methods used for the GitLab Resolver
+    """Helper methods used for the GitLab Resolver
     """
 
     async def get_review_thread_comments(
@@ -115,16 +114,20 @@ class GitLabResolverMixin(GitLabMixinBase):
                 id=str(comment_data.get('id', 'unknown')),
                 body=self._truncate_comment(comment_data.get('body', '')),
                 author=comment_data.get('author', {}).get('username', 'unknown'),
-                created_at=datetime.fromisoformat(
-                    comment_data.get('created_at', '').replace('Z', '+00:00')
-                )
-                if comment_data.get('created_at')
-                else datetime.fromtimestamp(0),
-                updated_at=datetime.fromisoformat(
-                    comment_data.get('updated_at', '').replace('Z', '+00:00')
-                )
-                if comment_data.get('updated_at')
-                else datetime.fromtimestamp(0),
+                created_at=(
+                    datetime.fromisoformat(
+                        comment_data.get('created_at', '').replace('Z', '+00:00')
+                    )
+                    if comment_data.get('created_at')
+                    else datetime.fromtimestamp(0)
+                ),
+                updated_at=(
+                    datetime.fromisoformat(
+                        comment_data.get('updated_at', '').replace('Z', '+00:00')
+                    )
+                    if comment_data.get('updated_at')
+                    else datetime.fromtimestamp(0)
+                ),
                 system=comment_data.get('system', False),
             )
             all_comments.append(comment)

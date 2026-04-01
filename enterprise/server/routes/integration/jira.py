@@ -8,7 +8,8 @@ from typing import cast
 from urllib.parse import urlencode, urlparse
 
 import requests
-from fastapi import APIRouter, BackgroundTasks, Header, HTTPException, Request, status
+from fastapi import (APIRouter, BackgroundTasks, Header, HTTPException,
+                     Request, status)
 from fastapi.responses import JSONResponse, RedirectResponse
 from integrations.jira.jira_manager import JiraManager
 from integrations.models import Message, SourceType
@@ -127,8 +128,7 @@ redis_client = create_redis_client()
 
 
 async def verify_jira_signature(body: bytes, signature: str, payload: dict):
-    """
-    Verify Jira webhook signature.
+    """Verify Jira webhook signature.
 
     Args:
         body: Raw request body bytes
@@ -141,7 +141,6 @@ async def verify_jira_signature(body: bytes, signature: str, payload: dict):
     Returns:
         None (raises exception on failure)
     """
-
     if not signature:
         raise HTTPException(
             status_code=403, detail='x-hub-signature header is missing!'
@@ -154,9 +153,9 @@ async def verify_jira_signature(body: bytes, signature: str, payload: dict):
             status_code=403, detail='Workspace name not found in payload'
         )
 
-    workspace: (
-        JiraWorkspace | None
-    ) = await jira_manager.integration_store.get_workspace_by_name(workspace_name)
+    workspace: JiraWorkspace | None = (
+        await jira_manager.integration_store.get_workspace_by_name(workspace_name)
+    )
 
     if workspace is None:
         logger.warning(f'[Jira] Could not identify workspace {workspace_name}')

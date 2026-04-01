@@ -3,26 +3,16 @@
 import os
 
 import pytest
-from conftest import (
-    TEST_IN_CI,
-    _close_test_runtime,
-    _load_runtime,
-)
+from conftest import TEST_IN_CI, _close_test_runtime, _load_runtime
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    CmdRunAction,
-    FileReadAction,
-    FileWriteAction,
-    IPythonRunCellAction,
-)
-from openhands.events.observation import (
-    CmdOutputObservation,
-    ErrorObservation,
-    FileReadObservation,
-    FileWriteObservation,
-    IPythonRunCellObservation,
-)
+from openhands.events.action import (CmdRunAction, FileReadAction,
+                                     FileWriteAction, IPythonRunCellAction)
+from openhands.events.observation import (CmdOutputObservation,
+                                          ErrorObservation,
+                                          FileReadObservation,
+                                          FileWriteObservation,
+                                          IPythonRunCellObservation)
 
 # ============================================================================================================================
 # ipython-specific tests
@@ -83,9 +73,9 @@ def test_simple_cmd_ipython_and_fileop(temp_dir, runtime_cls, run_as_openhands):
     action_read = FileReadAction(path='hello.sh')
     logger.info(action_read, extra={'msg_type': 'ACTION'})
     obs = runtime.run_action(action_read)
-    assert isinstance(obs, FileReadObservation), (
-        'The observation should be a FileReadObservation.'
-    )
+    assert isinstance(
+        obs, FileReadObservation
+    ), 'The observation should be a FileReadObservation.'
     logger.info(obs, extra={'msg_type': 'OBSERVATION'})
 
     assert obs.content == 'echo "Hello, World!"\n'

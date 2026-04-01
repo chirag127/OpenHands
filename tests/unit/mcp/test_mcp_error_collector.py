@@ -2,11 +2,8 @@
 
 import time
 
-from openhands.mcp.error_collector import (
-    MCPError,
-    MCPErrorCollector,
-    mcp_error_collector,
-)
+from openhands.mcp.error_collector import (MCPError, MCPErrorCollector,
+                                           mcp_error_collector)
 
 
 class TestMCPError:

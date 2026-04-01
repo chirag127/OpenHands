@@ -3,11 +3,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from openhands.core.config.openhands_config import OpenHandsConfig
 
-from openhands.core.config.mcp_config import (
-    MCPSHTTPServerConfig,
-    MCPStdioServerConfig,
-    OpenHandsMCPConfig,
-)
+from openhands.core.config.mcp_config import (MCPSHTTPServerConfig,
+                                              MCPStdioServerConfig,
+                                              OpenHandsMCPConfig)
 from openhands.core.logger import openhands_logger as logger
 
 
@@ -25,8 +23,7 @@ class SaaSOpenHandsMCPConfig(OpenHandsMCPConfig):
     async def create_default_mcp_server_config(
         host: str, config: 'OpenHandsConfig', user_id: str | None = None
     ) -> tuple[MCPSHTTPServerConfig | None, list[MCPStdioServerConfig]]:
-        """
-        Create a default MCP server configuration.
+        """Create a default MCP server configuration.
 
         Args:
             host: Host string
@@ -49,7 +46,8 @@ class SaaSOpenHandsMCPConfig(OpenHandsMCPConfig):
                 logger.error(f'Could not provision MCP API Key for user: {user_id}')
                 return None, []
 
-            return MCPSHTTPServerConfig(
-                url=f'https://{host}/mcp/mcp', api_key=api_key
-            ), []
+            return (
+                MCPSHTTPServerConfig(url=f'https://{host}/mcp/mcp', api_key=api_key),
+                [],
+            )
         return None, []

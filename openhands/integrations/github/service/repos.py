@@ -2,13 +2,13 @@ from datetime import datetime
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.github.service.base import GitHubMixinBase
-from openhands.integrations.service_types import OwnerType, ProviderType, Repository
+from openhands.integrations.service_types import (OwnerType, ProviderType,
+                                                  Repository)
 from openhands.server.types import AppMode
 
 
 class GitHubReposMixin(GitHubMixinBase):
-    """
-    Methods for interacting with GitHub repositories (from both personal and app installations)
+    """Methods for interacting with GitHub repositories (from both personal and app installations)
     """
 
     async def get_installations(self) -> list[str]:

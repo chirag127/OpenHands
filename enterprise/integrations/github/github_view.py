@@ -3,24 +3,18 @@ from uuid import UUID, uuid4
 
 from github import Auth, Github, GithubIntegration
 from github.Issue import Issue
-from integrations.github.github_types import (
-    WorkflowRun,
-    WorkflowRunGroup,
-    WorkflowRunStatus,
-)
+from integrations.github.github_types import (WorkflowRun, WorkflowRunGroup,
+                                              WorkflowRunStatus)
 from integrations.models import Message
 from integrations.resolver_context import ResolverUserContext
 from integrations.types import ResolverViewInterface, UserData
-from integrations.utils import (
-    ENABLE_PROACTIVE_CONVERSATION_STARTERS,
-    ENABLE_V1_GITHUB_RESOLVER,
-    HOST,
-    HOST_URL,
-    get_oh_labels,
-    get_user_v1_enabled_setting,
-    has_exact_mention,
-)
+from integrations.utils import (ENABLE_PROACTIVE_CONVERSATION_STARTERS,
+                                ENABLE_V1_GITHUB_RESOLVER, HOST, HOST_URL,
+                                get_oh_labels, get_user_v1_enabled_setting,
+                                has_exact_mention)
 from jinja2 import Environment
+from openhands.agent_server.models import SendMessageRequest
+from openhands.sdk import TextContent
 from server.auth.constants import GITHUB_APP_CLIENT_ID, GITHUB_APP_PRIVATE_KEY
 from server.auth.token_manager import TokenManager
 from server.config import get_config
@@ -28,11 +22,8 @@ from storage.org_store import OrgStore
 from storage.proactive_conversation_store import ProactiveConversationStore
 from storage.saas_secrets_store import SaasSecretsStore
 
-from openhands.agent_server.models import SendMessageRequest
 from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationStartRequest,
-    AppConversationStartTaskStatus,
-)
+    AppConversationStartRequest, AppConversationStartTaskStatus)
 from openhands.app_server.config import get_app_conversation_service
 from openhands.app_server.services.injector import InjectorState
 from openhands.app_server.user.specifiy_user_context import USER_CONTEXT_ATTR
@@ -40,16 +31,11 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.github.github_service import GithubServiceImpl
 from openhands.integrations.provider import PROVIDER_TOKEN_TYPE, ProviderType
 from openhands.integrations.service_types import Comment
-from openhands.sdk import TextContent
 from openhands.server.services.conversation_service import (
-    initialize_conversation,
-    start_conversation,
-)
+    initialize_conversation, start_conversation)
 from openhands.server.user_auth.user_auth import UserAuth
 from openhands.storage.data_models.conversation_metadata import (
-    ConversationMetadata,
-    ConversationTrigger,
-)
+    ConversationMetadata, ConversationTrigger)
 from openhands.utils.async_utils import call_sync_from_async
 
 OH_LABEL, INLINE_OH_LABEL = get_oh_labels(HOST)
@@ -241,7 +227,6 @@ class GithubIssue(ResolverViewInterface):
         comments, inline review comments) override this method to control ordering
         (e.g., context first, then the triggering comment, then previous comments).
         """
-
         user_instructions, conversation_instructions = await self._get_instructions(
             jinja_env
         )
@@ -311,9 +296,8 @@ class GithubIssue(ResolverViewInterface):
 
     def _create_github_v1_callback_processor(self):
         """Create a V1 callback processor for GitHub integration."""
-        from integrations.github.github_v1_callback_processor import (
-            GithubV1CallbackProcessor,
-        )
+        from integrations.github.github_v1_callback_processor import \
+            GithubV1CallbackProcessor
 
         # Create and return the GitHub V1 callback processor
         return GithubV1CallbackProcessor(
@@ -463,9 +447,8 @@ class GithubInlinePRComment(GithubPRComment):
 
     def _create_github_v1_callback_processor(self):
         """Create a V1 callback processor for GitHub integration."""
-        from integrations.github.github_v1_callback_processor import (
-            GithubV1CallbackProcessor,
-        )
+        from integrations.github.github_v1_callback_processor import \
+            GithubV1CallbackProcessor
 
         # Create and return the GitHub V1 callback processor
         return GithubV1CallbackProcessor(

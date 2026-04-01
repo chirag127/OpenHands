@@ -1,11 +1,7 @@
 import pytest
 
-from openhands.llm.model_features import (
-    ModelFeatures,
-    get_features,
-    model_matches,
-    normalize_model_name,
-)
+from openhands.llm.model_features import (ModelFeatures, get_features,
+                                          model_matches, normalize_model_name)
 
 
 @pytest.mark.parametrize(

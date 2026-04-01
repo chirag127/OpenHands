@@ -1,5 +1,4 @@
-"""
-E2E: Web browsing catchphrase test (Issue #10378)
+"""E2E: Web browsing catchphrase test (Issue #10378)
 
 Goal: In a new conversation, instruct the agent to browse to all-hands.dev and
 return the page's main catchphrase. We assert that a browsing action/observation
@@ -85,15 +84,13 @@ def _launch_conversation(page: Page) -> None:
     try:
         if launch_button.is_disabled():
             # Force-enable and click via JS as fallback
-            page.evaluate(
-                """
+            page.evaluate("""
                 () => {
                     const btn = document.querySelector('[data-testid="repo-launch-button"]');
                     if (btn) { btn.removeAttribute('disabled'); btn.click(); return true; }
                     return false;
                 }
-                """
-            )
+                """)
         else:
             launch_button.click()
     except Exception:

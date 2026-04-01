@@ -7,13 +7,8 @@ import jwt
 from fastapi import Request
 from keycloak.exceptions import KeycloakError
 from pydantic import SecretStr
-from server.auth.auth_error import (
-    AuthError,
-    BearerTokenError,
-    CookieError,
-    ExpiredError,
-    NoCredentialsError,
-)
+from server.auth.auth_error import (AuthError, BearerTokenError, CookieError,
+                                    ExpiredError, NoCredentialsError)
 from server.auth.constants import BITBUCKET_DATA_CENTER_HOST
 from server.auth.token_manager import TokenManager
 from server.config import get_config
@@ -27,13 +22,11 @@ from storage.saas_secrets_store import SaasSecretsStore
 from storage.saas_settings_store import SaasSettingsStore
 from storage.user_authorization import UserAuthorizationType
 from storage.user_authorization_store import UserAuthorizationStore
-from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_fixed
+from tenacity import (retry, retry_if_exception_type, stop_after_attempt,
+                      wait_fixed)
 
-from openhands.integrations.provider import (
-    PROVIDER_TOKEN_TYPE,
-    ProviderToken,
-    ProviderType,
-)
+from openhands.integrations.provider import (PROVIDER_TOKEN_TYPE,
+                                             ProviderToken, ProviderType)
 from openhands.server.settings import Settings
 from openhands.server.user_auth.user_auth import AuthType, UserAuth
 from openhands.storage.data_models.secrets import Secrets

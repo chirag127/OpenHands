@@ -3,16 +3,12 @@ import asyncio
 from integrations.models import Message, SourceType
 from integrations.slack.slack_manager import SlackManager
 from integrations.slack.slack_view import SlackFactory
-from integrations.utils import (
-    extract_summary_from_conversation_manager,
-    get_last_user_msg_from_conversation_manager,
-    get_summary_instruction,
-)
+from integrations.utils import (extract_summary_from_conversation_manager,
+                                get_last_user_msg_from_conversation_manager,
+                                get_summary_instruction)
 from server.auth.token_manager import TokenManager
-from storage.conversation_callback import (
-    ConversationCallback,
-    ConversationCallbackProcessor,
-)
+from storage.conversation_callback import (ConversationCallback,
+                                           ConversationCallbackProcessor)
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.schema.agent import AgentState
@@ -80,8 +76,7 @@ class SlackCallbackProcessor(ConversationCallbackProcessor):
         callback: ConversationCallback,
         observation: AgentStateChangedObservation,
     ) -> None:
-        """
-        Process a conversation event by sending a summary to Slack.
+        """Process a conversation event by sending a summary to Slack.
 
         Args:
             conversation_id: The ID of the conversation to process

@@ -1,16 +1,15 @@
 from __future__ import annotations
 
-from openhands.core.config.condenser_config import ConversationWindowCondenserConfig
+from openhands.core.config.condenser_config import \
+    ConversationWindowCondenserConfig
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action.agent import (
-    CondensationAction,
-    RecallAction,
-)
+from openhands.events.action.agent import CondensationAction, RecallAction
 from openhands.events.action.message import MessageAction, SystemMessageAction
 from openhands.events.event import EventSource
 from openhands.events.observation import Observation
 from openhands.llm.llm_registry import LLMRegistry
-from openhands.memory.condenser.condenser import Condensation, RollingCondenser, View
+from openhands.memory.condenser.condenser import (Condensation,
+                                                  RollingCondenser, View)
 
 
 class ConversationWindowCondenser(RollingCondenser):

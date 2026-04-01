@@ -3,19 +3,19 @@ from enum import Enum
 from typing import Any, Literal
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, Field
-
 from openhands.agent_server.models import OpenHandsModel, SendMessageRequest
 from openhands.agent_server.utils import OpenHandsUUID, utc_now
-from openhands.app_server.event_callback.event_callback_models import (
-    EventCallbackProcessor,
-)
-from openhands.app_server.sandbox.sandbox_models import SandboxStatus
-from openhands.integrations.service_types import ProviderType, SuggestedTask
 from openhands.sdk.conversation.state import ConversationExecutionStatus
 from openhands.sdk.llm import MetricsSnapshot
 from openhands.sdk.plugin import PluginSource
-from openhands.storage.data_models.conversation_metadata import ConversationTrigger
+from pydantic import BaseModel, Field
+
+from openhands.app_server.event_callback.event_callback_models import \
+    EventCallbackProcessor
+from openhands.app_server.sandbox.sandbox_models import SandboxStatus
+from openhands.integrations.service_types import ProviderType, SuggestedTask
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationTrigger
 from openhands.storage.data_models.settings import SandboxGroupingStrategy
 
 # Re-export SandboxGroupingStrategy for backward compatibility

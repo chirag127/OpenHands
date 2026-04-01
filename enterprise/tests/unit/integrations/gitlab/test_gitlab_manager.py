@@ -1,5 +1,4 @@
-"""
-Tests for GitlabManager V0/V1 conditional job creation flow.
+"""Tests for GitlabManager V0/V1 conditional job creation flow.
 
 Covers:
 - V0 path: register_callback_processor is called
@@ -12,7 +11,8 @@ import pytest
 from integrations.gitlab.gitlab_view import GitlabIssue
 from integrations.types import UserData
 
-from openhands.storage.data_models.conversation_metadata import ConversationMetadata
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationMetadata
 
 
 @pytest.fixture
@@ -254,9 +254,8 @@ class TestGitlabManagerV0V1ConditionalJobCreation:
     ):
         """Test that the GitlabCallbackProcessor receives the correct gitlab_view."""
         from integrations.gitlab.gitlab_manager import GitlabManager
-        from server.conversation_callback_processor.gitlab_callback_processor import (
-            GitlabCallbackProcessor,
-        )
+        from server.conversation_callback_processor.gitlab_callback_processor import \
+            GitlabCallbackProcessor
 
         # Setup mocks
         mock_get_saas_user_auth.return_value = mock_saas_user_auth

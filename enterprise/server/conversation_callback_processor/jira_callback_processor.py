@@ -1,17 +1,13 @@
 import asyncio
 
 from integrations.jira.jira_manager import JiraManager
-from integrations.utils import (
-    extract_summary_from_conversation_manager,
-    get_last_user_msg_from_conversation_manager,
-    get_summary_instruction,
-    markdown_to_jira_markup,
-)
+from integrations.utils import (extract_summary_from_conversation_manager,
+                                get_last_user_msg_from_conversation_manager,
+                                get_summary_instruction,
+                                markdown_to_jira_markup)
 from server.auth.token_manager import TokenManager
-from storage.conversation_callback import (
-    ConversationCallback,
-    ConversationCallbackProcessor,
-)
+from storage.conversation_callback import (ConversationCallback,
+                                           ConversationCallbackProcessor)
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.schema.agent import AgentState
@@ -26,8 +22,7 @@ integration_store = jira_manager.integration_store
 
 
 class JiraCallbackProcessor(ConversationCallbackProcessor):
-    """
-    Processor for sending conversation summaries to Jira.
+    """Processor for sending conversation summaries to Jira.
 
     This processor is used to send summaries of conversations to Jira issues
     when agent state changes occur.
@@ -79,8 +74,7 @@ class JiraCallbackProcessor(ConversationCallbackProcessor):
         callback: ConversationCallback,
         observation: AgentStateChangedObservation,
     ) -> None:
-        """
-        Process a conversation event by sending a summary to Jira.
+        """Process a conversation event by sending a summary to Jira.
 
         Args:
             callback: The conversation callback

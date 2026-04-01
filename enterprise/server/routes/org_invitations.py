@@ -4,19 +4,17 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.responses import RedirectResponse
-from server.routes.org_invitation_models import (
-    AcceptInvitationRequest,
-    AcceptInvitationResponse,
-    BatchInvitationResponse,
-    EmailMismatchError,
-    InsufficientPermissionError,
-    InvitationCreate,
-    InvitationExpiredError,
-    InvitationFailure,
-    InvitationInvalidError,
-    InvitationResponse,
-    UserAlreadyMemberError,
-)
+from server.routes.org_invitation_models import (AcceptInvitationRequest,
+                                                 AcceptInvitationResponse,
+                                                 BatchInvitationResponse,
+                                                 EmailMismatchError,
+                                                 InsufficientPermissionError,
+                                                 InvitationCreate,
+                                                 InvitationExpiredError,
+                                                 InvitationFailure,
+                                                 InvitationInvalidError,
+                                                 InvitationResponse,
+                                                 UserAlreadyMemberError)
 from server.services.org_invitation_service import OrgInvitationService
 from server.utils.rate_limit_utils import check_rate_limit_by_user_id
 from storage.org_store import OrgStore

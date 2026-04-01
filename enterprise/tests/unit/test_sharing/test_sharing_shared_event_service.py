@@ -6,19 +6,16 @@ from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import uuid4
 
 import pytest
-from server.sharing.google_cloud_shared_event_service import (
-    GoogleCloudSharedEventService,
-    GoogleCloudSharedEventServiceInjector,
-)
-from server.sharing.shared_conversation_info_service import (
-    SharedConversationInfoService,
-)
-from server.sharing.shared_conversation_models import SharedConversation
-
 from openhands.agent_server.models import EventPage, EventSortOrder
-from openhands.app_server.event.event_service import EventService
 from openhands.sdk.llm import MetricsSnapshot
 from openhands.sdk.llm.utils.metrics import TokenUsage
+from server.sharing.google_cloud_shared_event_service import (
+    GoogleCloudSharedEventService, GoogleCloudSharedEventServiceInjector)
+from server.sharing.shared_conversation_info_service import \
+    SharedConversationInfoService
+from server.sharing.shared_conversation_models import SharedConversation
+
+from openhands.app_server.event.event_service import EventService
 
 
 @pytest.fixture
@@ -90,7 +87,9 @@ class TestSharedEventService:
         event_id = uuid4()
 
         # Mock the public conversation service to return a public conversation
-        mock_shared_conversation_info_service.get_shared_conversation_info.return_value = sample_public_conversation
+        mock_shared_conversation_info_service.get_shared_conversation_info.return_value = (
+            sample_public_conversation
+        )
 
         # Mock get_event_service to return our mock event service
         shared_event_service.get_event_service = AsyncMock(
@@ -380,7 +379,9 @@ class TestGoogleCloudSharedEventServiceGetEventService:
         conversation_id = sample_public_conversation.id
 
         # Mock the shared conversation info service to return a shared conversation
-        mock_shared_conversation_info_service.get_shared_conversation_info.return_value = sample_public_conversation
+        mock_shared_conversation_info_service.get_shared_conversation_info.return_value = (
+            sample_public_conversation
+        )
 
         # Call the method
         result = await shared_event_service.get_event_service(conversation_id)
@@ -400,7 +401,9 @@ class TestGoogleCloudSharedEventServiceGetEventService:
         conversation_id = uuid4()
 
         # Mock the shared conversation info service to return None
-        mock_shared_conversation_info_service.get_shared_conversation_info.return_value = None
+        mock_shared_conversation_info_service.get_shared_conversation_info.return_value = (
+            None
+        )
 
         # Call the method
         result = await shared_event_service.get_event_service(conversation_id)

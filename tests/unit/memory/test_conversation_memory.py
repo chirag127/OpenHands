@@ -8,31 +8,21 @@ from litellm import ChatCompletionMessageToolCall
 from openhands.controller.state.state import State
 from openhands.core.config.agent_config import AgentConfig
 from openhands.core.message import ImageContent, Message, TextContent
-from openhands.events.action import (
-    AgentFinishAction,
-    CmdRunAction,
-    MessageAction,
-)
+from openhands.events.action import (AgentFinishAction, CmdRunAction,
+                                     MessageAction)
 from openhands.events.action.message import SystemMessageAction
-from openhands.events.event import (
-    Event,
-    EventSource,
-    FileEditSource,
-    FileReadSource,
-)
+from openhands.events.event import (Event, EventSource, FileEditSource,
+                                    FileReadSource)
 from openhands.events.observation import CmdOutputObservation
-from openhands.events.observation.agent import (
-    MicroagentKnowledge,
-    RecallObservation,
-)
+from openhands.events.observation.agent import (MicroagentKnowledge,
+                                                RecallObservation)
 from openhands.events.observation.browse import BrowserOutputObservation
-from openhands.events.observation.commands import (
-    CmdOutputMetadata,
-    IPythonRunCellObservation,
-)
+from openhands.events.observation.commands import (CmdOutputMetadata,
+                                                   IPythonRunCellObservation)
 from openhands.events.observation.delegate import AgentDelegateObservation
 from openhands.events.observation.error import ErrorObservation
-from openhands.events.observation.files import FileEditObservation, FileReadObservation
+from openhands.events.observation.files import (FileEditObservation,
+                                                FileReadObservation)
 from openhands.events.observation.reject import UserRejectObservation
 from openhands.events.recall_type import RecallType
 from openhands.events.tool import ToolCallMetadata

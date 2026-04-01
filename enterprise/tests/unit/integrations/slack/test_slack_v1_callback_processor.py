@@ -12,24 +12,20 @@ from uuid import uuid4
 
 import httpx
 import pytest
-from integrations.slack.slack_v1_callback_processor import (
-    SlackV1CallbackProcessor,
-)
-
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-)
-from openhands.app_server.event_callback.event_callback_models import EventCallback
-from openhands.app_server.event_callback.event_callback_result_models import (
-    EventCallbackResultStatus,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    ExposedUrl,
-    SandboxInfo,
-    SandboxStatus,
-)
-from openhands.events.action.message import MessageAction
+from integrations.slack.slack_v1_callback_processor import \
+    SlackV1CallbackProcessor
 from openhands.sdk.event import ConversationStateUpdateEvent
+
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversationInfo
+from openhands.app_server.event_callback.event_callback_models import \
+    EventCallback
+from openhands.app_server.event_callback.event_callback_result_models import \
+    EventCallbackResultStatus
+from openhands.app_server.sandbox.sandbox_models import (ExposedUrl,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
+from openhands.events.action.message import MessageAction
 
 # ---------------------------------------------------------------------------
 # Fixtures

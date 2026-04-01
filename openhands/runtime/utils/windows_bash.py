@@ -23,10 +23,8 @@ import pythonnet
 from openhands.core.logger import openhands_logger as logger
 from openhands.events.action import CmdRunAction
 from openhands.events.observation import ErrorObservation
-from openhands.events.observation.commands import (
-    CmdOutputMetadata,
-    CmdOutputObservation,
-)
+from openhands.events.observation.commands import (CmdOutputMetadata,
+                                                   CmdOutputObservation)
 from openhands.runtime.utils.bash_constants import TIMEOUT_MESSAGE_TEMPLATE
 from openhands.runtime.utils.windows_exceptions import DotNetMissingError
 from openhands.utils.shutdown_listener import should_continue
@@ -61,8 +59,7 @@ def find_latest_pwsh_sdk_path(
     min_version=(7, 0, 0),
     env_var='PWSH_DIR',
 ):
-    """
-    Checks PWSH_DIR environment variable first to find pwsh and DLL.
+    """Checks PWSH_DIR environment variable first to find pwsh and DLL.
     If not found or not suitable, scans all pwsh executables in PATH, runs --version to find latest >= min_version.
     Returns full DLL path if found, else None.
     """
@@ -172,10 +169,8 @@ try:
 
     from System.Management.Automation import JobState, PowerShell
     from System.Management.Automation.Language import Parser
-    from System.Management.Automation.Runspaces import (
-        RunspaceFactory,
-        RunspaceState,
-    )
+    from System.Management.Automation.Runspaces import (RunspaceFactory,
+                                                        RunspaceState)
 except Exception as e:
     error_msg = 'Failed to load PowerShell SDK components.'
     details = f'{str(e)} (Path searched: {ps_sdk_path})'
@@ -228,9 +223,9 @@ class WindowsPowershellSession:
         self.active_job = None
         self._job_lock = RLock()
         self._last_job_output = ''  # Stores cumulative output returned in the last observation for the active job
-        self._last_job_error: list[
-            str
-        ] = []  # Stores cumulative errors returned in the last observation for the active job
+        self._last_job_error: list[str] = (
+            []
+        )  # Stores cumulative errors returned in the last observation for the active job
 
         # Create and open the persistent runspace
         try:
@@ -1043,10 +1038,8 @@ class WindowsPowershellSession:
         if statements and statements.Count == 1:
             statement = statements[0]
             try:
-                from System.Management.Automation.Language import (
-                    CommandAst,
-                    PipelineAst,
-                )
+                from System.Management.Automation.Language import (CommandAst,
+                                                                   PipelineAst)
 
                 # Check PipelineAst
                 if isinstance(statement, PipelineAst):
@@ -1257,7 +1250,9 @@ class WindowsPowershellSession:
         latest_cumulative_output = (
             ''  # Tracks the absolute latest cumulative output seen in this loop
         )
-        latest_cumulative_errors = []  # Tracks the absolute latest cumulative errors seen in this loop
+        latest_cumulative_errors = (
+            []
+        )  # Tracks the absolute latest cumulative errors seen in this loop
 
         while not monitoring_loop_finished:
             if not should_continue():

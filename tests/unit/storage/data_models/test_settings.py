@@ -124,6 +124,6 @@ def test_settings_no_pydantic_frozen_field_warning():
             warning for warning in w if 'frozen' in str(warning.message).lower()
         ]
 
-        assert len(frozen_warnings) == 0, (
-            f'Pydantic frozen field warnings found: {[str(w.message) for w in frozen_warnings]}'
-        )
+        assert (
+            len(frozen_warnings) == 0
+        ), f'Pydantic frozen field warnings found: {[str(w.message) for w in frozen_warnings]}'

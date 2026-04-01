@@ -13,10 +13,7 @@ from litellm import acompletion as litellm_acompletion
 
 from openhands.core.exceptions import UserCancelledError
 from openhands.core.logger import openhands_logger as logger
-from openhands.llm.llm import (
-    LLM,
-    LLM_RETRY_EXCEPTIONS,
-)
+from openhands.llm.llm import LLM, LLM_RETRY_EXCEPTIONS
 from openhands.llm.model_features import get_features
 from openhands.utils.shutdown_listener import should_continue
 
@@ -30,9 +27,9 @@ class AsyncLLM(LLM):
         self._async_completion = partial(
             self._call_acompletion,
             model=self.config.model,
-            api_key=self.config.api_key.get_secret_value()
-            if self.config.api_key
-            else None,
+            api_key=(
+                self.config.api_key.get_secret_value() if self.config.api_key else None
+            ),
             base_url=self.config.base_url,
             api_version=self.config.api_version,
             custom_llm_provider=self.config.custom_llm_provider,

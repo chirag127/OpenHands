@@ -1,15 +1,12 @@
-"""
-Shared fixtures for Linear integration tests.
+"""Shared fixtures for Linear integration tests.
 """
 
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from integrations.linear.linear_manager import LinearManager
-from integrations.linear.linear_view import (
-    LinearExistingConversationView,
-    LinearNewConversationView,
-)
+from integrations.linear.linear_view import (LinearExistingConversationView,
+                                             LinearNewConversationView)
 from integrations.models import JobContext
 from jinja2 import DictLoader, Environment
 from storage.linear_conversation import LinearConversation

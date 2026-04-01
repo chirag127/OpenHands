@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from openhands.integrations.forgejo.service.base import ForgejoMixinBase
-from openhands.integrations.service_types import Branch, PaginatedBranchesResponse
+from openhands.integrations.service_types import (Branch,
+                                                  PaginatedBranchesResponse)
 
 
 class ForgejoBranchesMixin(ForgejoMixinBase):

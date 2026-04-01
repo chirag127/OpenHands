@@ -1,8 +1,5 @@
-from integrations.utils import (
-    has_exact_mention,
-    infer_repo_from_message,
-    markdown_to_jira_markup,
-)
+from integrations.utils import (has_exact_mention, infer_repo_from_message,
+                                markdown_to_jira_markup)
 
 
 def test_has_exact_mention():

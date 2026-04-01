@@ -15,26 +15,21 @@ from typing import AsyncGenerator
 from uuid import UUID
 
 from fastapi import Request
-from server.sharing.shared_conversation_info_service import (
-    SharedConversationInfoService,
-    SharedConversationInfoServiceInjector,
-)
-from server.sharing.shared_conversation_models import (
-    SharedConversation,
-    SharedConversationPage,
-    SharedConversationSortOrder,
-)
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
-from storage.stored_conversation_metadata_saas import StoredConversationMetadataSaas
-
-from openhands.app_server.app_conversation.sql_app_conversation_info_service import (
-    StoredConversationMetadata,
-)
-from openhands.app_server.services.injector import InjectorState
-from openhands.integrations.provider import ProviderType
 from openhands.sdk.llm import MetricsSnapshot
 from openhands.sdk.llm.utils.metrics import TokenUsage
+from server.sharing.shared_conversation_info_service import (
+    SharedConversationInfoService, SharedConversationInfoServiceInjector)
+from server.sharing.shared_conversation_models import (
+    SharedConversation, SharedConversationPage, SharedConversationSortOrder)
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+from storage.stored_conversation_metadata_saas import \
+    StoredConversationMetadataSaas
+
+from openhands.app_server.app_conversation.sql_app_conversation_info_service import \
+    StoredConversationMetadata
+from openhands.app_server.services.injector import InjectorState
+from openhands.integrations.provider import ProviderType
 
 logger = logging.getLogger(__name__)
 
@@ -302,7 +297,8 @@ class SQLSharedConversationInfoService(SharedConversationInfoService):
 
     def _fix_timezone(self, value: datetime) -> datetime:
         """Sqlite does not store timezones - and since we can't update the existing models
-        we assume UTC if the timezone is missing."""
+        we assume UTC if the timezone is missing.
+        """
         if not value.tzinfo:
             value = value.replace(tzinfo=UTC)
         return value

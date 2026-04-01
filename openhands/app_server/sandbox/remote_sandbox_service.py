@@ -10,46 +10,38 @@ from uuid import UUID
 import base62
 import httpx
 from fastapi import Request
+from openhands.agent_server.models import ConversationInfo, EventPage
+from openhands.agent_server.utils import utc_now
+from openhands.sdk.utils.paging import page_iterator
 from pydantic import Field
 from sqlalchemy import Column, String, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from openhands.agent_server.models import ConversationInfo, EventPage
-from openhands.agent_server.utils import utc_now
-from openhands.app_server.app_conversation.app_conversation_info_service import (
-    AppConversationInfoService,
-)
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-)
+from openhands.app_server.app_conversation.app_conversation_info_service import \
+    AppConversationInfoService
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversationInfo
 from openhands.app_server.errors import SandboxError
 from openhands.app_server.event.event_service import EventService
-from openhands.app_server.event_callback.event_callback_service import (
-    EventCallbackService,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    VSCODE,
-    WORKER_1,
-    WORKER_2,
-    ExposedUrl,
-    SandboxInfo,
-    SandboxPage,
-    SandboxStatus,
-)
+from openhands.app_server.event_callback.event_callback_service import \
+    EventCallbackService
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER, VSCODE,
+                                                         WORKER_1, WORKER_2,
+                                                         ExposedUrl,
+                                                         SandboxInfo,
+                                                         SandboxPage,
+                                                         SandboxStatus)
 from openhands.app_server.sandbox.sandbox_service import (
-    ALLOW_CORS_ORIGINS_VARIABLE,
-    WEBHOOK_CALLBACK_VARIABLE,
-    SandboxService,
-    SandboxServiceInjector,
-)
+    ALLOW_CORS_ORIGINS_VARIABLE, WEBHOOK_CALLBACK_VARIABLE, SandboxService,
+    SandboxServiceInjector)
 from openhands.app_server.sandbox.sandbox_spec_models import SandboxSpecInfo
-from openhands.app_server.sandbox.sandbox_spec_service import SandboxSpecService
+from openhands.app_server.sandbox.sandbox_spec_service import \
+    SandboxSpecService
 from openhands.app_server.services.injector import InjectorState
-from openhands.app_server.user.specifiy_user_context import ADMIN, USER_CONTEXT_ATTR
+from openhands.app_server.user.specifiy_user_context import (ADMIN,
+                                                             USER_CONTEXT_ATTR)
 from openhands.app_server.user.user_context import UserContext
 from openhands.app_server.utils.sql_utils import Base, UtcDateTime
-from openhands.sdk.utils.paging import page_iterator
 
 _logger = logging.getLogger(__name__)
 polling_task: asyncio.Task | None = None
@@ -77,7 +69,8 @@ class StoredRemoteSandbox(Base):  # type: ignore
     The remote runtime API does not return some variables we need, and does not
     return stopped runtimes in list operations, so we need a local copy. We use
     the remote api as a source of truth on what is currently running, not what was
-    run historicallly."""
+    run historicallly.
+    """
 
     __tablename__ = 'v1_remote_sandbox'
     id = Column(String, primary_key=True)
@@ -669,13 +662,12 @@ async def poll_agent_servers(api_url: str, api_key: str, sleep_interval: int):
     """When the app server does not have a public facing url, we poll the agent
     servers for the most recent data.
 
-    This is because webhook callbacks cannot be invoked."""
-    from openhands.app_server.config import (
-        get_app_conversation_info_service,
-        get_event_callback_service,
-        get_event_service,
-        get_httpx_client,
-    )
+    This is because webhook callbacks cannot be invoked.
+    """
+    from openhands.app_server.config import (get_app_conversation_info_service,
+                                             get_event_callback_service,
+                                             get_event_service,
+                                             get_httpx_client)
 
     while True:
         try:
@@ -753,7 +745,8 @@ async def refresh_conversation(
     """Refresh a conversation.
 
     Grab ConversationInfo and all events from the agent server and make sure they
-    exist in the app server."""
+    exist in the app server.
+    """
     _logger.debug(f'Started Refreshing Conversation {app_conversation_info.id}')
     try:
         url = runtime['url']
@@ -858,13 +851,11 @@ class RemoteSandboxServiceInjector(SandboxServiceInjector):
         self, state: InjectorState, request: Request | None = None
     ) -> AsyncGenerator[SandboxService, None]:
         # Define inline to prevent circular lookup
-        from openhands.app_server.config import (
-            get_db_session,
-            get_global_config,
-            get_httpx_client,
-            get_sandbox_spec_service,
-            get_user_context,
-        )
+        from openhands.app_server.config import (get_db_session,
+                                                 get_global_config,
+                                                 get_httpx_client,
+                                                 get_sandbox_spec_service,
+                                                 get_user_context)
 
         # If no public facing web url is defined, poll for changes as callbacks will be unavailable.
         # This is primarily used for local development rather than production

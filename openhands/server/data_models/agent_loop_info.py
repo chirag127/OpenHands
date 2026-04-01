@@ -10,7 +10,8 @@ from dataclasses import dataclass, field
 
 from openhands.events.event_store_abc import EventStoreABC
 from openhands.runtime.runtime_status import RuntimeStatus
-from openhands.storage.data_models.conversation_status import ConversationStatus
+from openhands.storage.data_models.conversation_status import \
+    ConversationStatus
 
 
 @dataclass

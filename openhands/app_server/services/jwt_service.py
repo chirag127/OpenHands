@@ -8,14 +8,12 @@ import jwt
 from fastapi import Request
 from jwcrypto import jwe as jwcrypto_jwe
 from jwcrypto import jwk
+from openhands.agent_server.utils import utc_now
 from pydantic import BaseModel, PrivateAttr
 
-from openhands.agent_server.utils import utc_now
 from openhands.app_server.services.injector import Injector, InjectorState
 from openhands.app_server.utils.encryption_key import (
-    EncryptionKey,
-    get_default_encryption_keys,
-)
+    EncryptionKey, get_default_encryption_keys)
 
 
 class JwtService:

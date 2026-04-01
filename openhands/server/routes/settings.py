@@ -12,22 +12,14 @@ from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.integrations.provider import (
-    PROVIDER_TOKEN_TYPE,
-    ProviderType,
-)
+from openhands.integrations.provider import PROVIDER_TOKEN_TYPE, ProviderType
 from openhands.server.dependencies import get_dependencies
 from openhands.server.routes.secrets import invalidate_legacy_secrets_store
-from openhands.server.settings import (
-    GETSettingsModel,
-)
+from openhands.server.settings import GETSettingsModel
 from openhands.server.shared import config
-from openhands.server.user_auth import (
-    get_provider_tokens,
-    get_secrets_store,
-    get_user_settings,
-    get_user_settings_store,
-)
+from openhands.server.user_auth import (get_provider_tokens, get_secrets_store,
+                                        get_user_settings,
+                                        get_user_settings_store)
 from openhands.storage.data_models.settings import Settings
 from openhands.storage.secrets.secrets_store import SecretsStore
 from openhands.storage.settings.settings_store import SettingsStore

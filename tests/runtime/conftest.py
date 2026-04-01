@@ -7,7 +7,8 @@ import time
 import pytest
 from pytest import TempPathFactory
 
-from openhands.core.config import MCPConfig, OpenHandsConfig, load_openhands_config
+from openhands.core.config import (MCPConfig, OpenHandsConfig,
+                                   load_openhands_config)
 from openhands.core.logger import openhands_logger as logger
 from openhands.events import EventStream
 from openhands.llm.llm_registry import LLMRegistry
@@ -16,7 +17,8 @@ from openhands.runtime.impl.cli.cli_runtime import CLIRuntime
 from openhands.runtime.impl.docker.docker_runtime import DockerRuntime
 from openhands.runtime.impl.local.local_runtime import LocalRuntime
 from openhands.runtime.impl.remote.remote_runtime import RemoteRuntime
-from openhands.runtime.plugins import AgentSkillsRequirement, JupyterRequirement
+from openhands.runtime.plugins import (AgentSkillsRequirement,
+                                       JupyterRequirement)
 from openhands.runtime.utils.port_lock import find_available_port_with_lock
 from openhands.storage import get_file_store
 from openhands.utils.async_utils import call_async_from_sync

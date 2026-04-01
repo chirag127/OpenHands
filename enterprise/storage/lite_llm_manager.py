@@ -1,5 +1,4 @@
-"""
-Store class for managing organizational settings.
+"""Store class for managing organizational settings.
 """
 
 import functools
@@ -9,13 +8,9 @@ from typing import Any, Awaitable, Callable
 import httpx
 from pydantic import SecretStr
 from server.auth.token_manager import TokenManager
-from server.constants import (
-    LITE_LLM_API_KEY,
-    LITE_LLM_API_URL,
-    LITE_LLM_TEAM_ID,
-    ORG_SETTINGS_VERSION,
-    get_default_litellm_model,
-)
+from server.constants import (LITE_LLM_API_KEY, LITE_LLM_API_URL,
+                              LITE_LLM_TEAM_ID, ORG_SETTINGS_VERSION,
+                              get_default_litellm_model)
 from server.logger import logger
 from storage.encrypt_utils import decrypt_legacy_value
 from storage.user_settings import UserSettings
@@ -374,9 +369,9 @@ class LiteLlmManager:
                             extra={
                                 'org_id': org_id,
                                 'user_id': keycloak_user_id,
-                                'key_prefix': db_key[:10] + '...'
-                                if len(db_key) > 10
-                                else db_key,
+                                'key_prefix': (
+                                    db_key[:10] + '...' if len(db_key) > 10 else db_key
+                                ),
                             },
                         )
                         # Generate a new key for the user
@@ -1529,8 +1524,7 @@ class LiteLlmManager:
         client: httpx.AsyncClient,
         team_id: str,
     ) -> dict:
-        """
-        Get financial data for all members in a team.
+        """Get financial data for all members in a team.
 
         Fetches team info from LiteLLM and extracts spending/budget data for each member.
 

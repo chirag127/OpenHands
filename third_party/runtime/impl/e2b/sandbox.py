@@ -3,8 +3,8 @@ import os
 import tarfile
 from glob import glob
 
-from e2b_code_interpreter import Sandbox
 from e2b.exceptions import TimeoutException
+from e2b_code_interpreter import Sandbox
 
 from openhands.core.config import SandboxConfig
 from openhands.core.logger import openhands_logger as logger
@@ -30,7 +30,7 @@ class E2BBox:
             raise ValueError(
                 "E2B_API_KEY environment variable is required for E2B runtime"
             )
-        
+
         # Read custom E2B domain if provided
         e2b_domain = os.getenv("E2B_DOMAIN")
         if e2b_domain:
@@ -41,13 +41,13 @@ class E2BBox:
             # Configure E2B client with custom domain if provided
             create_kwargs = {}
             connect_kwargs = {}
-            
+
             if e2b_domain:
                 # Set up custom domain configuration
                 # Note: This depends on E2B SDK version and may need adjustment
                 os.environ['E2B_API_URL'] = f'https://{e2b_domain}'
                 logger.info(f'Set E2B_API_URL to https://{e2b_domain}')
-            
+
             if sandbox_id:
                 # Connect to existing sandbox
                 self.sandbox = Sandbox.connect(sandbox_id, **connect_kwargs)
@@ -64,13 +64,15 @@ class E2BBox:
     @property
     def filesystem(self):
         # E2B v2 uses 'files' instead of 'filesystem'
-        return getattr(self.sandbox, 'files', None) or getattr(self.sandbox, 'filesystem', None)
+        return getattr(self.sandbox, 'files', None) or getattr(
+            self.sandbox, 'filesystem', None
+        )
 
     def _archive(self, host_src: str, recursive: bool = False):
         if recursive:
-            assert os.path.isdir(host_src), (
-                "Source must be a directory when recursive is True"
-            )
+            assert os.path.isdir(
+                host_src
+            ), "Source must be a directory when recursive is True"
             files = glob(host_src + "/**/*", recursive=True)
             srcname = os.path.basename(host_src)
             tar_filename = os.path.join(os.path.dirname(host_src), srcname + ".tar")
@@ -80,9 +82,9 @@ class E2BBox:
                         file, arcname=os.path.relpath(file, os.path.dirname(host_src))
                     )
         else:
-            assert os.path.isfile(host_src), (
-                "Source must be a file when recursive is False"
-            )
+            assert os.path.isfile(
+                host_src
+            ), "Source must be a file when recursive is False"
             srcname = os.path.basename(host_src)
             tar_filename = os.path.join(os.path.dirname(host_src), srcname + ".tar")
             with tarfile.open(tar_filename, mode="w") as tar:
@@ -91,7 +93,7 @@ class E2BBox:
 
     def execute(self, cmd: str, timeout: int | None = None) -> tuple[int, str]:
         timeout = timeout if timeout is not None else self.config.timeout
-        
+
         # E2B code-interpreter uses commands.run()
         try:
             result = self.sandbox.commands.run(cmd)

@@ -13,16 +13,12 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.events.action.message import MessageAction, SystemMessageAction
 from openhands.events.event import EventSource
 from openhands.events.observation.browse import BrowserOutputObservation
-from openhands.events.observation.commands import (
-    CmdOutputObservation,
-    IPythonRunCellObservation,
-)
+from openhands.events.observation.commands import (CmdOutputObservation,
+                                                   IPythonRunCellObservation)
 from openhands.events.observation.file_download import FileDownloadObservation
-from openhands.events.observation.files import (
-    FileEditObservation,
-    FileReadObservation,
-    FileWriteObservation,
-)
+from openhands.events.observation.files import (FileEditObservation,
+                                                FileReadObservation,
+                                                FileWriteObservation)
 from openhands.events.observation.mcp import MCPObservation
 from openhands.events.observation.observation import Observation
 

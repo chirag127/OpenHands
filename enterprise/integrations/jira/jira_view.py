@@ -10,11 +10,9 @@ from dataclasses import dataclass, field
 
 import httpx
 from integrations.jira.jira_payload import JiraWebhookPayload
-from integrations.jira.jira_types import (
-    JiraViewInterface,
-    RepositoryNotFoundError,
-    StartingConvoException,
-)
+from integrations.jira.jira_types import (JiraViewInterface,
+                                          RepositoryNotFoundError,
+                                          StartingConvoException)
 from integrations.utils import CONVERSATION_URL, infer_repo_from_message
 from jinja2 import Environment
 from storage.jira_conversation import JiraConversation
@@ -24,9 +22,11 @@ from storage.jira_workspace import JiraWorkspace
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.provider import ProviderHandler
-from openhands.server.services.conversation_service import create_new_conversation
+from openhands.server.services.conversation_service import \
+    create_new_conversation
 from openhands.server.user_auth.user_auth import UserAuth
-from openhands.storage.data_models.conversation_metadata import ConversationTrigger
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationTrigger
 from openhands.utils.http_session import httpx_verify_option
 
 JIRA_CLOUD_API_URL = 'https://api.atlassian.com/ex/jira'

@@ -5,11 +5,9 @@ from unittest.mock import patch
 
 import psutil
 
-from openhands.runtime.utils.system_stats import (
-    get_system_info,
-    get_system_stats,
-    update_last_execution_time,
-)
+from openhands.runtime.utils.system_stats import (get_system_info,
+                                                  get_system_stats,
+                                                  update_last_execution_time)
 
 
 def test_get_system_stats():

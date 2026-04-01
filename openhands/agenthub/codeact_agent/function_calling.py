@@ -12,40 +12,22 @@ This is similar to the functionality of `CodeActResponseParser`.
 
 import json
 
-from litellm import (
-    ModelResponse,
-)
+from litellm import ModelResponse
 
 from openhands.agenthub.codeact_agent.tools import (
-    BrowserTool,
-    CondensationRequestTool,
-    FinishTool,
-    IPythonTool,
-    LLMBasedFileEditTool,
-    ThinkTool,
-    create_cmd_run_tool,
-    create_str_replace_editor_tool,
-)
+    BrowserTool, CondensationRequestTool, FinishTool, IPythonTool,
+    LLMBasedFileEditTool, ThinkTool, create_cmd_run_tool,
+    create_str_replace_editor_tool)
 from openhands.agenthub.codeact_agent.tools.security_utils import RISK_LEVELS
-from openhands.core.exceptions import (
-    FunctionCallNotExistsError,
-    FunctionCallValidationError,
-)
+from openhands.core.exceptions import (FunctionCallNotExistsError,
+                                       FunctionCallValidationError)
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    Action,
-    ActionSecurityRisk,
-    AgentDelegateAction,
-    AgentFinishAction,
-    AgentThinkAction,
-    BrowseInteractiveAction,
-    CmdRunAction,
-    FileEditAction,
-    FileReadAction,
-    IPythonRunCellAction,
-    MessageAction,
-    TaskTrackingAction,
-)
+from openhands.events.action import (Action, ActionSecurityRisk,
+                                     AgentDelegateAction, AgentFinishAction,
+                                     AgentThinkAction, BrowseInteractiveAction,
+                                     CmdRunAction, FileEditAction,
+                                     FileReadAction, IPythonRunCellAction,
+                                     MessageAction, TaskTrackingAction)
 from openhands.events.action.agent import CondensationRequestAction
 from openhands.events.action.mcp import MCPAction
 from openhands.events.event import FileEditSource, FileReadSource
@@ -65,7 +47,6 @@ def combine_thought(action: Action, thought: str) -> Action:
 
 def set_security_risk(action: Action, arguments: dict) -> None:
     """Set the security risk level for the action."""
-
     # Set security_risk attribute if provided
     if 'security_risk' in arguments:
         if arguments['security_risk'] in RISK_LEVELS:

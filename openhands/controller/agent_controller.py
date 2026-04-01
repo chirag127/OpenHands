@@ -17,20 +17,13 @@ from typing import TYPE_CHECKING, Callable
 if TYPE_CHECKING:
     from openhands.security.analyzer import SecurityAnalyzer
 
-from litellm.exceptions import (  # noqa
-    APIConnectionError,
-    APIError,
-    AuthenticationError,
-    BadRequestError,
-    ContentPolicyViolationError,
-    ContextWindowExceededError,
-    InternalServerError,
-    NotFoundError,
-    OpenAIError,
-    RateLimitError,
-    ServiceUnavailableError,
-    Timeout,
-)
+from litellm.exceptions import (APIConnectionError, APIError,  # noqa
+                                AuthenticationError, BadRequestError,
+                                ContentPolicyViolationError,
+                                ContextWindowExceededError,
+                                InternalServerError, NotFoundError,
+                                OpenAIError, RateLimitError,
+                                ServiceUnavailableError, Timeout)
 
 from openhands.controller.agent import Agent
 from openhands.controller.replay import ReplayManager
@@ -38,59 +31,36 @@ from openhands.controller.state.state import State
 from openhands.controller.state.state_tracker import StateTracker
 from openhands.controller.stuck import StuckDetector
 from openhands.core.config import AgentConfig, LLMConfig
-from openhands.core.exceptions import (
-    AgentStuckInLoopError,
-    FunctionCallNotExistsError,
-    FunctionCallValidationError,
-    LLMContextWindowExceedError,
-    LLMMalformedActionError,
-    LLMNoActionError,
-    LLMResponseError,
-)
+from openhands.core.exceptions import (AgentStuckInLoopError,
+                                       FunctionCallNotExistsError,
+                                       FunctionCallValidationError,
+                                       LLMContextWindowExceedError,
+                                       LLMMalformedActionError,
+                                       LLMNoActionError, LLMResponseError)
 from openhands.core.logger import LOG_ALL_EVENTS
 from openhands.core.logger import openhands_logger as logger
 from openhands.core.schema import AgentState
-from openhands.events import (
-    EventSource,
-    EventStream,
-    EventStreamSubscriber,
-    RecallType,
-)
-from openhands.events.action import (
-    Action,
-    ActionConfirmationStatus,
-    ActionSecurityRisk,
-    AgentDelegateAction,
-    AgentFinishAction,
-    AgentRejectAction,
-    BrowseInteractiveAction,
-    BrowseURLAction,
-    ChangeAgentStateAction,
-    CmdRunAction,
-    FileEditAction,
-    FileReadAction,
-    FileWriteAction,
-    IPythonRunCellAction,
-    MCPAction,
-    MessageAction,
-    NullAction,
-    SystemMessageAction,
-    LoopRecoveryAction,
-)
-from openhands.events.action.agent import (
-    CondensationAction,
-    CondensationRequestAction,
-    RecallAction,
-)
+from openhands.events import (EventSource, EventStream, EventStreamSubscriber,
+                              RecallType)
+from openhands.events.action import (Action, ActionConfirmationStatus,
+                                     ActionSecurityRisk, AgentDelegateAction,
+                                     AgentFinishAction, AgentRejectAction,
+                                     BrowseInteractiveAction, BrowseURLAction,
+                                     ChangeAgentStateAction, CmdRunAction,
+                                     FileEditAction, FileReadAction,
+                                     FileWriteAction, IPythonRunCellAction,
+                                     LoopRecoveryAction, MCPAction,
+                                     MessageAction, NullAction,
+                                     SystemMessageAction)
+from openhands.events.action.agent import (CondensationAction,
+                                           CondensationRequestAction,
+                                           RecallAction)
 from openhands.events.event import Event
-from openhands.events.observation import (
-    AgentDelegateObservation,
-    AgentStateChangedObservation,
-    ErrorObservation,
-    NullObservation,
-    Observation,
-    LoopDetectionObservation,
-)
+from openhands.events.observation import (AgentDelegateObservation,
+                                          AgentStateChangedObservation,
+                                          ErrorObservation,
+                                          LoopDetectionObservation,
+                                          NullObservation, Observation)
 from openhands.events.serialization.event import truncate_content
 from openhands.llm.metrics import Metrics
 from openhands.runtime.runtime_status import RuntimeStatus
@@ -191,7 +161,9 @@ class AgentController:
             confirmation_mode=confirmation_mode,
         )
 
-        self.state = self.state_tracker.state  # TODO: share between manager and controller for backward compatability; we should ideally move all state related logic to the state manager
+        self.state = (
+            self.state_tracker.state
+        )  # TODO: share between manager and controller for backward compatability; we should ideally move all state related logic to the state manager
 
         self.agent_to_llm_config = agent_to_llm_config if agent_to_llm_config else {}
         self.agent_configs = agent_configs if agent_configs else {}
@@ -1155,8 +1127,7 @@ class AgentController:
 
         # Present loop detection message
         self.event_stream.add_event(
-            LoopDetectionObservation(
-                content=f"""⚠️  Agent detected in a loop!
+            LoopDetectionObservation(content=f"""⚠️  Agent detected in a loop!
 Loop type: {self._stuck_detector.stuck_analysis.loop_type}
 Loop detected at iteration {self.state.iteration_flag.current_value}
 \nRecovery options:
@@ -1164,8 +1135,7 @@ Loop detected at iteration {self.state.iteration_flag.current_value}
 /resume 2. Restart with last user message (reuses your most recent instruction)
 /exit. Quit directly
 \nThe agent has been paused. Type '/resume 1', '/resume 2', or '/exit' to choose an option.
-"""
-            ),
+"""),
             source=EventSource.ENVIRONMENT,
         )
 
@@ -1349,7 +1319,6 @@ You can now provide new instructions to continue.
         self, stuck_analysis: StuckDetector.StuckAnalysis
     ) -> None:
         """Restart the agent using the last user message as the new instruction."""
-
         # Find the last user message in the history
         last_user_message = None
         for event in reversed(self.state.history):

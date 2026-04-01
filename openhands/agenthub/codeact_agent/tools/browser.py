@@ -6,12 +6,11 @@
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
 from browsergym.core.action.highlevel import HighLevelActionSet
-from litellm import ChatCompletionToolParam, ChatCompletionToolParamFunctionChunk
+from litellm import (ChatCompletionToolParam,
+                     ChatCompletionToolParamFunctionChunk)
 
 from openhands.agenthub.codeact_agent.tools.security_utils import (
-    RISK_LEVELS,
-    SECURITY_RISK_DESC,
-)
+    RISK_LEVELS, SECURITY_RISK_DESC)
 from openhands.llm.tool_names import BROWSER_TOOL_NAME
 
 # from browsergym/core/action/highlevel.py
@@ -144,12 +143,12 @@ upload_file(bid: str, file: str | list[str])
 
 
 for _, action in _browser_action_space.action_set.items():
-    assert action.signature in _BROWSER_TOOL_DESCRIPTION, (
-        f'Browser description mismatch. Please double check if the BrowserGym updated their action space.\n\nAction: {action.signature}'
-    )
-    assert action.description in _BROWSER_TOOL_DESCRIPTION, (
-        f'Browser description mismatch. Please double check if the BrowserGym updated their action space.\n\nAction: {action.description}'
-    )
+    assert (
+        action.signature in _BROWSER_TOOL_DESCRIPTION
+    ), f'Browser description mismatch. Please double check if the BrowserGym updated their action space.\n\nAction: {action.signature}'
+    assert (
+        action.description in _BROWSER_TOOL_DESCRIPTION
+    ), f'Browser description mismatch. Please double check if the BrowserGym updated their action space.\n\nAction: {action.description}'
 
 BrowserTool = ChatCompletionToolParam(
     type='function',

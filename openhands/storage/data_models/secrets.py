@@ -2,23 +2,13 @@ from collections.abc import Mapping
 from types import MappingProxyType
 from typing import Any
 
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    SerializationInfo,
-    field_serializer,
-    field_validator,
-    model_validator,
-)
+from pydantic import (BaseModel, ConfigDict, Field, SerializationInfo,
+                      field_serializer, field_validator, model_validator)
 from pydantic.json import pydantic_encoder
 
-from openhands.integrations.provider import (
-    CUSTOM_SECRETS_TYPE,
-    PROVIDER_TOKEN_TYPE,
-    CustomSecret,
-    ProviderToken,
-)
+from openhands.integrations.provider import (CUSTOM_SECRETS_TYPE,
+                                             PROVIDER_TOKEN_TYPE, CustomSecret,
+                                             ProviderToken)
 from openhands.integrations.service_types import ProviderType
 
 
@@ -85,9 +75,11 @@ class Secrets(BaseModel):
         if custom_secrets:
             for secret_name, secret_value in custom_secrets.items():
                 secrets[secret_name] = {
-                    'secret': secret_value.secret.get_secret_value()
-                    if expose_secrets
-                    else pydantic_encoder(secret_value.secret),
+                    'secret': (
+                        secret_value.secret.get_secret_value()
+                        if expose_secrets
+                        else pydantic_encoder(secret_value.secret)
+                    ),
                     'description': secret_value.description,
                 }
 

@@ -23,29 +23,21 @@ from typing import AsyncGenerator
 from uuid import UUID
 
 from fastapi import Request
+from openhands.agent_server.models import utc_now
 from sqlalchemy import UUID as SQLUUID
 from sqlalchemy import Column, Enum, String, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from openhands.agent_server.models import utc_now
 from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationStartRequest,
-    AppConversationStartTask,
-    AppConversationStartTaskPage,
-    AppConversationStartTaskSortOrder,
-    AppConversationStartTaskStatus,
-)
+    AppConversationStartRequest, AppConversationStartTask,
+    AppConversationStartTaskPage, AppConversationStartTaskSortOrder,
+    AppConversationStartTaskStatus)
 from openhands.app_server.app_conversation.app_conversation_start_task_service import (
-    AppConversationStartTaskService,
-    AppConversationStartTaskServiceInjector,
-)
+    AppConversationStartTaskService, AppConversationStartTaskServiceInjector)
 from openhands.app_server.services.injector import InjectorState
-from openhands.app_server.utils.sql_utils import (
-    Base,
-    UtcDateTime,
-    create_json_type_decorator,
-    row2dict,
-)
+from openhands.app_server.utils.sql_utils import (Base, UtcDateTime,
+                                                  create_json_type_decorator,
+                                                  row2dict)
 
 logger = logging.getLogger(__name__)
 
@@ -268,10 +260,8 @@ class SQLAppConversationStartTaskServiceInjector(
         self, state: InjectorState, request: Request | None = None
     ) -> AsyncGenerator[AppConversationStartTaskService, None]:
         # Define inline to prevent circular lookup
-        from openhands.app_server.config import (
-            get_db_session,
-            get_user_context,
-        )
+        from openhands.app_server.config import (get_db_session,
+                                                 get_user_context)
 
         async with (
             get_user_context(state, request) as user_context,

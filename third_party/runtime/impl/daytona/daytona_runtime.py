@@ -3,23 +3,18 @@ from typing import Callable
 
 import httpx
 import tenacity
-from daytona import (
-    CreateSandboxFromSnapshotParams,
-    Daytona,
-    DaytonaConfig,
-    Sandbox,
-    SessionExecuteRequest,
-)
+from daytona import (CreateSandboxFromSnapshotParams, Daytona, DaytonaConfig,
+                     Sandbox, SessionExecuteRequest)
 
 from openhands.core.config.openhands_config import OpenHandsConfig
 from openhands.events.stream import EventStream
 from openhands.integrations.provider import PROVIDER_TOKEN_TYPE
-from openhands.runtime.impl.action_execution.action_execution_client import (
-    ActionExecutionClient,
-)
+from openhands.runtime.impl.action_execution.action_execution_client import \
+    ActionExecutionClient
 from openhands.runtime.plugins.requirement import PluginRequirement
 from openhands.runtime.runtime_status import RuntimeStatus
-from openhands.runtime.utils.command import get_action_execution_server_startup_command
+from openhands.runtime.utils.command import \
+    get_action_execution_server_startup_command
 from openhands.runtime.utils.request import RequestHTTPError
 from openhands.utils.async_utils import call_sync_from_async
 from openhands.utils.tenacity_stop import stop_if_should_exit

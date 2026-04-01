@@ -11,19 +11,16 @@ import uuid
 from fastapi import Depends, HTTPException, Request, status
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.server.shared import (
-    ConversationStoreImpl,
-    config,
-    conversation_manager,
-)
+from openhands.server.shared import (ConversationStoreImpl, config,
+                                     conversation_manager)
 from openhands.server.user_auth import get_user_id
 from openhands.storage.conversation.conversation_store import ConversationStore
-from openhands.storage.data_models.conversation_metadata import ConversationMetadata
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationMetadata
 
 
 def validate_conversation_id(conversation_id: str) -> str:
-    """
-    Validate conversation ID format and length.
+    """Validate conversation ID format and length.
 
     Args:
         conversation_id: The conversation ID to validate

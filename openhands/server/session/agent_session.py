@@ -24,11 +24,9 @@ from openhands.core.schema.agent import AgentState
 from openhands.events.action import ChangeAgentStateAction, MessageAction
 from openhands.events.event import Event, EventSource
 from openhands.events.stream import EventStream
-from openhands.integrations.provider import (
-    CUSTOM_SECRETS_TYPE,
-    PROVIDER_TOKEN_TYPE,
-    ProviderHandler,
-)
+from openhands.integrations.provider import (CUSTOM_SECRETS_TYPE,
+                                             PROVIDER_TOKEN_TYPE,
+                                             ProviderHandler)
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.mcp import add_mcp_tools_to_agent
 from openhands.memory.memory import Memory

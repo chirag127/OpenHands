@@ -13,63 +13,45 @@ from uuid import UUID
 import httpx
 from fastapi import APIRouter, HTTPException, Query, Request, Response, status
 from fastapi.responses import JSONResponse, StreamingResponse
+from openhands.sdk.context.skills import KeywordTrigger, TaskTrigger
+from openhands.sdk.workspace.remote.async_remote_workspace import \
+    AsyncRemoteWorkspace
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversation,
-    AppConversationInfo,
-    AppConversationPage,
-    AppConversationStartRequest,
-    AppConversationStartTask,
-    AppConversationStartTaskPage,
-    AppConversationStartTaskSortOrder,
-    AppConversationUpdateRequest,
-    GetHooksResponse,
-    HookDefinitionResponse,
-    HookEventResponse,
-    HookMatcherResponse,
-    SkillResponse,
-)
-from openhands.app_server.app_conversation.app_conversation_service import (
-    AppConversationService,
-)
+    AppConversation, AppConversationInfo, AppConversationPage,
+    AppConversationStartRequest, AppConversationStartTask,
+    AppConversationStartTaskPage, AppConversationStartTaskSortOrder,
+    AppConversationUpdateRequest, GetHooksResponse, HookDefinitionResponse,
+    HookEventResponse, HookMatcherResponse, SkillResponse)
+from openhands.app_server.app_conversation.app_conversation_service import \
+    AppConversationService
 from openhands.app_server.app_conversation.app_conversation_service_base import (
-    AppConversationServiceBase,
-    get_project_dir,
-)
-from openhands.app_server.app_conversation.app_conversation_start_task_service import (
-    AppConversationStartTaskService,
-)
+    AppConversationServiceBase, get_project_dir)
+from openhands.app_server.app_conversation.app_conversation_start_task_service import \
+    AppConversationStartTaskService
 from openhands.app_server.config import (
     depends_app_conversation_service,
-    depends_app_conversation_start_task_service,
-    depends_db_session,
-    depends_httpx_client,
-    depends_sandbox_service,
-    depends_sandbox_spec_service,
-    depends_user_context,
-    get_app_conversation_service,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    SandboxInfo,
-    SandboxStatus,
-)
+    depends_app_conversation_start_task_service, depends_db_session,
+    depends_httpx_client, depends_sandbox_service,
+    depends_sandbox_spec_service, depends_user_context,
+    get_app_conversation_service)
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
 from openhands.app_server.sandbox.sandbox_service import SandboxService
 from openhands.app_server.sandbox.sandbox_spec_models import SandboxSpecInfo
-from openhands.app_server.sandbox.sandbox_spec_service import SandboxSpecService
-from openhands.app_server.services.db_session_injector import set_db_session_keep_open
-from openhands.app_server.services.httpx_client_injector import (
-    set_httpx_client_keep_open,
-)
+from openhands.app_server.sandbox.sandbox_spec_service import \
+    SandboxSpecService
+from openhands.app_server.services.db_session_injector import \
+    set_db_session_keep_open
+from openhands.app_server.services.httpx_client_injector import \
+    set_httpx_client_keep_open
 from openhands.app_server.services.injector import InjectorState
 from openhands.app_server.user.specifiy_user_context import USER_CONTEXT_ATTR
 from openhands.app_server.user.user_context import UserContext
-from openhands.app_server.utils.docker_utils import (
-    replace_localhost_hostname_for_docker,
-)
-from openhands.sdk.context.skills import KeywordTrigger, TaskTrigger
-from openhands.sdk.workspace.remote.async_remote_workspace import AsyncRemoteWorkspace
+from openhands.app_server.utils.docker_utils import \
+    replace_localhost_hostname_for_docker
 from openhands.server.dependencies import get_dependencies
 
 # Handle anext compatibility for Python < 3.10
@@ -712,9 +694,7 @@ async def get_conversation_hooks(
             return JSONResponse(status_code=status.HTTP_200_OK, content={'hooks': []})
 
         from openhands.app_server.app_conversation.hook_loader import (
-            fetch_hooks_from_agent_server,
-            get_project_dir_for_hooks,
-        )
+            fetch_hooks_from_agent_server, get_project_dir_for_hooks)
 
         project_dir = get_project_dir_for_hooks(
             ctx.sandbox_spec.working_dir,
@@ -778,9 +758,11 @@ async def get_conversation_hooks(
                     for matcher in matchers:
                         hook_defs = [
                             HookDefinitionResponse(
-                                type=hook.type.value
-                                if hasattr(hook.type, 'value')
-                                else str(hook.type),
+                                type=(
+                                    hook.type.value
+                                    if hasattr(hook.type, 'value')
+                                    else str(hook.type)
+                                ),
                                 command=hook.command,
                                 timeout=hook.timeout,
                                 async_=hook.async_,

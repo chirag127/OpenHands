@@ -12,12 +12,10 @@ from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from openhands.app_server.app_conversation.app_conversation_info_service import (
-    AppConversationInfoService,
-)
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-)
+from openhands.app_server.app_conversation.app_conversation_info_service import \
+    AppConversationInfoService
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversationInfo
 from openhands.app_server.config import depends_app_conversation_info_service
 from openhands.core.logger import openhands_logger as logger
 from openhands.events.action.message import MessageAction
@@ -32,7 +30,8 @@ from openhands.server.session.conversation import ServerConversation
 from openhands.server.shared import conversation_manager, file_store
 from openhands.server.user_auth import get_user_id
 from openhands.server.utils import get_conversation, get_conversation_metadata
-from openhands.storage.data_models.conversation_metadata import ConversationMetadata
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationMetadata
 
 app = APIRouter(
     prefix='/api/conversations/{conversation_id}', dependencies=get_dependencies()

@@ -19,9 +19,8 @@ if TYPE_CHECKING:
     from openhands.llm.llm import ModelResponse
 
 from openhands.agenthub.codeact_agent.codeact_agent import CodeActAgent
-from openhands.agenthub.readonly_agent import (
-    function_calling as readonly_function_calling,
-)
+from openhands.agenthub.readonly_agent import \
+    function_calling as readonly_function_calling
 from openhands.core.config import AgentConfig
 from openhands.core.logger import openhands_logger as logger
 from openhands.utils.prompt import PromptManager

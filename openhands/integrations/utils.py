@@ -1,13 +1,11 @@
 from pydantic import SecretStr
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.integrations.azure_devops.azure_devops_service import (
-    AzureDevOpsServiceImpl as AzureDevOpsService,
-)
+from openhands.integrations.azure_devops.azure_devops_service import \
+    AzureDevOpsServiceImpl as AzureDevOpsService
 from openhands.integrations.bitbucket.bitbucket_service import BitBucketService
-from openhands.integrations.bitbucket_data_center.bitbucket_dc_service import (
-    BitbucketDCService,
-)
+from openhands.integrations.bitbucket_data_center.bitbucket_dc_service import \
+    BitbucketDCService
 from openhands.integrations.forgejo.forgejo_service import ForgejoService
 from openhands.integrations.github.github_service import GitHubService
 from openhands.integrations.gitlab.gitlab_service import GitLabService

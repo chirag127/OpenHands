@@ -3,16 +3,14 @@
 import logging
 
 from fastapi import APIRouter, HTTPException, Request, status
+from openhands.agent_server.models import ImageContent, TextContent
 from pydantic import TypeAdapter, ValidationError
 
-from openhands.agent_server.models import ImageContent, TextContent
 from openhands.app_server.config import depends_pending_message_service
-from openhands.app_server.pending_messages.pending_message_models import (
-    PendingMessageResponse,
-)
-from openhands.app_server.pending_messages.pending_message_service import (
-    PendingMessageService,
-)
+from openhands.app_server.pending_messages.pending_message_models import \
+    PendingMessageResponse
+from openhands.app_server.pending_messages.pending_message_service import \
+    PendingMessageService
 from openhands.server.dependencies import get_dependencies
 
 logger = logging.getLogger(__name__)

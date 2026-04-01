@@ -3,10 +3,7 @@ from datetime import datetime, timedelta, timezone
 
 from server.logger import logger
 from storage.database import session_maker
-from storage.maintenance_task import (
-    MaintenanceTask,
-    MaintenanceTaskStatus,
-)
+from storage.maintenance_task import MaintenanceTask, MaintenanceTaskStatus
 
 NUM_RETRIES = 3
 RETRY_DELAY = 60

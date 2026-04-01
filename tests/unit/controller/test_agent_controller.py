@@ -4,32 +4,27 @@ from unittest.mock import ANY, AsyncMock, MagicMock, patch
 from uuid import uuid4
 
 import pytest
-from litellm import (
-    BadRequestError,
-    ContentPolicyViolationError,
-    ContextWindowExceededError,
-)
+from litellm import (BadRequestError, ContentPolicyViolationError,
+                     ContextWindowExceededError)
 
 from openhands.controller.agent import Agent
 from openhands.controller.agent_controller import AgentController
-from openhands.controller.state.control_flags import (
-    BudgetControlFlag,
-)
+from openhands.controller.state.control_flags import BudgetControlFlag
 from openhands.controller.state.state import State
 from openhands.core.config import OpenHandsConfig
 from openhands.core.config.agent_config import AgentConfig
 from openhands.core.config.llm_config import LLMConfig
 from openhands.core.main import run_controller
 from openhands.core.schema import AgentState
-from openhands.events import Event, EventSource, EventStream, EventStreamSubscriber
-from openhands.events.action import ChangeAgentStateAction, CmdRunAction, MessageAction
+from openhands.events import (Event, EventSource, EventStream,
+                              EventStreamSubscriber)
+from openhands.events.action import (ChangeAgentStateAction, CmdRunAction,
+                                     MessageAction)
 from openhands.events.action.agent import CondensationAction, RecallAction
 from openhands.events.action.empty import NullAction
 from openhands.events.action.message import SystemMessageAction
-from openhands.events.observation import (
-    AgentStateChangedObservation,
-    ErrorObservation,
-)
+from openhands.events.observation import (AgentStateChangedObservation,
+                                          ErrorObservation)
 from openhands.events.observation.agent import RecallObservation
 from openhands.events.observation.empty import NullObservation
 from openhands.events.recall_type import RecallType
@@ -38,15 +33,13 @@ from openhands.llm import LLM
 from openhands.llm.llm_registry import LLMRegistry, RegistryEvent
 from openhands.llm.metrics import Metrics, TokenUsage
 from openhands.memory.condenser.condenser import Condensation
-from openhands.memory.condenser.impl.conversation_window_condenser import (
-    ConversationWindowCondenser,
-)
+from openhands.memory.condenser.impl.conversation_window_condenser import \
+    ConversationWindowCondenser
 from openhands.memory.memory import Memory
 from openhands.memory.view import View
 from openhands.runtime.base import Runtime
-from openhands.runtime.impl.action_execution.action_execution_client import (
-    ActionExecutionClient,
-)
+from openhands.runtime.impl.action_execution.action_execution_client import \
+    ActionExecutionClient
 from openhands.runtime.runtime_status import RuntimeStatus
 from openhands.server.services.conversation_stats import ConversationStats
 from openhands.storage.memory import InMemoryFileStore
@@ -133,9 +126,8 @@ def test_event_stream():
 
 @pytest.fixture
 def mock_runtime() -> Runtime:
-    from openhands.runtime.impl.action_execution.action_execution_client import (
-        ActionExecutionClient,
-    )
+    from openhands.runtime.impl.action_execution.action_execution_client import \
+        ActionExecutionClient
 
     runtime = MagicMock(
         spec=ActionExecutionClient,
@@ -1016,9 +1008,9 @@ async def test_run_controller_max_iterations_has_metrics(
         == 'RuntimeError: Agent reached maximum iteration. Current iteration: 3, max iteration: 3'
     )
 
-    assert state.metrics.accumulated_cost == 10.0 * 3, (
-        f'Expected accumulated cost to be 30.0, but got {state.metrics.accumulated_cost}'
-    )
+    assert (
+        state.metrics.accumulated_cost == 10.0 * 3
+    ), f'Expected accumulated cost to be 30.0, but got {state.metrics.accumulated_cost}'
 
 
 @pytest.mark.asyncio
@@ -1824,14 +1816,14 @@ async def test_agent_controller_processes_null_observation_with_cause(
 
         # Verify the NullObservation has a cause that points to the RecallAction
         assert null_observation.cause is not None, 'NullObservation cause is None'
-        assert null_observation.cause == recall_action.id, (
-            f'Expected cause={recall_action.id}, got cause={null_observation.cause}'
-        )
+        assert (
+            null_observation.cause == recall_action.id
+        ), f'Expected cause={recall_action.id}, got cause={null_observation.cause}'
 
         # Verify the controller's should_step method returns True for this observation
-        assert controller.should_step(null_observation), (
-            'should_step should return True for this NullObservation'
-        )
+        assert controller.should_step(
+            null_observation
+        ), 'should_step should return True for this NullObservation'
 
         # Verify the controller's step method was called
         # This means the controller processed the NullObservation
@@ -1843,9 +1835,9 @@ async def test_agent_controller_processes_null_observation_with_cause(
         null_observation_zero._cause = 0  # type: ignore[attr-defined]
 
         # Verify the controller's should_step method would return False for this observation
-        assert not controller.should_step(null_observation_zero), (
-            'should_step should return False for NullObservation with cause=0'
-        )
+        assert not controller.should_step(
+            null_observation_zero
+        ), 'should_step should return False for NullObservation with cause=0'
 
 
 def test_agent_controller_should_step_with_null_observation_cause_zero(
@@ -1876,9 +1868,9 @@ def test_agent_controller_should_step_with_null_observation_cause_zero(
     result = controller.should_step(null_observation)
 
     # It should return False since we only want to step on NullObservation with cause > 0
-    assert result is False, (
-        'should_step should return False for NullObservation with cause = 0'
-    )
+    assert (
+        result is False
+    ), 'should_step should return False for NullObservation with cause = 0'
 
 
 def test_system_message_in_event_stream(mock_agent_with_stats, test_event_stream):

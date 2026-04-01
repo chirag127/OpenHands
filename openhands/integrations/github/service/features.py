@@ -2,21 +2,15 @@ import base64
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.github.queries import (
-    suggested_task_issue_graphql_query,
-    suggested_task_pr_graphql_query,
-)
+    suggested_task_issue_graphql_query, suggested_task_pr_graphql_query)
 from openhands.integrations.github.service.base import GitHubMixinBase
-from openhands.integrations.service_types import (
-    MicroagentContentResponse,
-    ProviderType,
-    SuggestedTask,
-    TaskType,
-)
+from openhands.integrations.service_types import (MicroagentContentResponse,
+                                                  ProviderType, SuggestedTask,
+                                                  TaskType)
 
 
 class GitHubFeaturesMixin(GitHubMixinBase):
-    """
-    Methods used for custom features in UI driven via GitHub integration
+    """Methods used for custom features in UI driven via GitHub integration
     """
 
     async def get_suggested_tasks(self) -> list[SuggestedTask]:

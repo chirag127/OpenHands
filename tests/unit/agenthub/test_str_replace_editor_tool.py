@@ -11,9 +11,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../..'))
 
 try:
     from openhands.agenthub.codeact_agent.tools.str_replace_editor import (
-        _get_workspace_mount_path_from_env,
-        create_str_replace_editor_tool,
-    )
+        _get_workspace_mount_path_from_env, create_str_replace_editor_tool)
 except ImportError:
     # If import fails due to dependencies, skip these tests
     pytest.skip(

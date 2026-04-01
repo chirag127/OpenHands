@@ -2,19 +2,14 @@ import os
 
 from pydantic import SecretStr
 
-from openhands.integrations.github.service import (
-    GitHubBranchesMixin,
-    GitHubFeaturesMixin,
-    GitHubPRsMixin,
-    GitHubReposMixin,
-    GitHubResolverMixin,
-)
-from openhands.integrations.service_types import (
-    BaseGitService,
-    GitService,
-    InstallationsService,
-    ProviderType,
-)
+from openhands.integrations.github.service import (GitHubBranchesMixin,
+                                                   GitHubFeaturesMixin,
+                                                   GitHubPRsMixin,
+                                                   GitHubReposMixin,
+                                                   GitHubResolverMixin)
+from openhands.integrations.service_types import (BaseGitService, GitService,
+                                                  InstallationsService,
+                                                  ProviderType)
 from openhands.utils.import_utils import get_impl
 
 
@@ -28,8 +23,7 @@ class GitHubService(
     GitService,
     InstallationsService,
 ):
-    """
-    Assembled GitHub service class combining mixins by feature area.
+    """Assembled GitHub service class combining mixins by feature area.
 
     TODO: This doesn't seem a good candidate for the get_impl() pattern. What are the abstract methods we should actually separate and implement here?
     This is an extension point in OpenHands that allows applications to customize GitHub

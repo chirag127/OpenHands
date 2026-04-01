@@ -3,25 +3,19 @@ import logging
 from uuid import UUID
 
 import httpx
-
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-)
-from openhands.app_server.event_callback.event_callback_models import (
-    EventCallback,
-    EventCallbackProcessor,
-    EventCallbackStatus,
-)
-from openhands.app_server.event_callback.event_callback_result_models import (
-    EventCallbackResult,
-    EventCallbackResultStatus,
-)
-from openhands.app_server.services.injector import InjectorState
-from openhands.app_server.user.specifiy_user_context import ADMIN, USER_CONTEXT_ATTR
-from openhands.app_server.utils.docker_utils import (
-    replace_localhost_hostname_for_docker,
-)
 from openhands.sdk import Event, MessageEvent
+
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversationInfo
+from openhands.app_server.event_callback.event_callback_models import (
+    EventCallback, EventCallbackProcessor, EventCallbackStatus)
+from openhands.app_server.event_callback.event_callback_result_models import (
+    EventCallbackResult, EventCallbackResultStatus)
+from openhands.app_server.services.injector import InjectorState
+from openhands.app_server.user.specifiy_user_context import (ADMIN,
+                                                             USER_CONTEXT_ATTR)
+from openhands.app_server.utils.docker_utils import \
+    replace_localhost_hostname_for_docker
 
 _logger = logging.getLogger(__name__)
 
@@ -82,11 +76,8 @@ class SetTitleCallbackProcessor(EventCallbackProcessor):
         if not isinstance(event, MessageEvent):
             return None
         from openhands.app_server.config import (
-            get_app_conversation_info_service,
-            get_app_conversation_service,
-            get_event_callback_service,
-            get_httpx_client,
-        )
+            get_app_conversation_info_service, get_app_conversation_service,
+            get_event_callback_service, get_httpx_client)
 
         _logger.info(f'Callback {callback.id} Invoked for event {event}')
 

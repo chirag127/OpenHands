@@ -3,7 +3,8 @@ import pandas as pd
 import pytest
 from integrations.solvability.models.classifier import SolvabilityClassifier
 from integrations.solvability.models.featurizer import Feature
-from integrations.solvability.models.importance_strategy import ImportanceStrategy
+from integrations.solvability.models.importance_strategy import \
+    ImportanceStrategy
 from sklearn.ensemble import RandomForestClassifier
 
 

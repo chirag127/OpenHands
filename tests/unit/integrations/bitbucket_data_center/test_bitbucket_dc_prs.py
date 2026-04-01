@@ -5,9 +5,8 @@ from unittest.mock import AsyncMock, patch
 import pytest
 from pydantic import SecretStr
 
-from openhands.integrations.bitbucket_data_center.bitbucket_dc_service import (
-    BitbucketDCService,
-)
+from openhands.integrations.bitbucket_data_center.bitbucket_dc_service import \
+    BitbucketDCService
 
 
 def make_service():

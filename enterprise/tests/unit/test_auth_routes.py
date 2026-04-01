@@ -9,15 +9,11 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import SecretStr
 from server.auth.auth_error import AuthError
 from server.auth.saas_user_auth import SaasUserAuth
-from server.auth.user.user_authorizer import UserAuthorizationResponse, UserAuthorizer
-from server.routes.auth import (
-    accept_tos,
-    authenticate,
-    keycloak_callback,
-    keycloak_offline_callback,
-    logout,
-    set_response_cookie,
-)
+from server.auth.user.user_authorizer import (UserAuthorizationResponse,
+                                              UserAuthorizer)
+from server.routes.auth import (accept_tos, authenticate, keycloak_callback,
+                                keycloak_offline_callback, logout,
+                                set_response_cookie)
 
 from openhands.integrations.service_types import ProviderType
 
@@ -53,7 +49,6 @@ def mock_response():
 
 def test_set_response_cookie(mock_response, mock_request):
     """Test setting the auth cookie on a response."""
-
     with (
         patch('server.routes.auth.config') as mock_config,
         patch('server.utils.url_utils.get_global_config') as get_global_config,

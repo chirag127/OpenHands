@@ -1,9 +1,7 @@
 import pytest
 
 from openhands.agenthub.browsing_agent.response_parser import (
-    BrowseInteractiveAction,
-    BrowsingResponseParser,
-)
+    BrowseInteractiveAction, BrowsingResponseParser)
 
 
 @pytest.mark.parametrize(

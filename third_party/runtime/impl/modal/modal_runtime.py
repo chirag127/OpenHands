@@ -1,7 +1,7 @@
 import os
 import tempfile
-from time import sleep
 from pathlib import Path
+from time import sleep
 from typing import Callable
 
 import httpx
@@ -11,16 +11,14 @@ import tenacity
 from openhands.core.config import OpenHandsConfig
 from openhands.events import EventStream
 from openhands.integrations.provider import PROVIDER_TOKEN_TYPE
-from openhands.runtime.impl.action_execution.action_execution_client import (
-    ActionExecutionClient,
-)
+from openhands.runtime.impl.action_execution.action_execution_client import \
+    ActionExecutionClient
 from openhands.runtime.plugins import PluginRequirement
 from openhands.runtime.runtime_status import RuntimeStatus
-from openhands.runtime.utils.command import get_action_execution_server_startup_command
-from openhands.runtime.utils.runtime_build import (
-    BuildFromImageType,
-    prep_build_folder,
-)
+from openhands.runtime.utils.command import \
+    get_action_execution_server_startup_command
+from openhands.runtime.utils.runtime_build import (BuildFromImageType,
+                                                   prep_build_folder)
 from openhands.utils.async_utils import call_sync_from_async
 from openhands.utils.tenacity_stop import stop_if_should_exit
 
@@ -150,7 +148,10 @@ class ModalRuntime(ActionExecutionClient):
             raise Exception("Sandbox not initialized")
         tunnel = self.sandbox.tunnels()[self.container_port]
         self.api_url = tunnel.url
-        self.log("info", "Waiting 20 secs for the container to be ready... (avoiding RemoteProtocolError)")
+        self.log(
+            "info",
+            "Waiting 20 secs for the container to be ready... (avoiding RemoteProtocolError)",
+        )
         sleep(20)
         self.log("debug", f"Container started. Server url: {self.api_url}")
 
@@ -204,14 +205,12 @@ class ModalRuntime(ActionExecutionClient):
                 "Neither runtime container image nor base container image is set"
             )
 
-        return base_runtime_image.run_commands(
-            """
+        return base_runtime_image.run_commands("""
 # Disable bracketed paste
 # https://github.com/pexpect/pexpect/issues/669
 echo "set enable-bracketed-paste off" >> /etc/inputrc && \\
 echo 'export INPUTRC=/etc/inputrc' >> /etc/bash.bashrc
-""".strip()
-        )
+""".strip())
 
     @tenacity.retry(
         stop=tenacity.stop_after_attempt(5),
@@ -253,7 +252,10 @@ echo 'export INPUTRC=/etc/inputrc' >> /etc/bash.bashrc
                 timeout=60 * 60,
             )
             MODAL_RUNTIME_IDS[self.sid] = self.sandbox.object_id
-            self.log("debug", f"Container started with modal sandbox ID: {self.sandbox.object_id}")
+            self.log(
+                "debug",
+                f"Container started with modal sandbox ID: {self.sandbox.object_id}",
+            )
 
         except Exception as e:
             self.log(

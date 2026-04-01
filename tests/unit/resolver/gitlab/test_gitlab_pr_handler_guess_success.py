@@ -22,19 +22,11 @@ def pr_handler():
 
 @pytest.fixture
 def mock_llm_success_response():
-    return MagicMock(
-        choices=[
-            MagicMock(
-                message=MagicMock(
-                    content="""--- success
+    return MagicMock(choices=[MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-The changes look good"""
-                )
-            )
-        ]
-    )
+The changes look good"""))])
 
 
 def test_guess_success_review_threads_litellm_call():
@@ -70,31 +62,21 @@ def test_guess_success_review_threads_litellm_call():
     )
 
     # Create mock history with a detailed response
-    history = [
-        MessageAction(
-            content="""I have made the following changes:
+    history = [MessageAction(content="""I have made the following changes:
 1. Fixed formatting in file1.py and file2.py
 2. Added docstrings to all functions
-3. Added test cases in test_file.py"""
-        )
-    ]
+3. Added test cases in test_file.py""")]
 
     # Create mock LLM config
     llm_config = LLMConfig(model='test-model', api_key='test-key')
 
     # Mock the LLM response
     mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(
-            message=MagicMock(
-                content="""--- success
+    mock_response.choices = [MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-The changes successfully address the feedback."""
-            )
-        )
-    ]
+The changes successfully address the feedback."""))]
 
     # Test the guess_success method
     with patch.object(LLM, 'completion') as mock_completion:
@@ -171,31 +153,21 @@ def test_guess_success_thread_comments_litellm_call():
     )
 
     # Create mock history with a detailed response
-    history = [
-        MessageAction(
-            content="""I have made the following changes:
+    history = [MessageAction(content="""I have made the following changes:
 1. Added try/catch blocks for error handling
 2. Added input validation checks
-3. Added handling for edge cases"""
-        )
-    ]
+3. Added handling for edge cases""")]
 
     # Create mock LLM config
     llm_config = LLMConfig(model='test-model', api_key='test-key')
 
     # Mock the LLM response
     mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(
-            message=MagicMock(
-                content="""--- success
+    mock_response.choices = [MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-The changes successfully address the feedback."""
-            )
-        )
-    ]
+The changes successfully address the feedback."""))]
 
     # Test the guess_success method
     with patch.object(LLM, 'completion') as mock_completion:
@@ -282,17 +254,11 @@ def test_check_review_thread_with_git_patch():
 
     # Mock the LLM response
     mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(
-            message=MagicMock(
-                content="""--- success
+    mock_response.choices = [MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-Changes look good"""
-            )
-        )
-    ]
+Changes look good"""))]
 
     # Test the function
     with patch.object(LLM, 'completion') as mock_completion:
@@ -340,17 +306,11 @@ def test_check_review_thread():
 
     # Mock the LLM response
     mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(
-            message=MagicMock(
-                content="""--- success
+    mock_response.choices = [MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-Changes look good"""
-            )
-        )
-    ]
+Changes look good"""))]
 
     # Test the function
     with patch.object(LLM, 'completion') as mock_completion:
@@ -399,17 +359,11 @@ def test_check_thread_comments_with_git_patch():
 
     # Mock the LLM response
     mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(
-            message=MagicMock(
-                content="""--- success
+    mock_response.choices = [MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-Changes look good"""
-            )
-        )
-    ]
+Changes look good"""))]
 
     # Test the function
     with patch.object(LLM, 'completion') as mock_completion:
@@ -455,17 +409,11 @@ def test_check_thread_comments():
 
     # Mock the LLM response
     mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(
-            message=MagicMock(
-                content="""--- success
+    mock_response.choices = [MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-Changes look good"""
-            )
-        )
-    ]
+Changes look good"""))]
 
     # Test the function
     with patch.object(LLM, 'completion') as mock_completion:
@@ -511,17 +459,11 @@ def test_check_review_comments_with_git_patch():
 
     # Mock the LLM response
     mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(
-            message=MagicMock(
-                content="""--- success
+    mock_response.choices = [MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-Changes look good"""
-            )
-        )
-    ]
+Changes look good"""))]
 
     # Test the function
     with patch.object(LLM, 'completion') as mock_completion:
@@ -567,17 +509,11 @@ def test_check_review_comments():
 
     # Mock the LLM response
     mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(
-            message=MagicMock(
-                content="""--- success
+    mock_response.choices = [MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-Changes look good"""
-            )
-        )
-    ]
+Changes look good"""))]
 
     # Test the function
     with patch.object(LLM, 'completion') as mock_completion:
@@ -628,28 +564,18 @@ def test_guess_success_review_comments_litellm_call():
     )
 
     # Create mock history with a detailed response
-    history = [
-        MessageAction(
-            content="""I have made the following changes:
+    history = [MessageAction(content="""I have made the following changes:
 1. Improved code readability by breaking down complex functions
 2. Added detailed comments to all complex functions
-3. Fixed code style to follow PEP 8"""
-        )
-    ]
+3. Fixed code style to follow PEP 8""")]
 
     # Mock the LLM response
     mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(
-            message=MagicMock(
-                content="""--- success
+    mock_response.choices = [MagicMock(message=MagicMock(content="""--- success
 true
 
 --- explanation
-The changes successfully address the feedback."""
-            )
-        )
-    ]
+The changes successfully address the feedback."""))]
 
     with patch.object(LLM, 'completion') as mock_completion:
         mock_completion.return_value = mock_response

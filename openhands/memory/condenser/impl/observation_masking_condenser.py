@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from openhands.core.config.condenser_config import ObservationMaskingCondenserConfig
+from openhands.core.config.condenser_config import \
+    ObservationMaskingCondenserConfig
 from openhands.events.event import Event
 from openhands.events.observation import Observation
 from openhands.events.observation.agent import AgentCondensationObservation

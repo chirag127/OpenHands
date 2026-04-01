@@ -4,16 +4,14 @@ from pydantic import SecretStr
 from openhands.core.config import LLMConfig
 from openhands.integrations.provider import ProviderType
 from openhands.resolver.interfaces.azure_devops import AzureDevOpsIssueHandler
-from openhands.resolver.interfaces.forgejo import (
-    ForgejoIssueHandler,
-    ForgejoPRHandler,
-)
-from openhands.resolver.interfaces.github import GithubIssueHandler, GithubPRHandler
-from openhands.resolver.interfaces.gitlab import GitlabIssueHandler, GitlabPRHandler
+from openhands.resolver.interfaces.forgejo import (ForgejoIssueHandler,
+                                                   ForgejoPRHandler)
+from openhands.resolver.interfaces.github import (GithubIssueHandler,
+                                                  GithubPRHandler)
+from openhands.resolver.interfaces.gitlab import (GitlabIssueHandler,
+                                                  GitlabPRHandler)
 from openhands.resolver.interfaces.issue_definitions import (
-    ServiceContextIssue,
-    ServiceContextPR,
-)
+    ServiceContextIssue, ServiceContextPR)
 from openhands.resolver.issue_handler_factory import IssueHandlerFactory
 
 

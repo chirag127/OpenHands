@@ -5,9 +5,7 @@ from uuid import UUID
 
 import pytest
 from pydantic import SecretStr
-from server.routes.org_invitation_models import (
-    EmailMismatchError,
-)
+from server.routes.org_invitation_models import EmailMismatchError
 from server.services.org_invitation_service import OrgInvitationService
 from storage.org_invitation import OrgInvitation
 

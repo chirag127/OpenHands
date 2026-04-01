@@ -3,19 +3,15 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    SandboxInfo,
-    SandboxStatus,
-)
-from openhands.app_server.utils.docker_utils import (
-    replace_localhost_hostname_for_docker,
-)
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
+from openhands.app_server.utils.docker_utils import \
+    replace_localhost_hostname_for_docker
 
 if TYPE_CHECKING:
-    from openhands.app_server.app_conversation.app_conversation_models import (
-        AppConversationInfo,
-    )
+    from openhands.app_server.app_conversation.app_conversation_models import \
+        AppConversationInfo
 
 
 def ensure_conversation_found(

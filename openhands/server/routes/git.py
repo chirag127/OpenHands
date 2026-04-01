@@ -14,31 +14,19 @@ from fastapi.responses import JSONResponse
 from pydantic import SecretStr
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.integrations.provider import (
-    PROVIDER_TOKEN_TYPE,
-    ProviderHandler,
-)
-from openhands.integrations.service_types import (
-    AuthenticationError,
-    Branch,
-    PaginatedBranchesResponse,
-    ProviderType,
-    Repository,
-    SuggestedTask,
-    UnknownException,
-    User,
-)
-from openhands.microagent.types import (
-    MicroagentContentResponse,
-    MicroagentResponse,
-)
+from openhands.integrations.provider import (PROVIDER_TOKEN_TYPE,
+                                             ProviderHandler)
+from openhands.integrations.service_types import (AuthenticationError, Branch,
+                                                  PaginatedBranchesResponse,
+                                                  ProviderType, Repository,
+                                                  SuggestedTask,
+                                                  UnknownException, User)
+from openhands.microagent.types import (MicroagentContentResponse,
+                                        MicroagentResponse)
 from openhands.server.dependencies import get_dependencies
 from openhands.server.shared import server_config
-from openhands.server.user_auth import (
-    get_access_token,
-    get_provider_tokens,
-    get_user_id,
-)
+from openhands.server.user_auth import (get_access_token, get_provider_tokens,
+                                        get_user_id)
 
 app = APIRouter(prefix='/api/user', dependencies=get_dependencies())
 

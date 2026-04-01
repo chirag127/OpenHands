@@ -6,16 +6,11 @@ import pytest
 
 from openhands.controller.state.state import State
 from openhands.core.config.condenser_config import (
-    AmortizedForgettingCondenserConfig,
-    BrowserOutputCondenserConfig,
-    CondenserPipelineConfig,
-    LLMAttentionCondenserConfig,
-    LLMSummarizingCondenserConfig,
-    NoOpCondenserConfig,
-    ObservationMaskingCondenserConfig,
-    RecentEventsCondenserConfig,
-    StructuredSummaryCondenserConfig,
-)
+    AmortizedForgettingCondenserConfig, BrowserOutputCondenserConfig,
+    CondenserPipelineConfig, LLMAttentionCondenserConfig,
+    LLMSummarizingCondenserConfig, NoOpCondenserConfig,
+    ObservationMaskingCondenserConfig, RecentEventsCondenserConfig,
+    StructuredSummaryCondenserConfig)
 from openhands.core.config.llm_config import LLMConfig
 from openhands.core.config.openhands_config import OpenHandsConfig
 from openhands.core.message import Message, TextContent
@@ -27,18 +22,17 @@ from openhands.events.observation.observation import Observation
 from openhands.llm import LLM
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.memory.condenser import Condenser
-from openhands.memory.condenser.condenser import Condensation, RollingCondenser, View
-from openhands.memory.condenser.impl import (
-    AmortizedForgettingCondenser,
-    BrowserOutputCondenser,
-    ImportantEventSelection,
-    LLMAttentionCondenser,
-    LLMSummarizingCondenser,
-    NoOpCondenser,
-    ObservationMaskingCondenser,
-    RecentEventsCondenser,
-    StructuredSummaryCondenser,
-)
+from openhands.memory.condenser.condenser import (Condensation,
+                                                  RollingCondenser, View)
+from openhands.memory.condenser.impl import (AmortizedForgettingCondenser,
+                                             BrowserOutputCondenser,
+                                             ImportantEventSelection,
+                                             LLMAttentionCondenser,
+                                             LLMSummarizingCondenser,
+                                             NoOpCondenser,
+                                             ObservationMaskingCondenser,
+                                             RecentEventsCondenser,
+                                             StructuredSummaryCondenser)
 from openhands.memory.condenser.impl.pipeline import CondenserPipeline
 from openhands.server.services.conversation_stats import ConversationStats
 
@@ -816,11 +810,13 @@ def test_condenser_pipeline_chains_sub_condensers():
 
     harness = RollingCondenserTestHarness(condenser)
     events = [
-        BrowserOutputObservation(
-            f'Observation {i}', url='', trigger_by_action=ActionType.BROWSE
+        (
+            BrowserOutputObservation(
+                f'Observation {i}', url='', trigger_by_action=ActionType.BROWSE
+            )
+            if i % 3 == 0
+            else create_test_event(f'Event {i}')
         )
-        if i % 3 == 0
-        else create_test_event(f'Event {i}')
         for i in range(0, MAX_SIZE * NUMBER_OF_CONDENSATIONS)
     ]
 

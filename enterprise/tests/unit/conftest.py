@@ -5,17 +5,12 @@ from uuid import UUID
 import pytest
 from server.auth.token_manager import KeycloakUserInfo
 from server.constants import ORG_SETTINGS_VERSION
-from server.verified_models.verified_model_service import (
-    StoredVerifiedModel,  # noqa: F401
-)
+from server.verified_models.verified_model_service import \
+    StoredVerifiedModel  # noqa: F401
 from sqlalchemy import create_engine
-from sqlalchemy.ext.asyncio import (
-    AsyncSession,
-    async_sessionmaker,
-    create_async_engine,
-)
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
 from sqlalchemy.orm import sessionmaker
-
 # Anything not loaded here may not have a table created for it.
 from storage.api_key import ApiKey  # noqa: F401
 from storage.base import Base
@@ -30,9 +25,8 @@ from storage.org_member import OrgMember
 from storage.role import Role
 from storage.slack_conversation import SlackConversation  # noqa: F401
 from storage.stored_conversation_metadata import StoredConversationMetadata
-from storage.stored_conversation_metadata_saas import (
-    StoredConversationMetadataSaas,
-)
+from storage.stored_conversation_metadata_saas import \
+    StoredConversationMetadataSaas
 from storage.stored_offline_token import StoredOfflineToken
 from storage.stripe_customer import StripeCustomer
 from storage.user import User

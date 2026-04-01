@@ -8,19 +8,15 @@ from enum import Enum
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID, uuid4
 
+from openhands.agent_server.utils import OpenHandsUUID, utc_now
+from openhands.sdk import Event
+from openhands.sdk.utils.models import (DiscriminatedUnionMixin,
+                                        OpenHandsModel,
+                                        get_known_concrete_subclasses)
 from pydantic import Field
 
-from openhands.agent_server.utils import OpenHandsUUID, utc_now
 from openhands.app_server.event_callback.event_callback_result_models import (
-    EventCallbackResult,
-    EventCallbackResultStatus,
-)
-from openhands.sdk import Event
-from openhands.sdk.utils.models import (
-    DiscriminatedUnionMixin,
-    OpenHandsModel,
-    get_known_concrete_subclasses,
-)
+    EventCallbackResult, EventCallbackResultStatus)
 
 _logger = logging.getLogger(__name__)
 if TYPE_CHECKING:

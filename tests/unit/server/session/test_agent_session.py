@@ -12,9 +12,8 @@ from openhands.integrations.service_types import ProviderType
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.llm.metrics import Metrics
 from openhands.memory.memory import Memory
-from openhands.runtime.impl.action_execution.action_execution_client import (
-    ActionExecutionClient,
-)
+from openhands.runtime.impl.action_execution.action_execution_client import \
+    ActionExecutionClient
 from openhands.server.services.conversation_stats import ConversationStats
 from openhands.server.session.agent_session import AgentSession
 from openhands.storage.memory import InMemoryFileStore
@@ -266,7 +265,6 @@ async def test_metrics_centralization_via_conversation_stats(
     make_mock_agent, connected_registry_and_stats
 ):
     """Test that metrics are centralized through the ConversationStats service."""
-
     mock_llm_registry, mock_conversation_stats = connected_registry_and_stats
     mock_agent = make_mock_agent(mock_llm_registry)
 
@@ -361,7 +359,6 @@ async def test_budget_control_flag_syncs_with_metrics(
     make_mock_agent, connected_registry_and_stats
 ):
     """Test that BudgetControlFlag's current value matches the accumulated costs."""
-
     mock_llm_registry, mock_conversation_stats = connected_registry_and_stats
     mock_agent = make_mock_agent(mock_llm_registry)
     # Setup

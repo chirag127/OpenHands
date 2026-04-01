@@ -6,59 +6,45 @@ from typing import AsyncContextManager
 
 import httpx
 from fastapi import Depends, Request
+from openhands.agent_server.env_parser import from_env
+from openhands.sdk.utils.models import OpenHandsModel
 from pydantic import Field, SecretStr
 from sqlalchemy.ext.asyncio import AsyncSession
 
 # Import the event_callback module to ensure all processors are registered
 import openhands.app_server.event_callback  # noqa: F401
-from openhands.agent_server.env_parser import from_env
 from openhands.app_server.app_conversation.app_conversation_info_service import (
-    AppConversationInfoService,
-    AppConversationInfoServiceInjector,
-)
+    AppConversationInfoService, AppConversationInfoServiceInjector)
 from openhands.app_server.app_conversation.app_conversation_service import (
-    AppConversationService,
-    AppConversationServiceInjector,
-)
+    AppConversationService, AppConversationServiceInjector)
 from openhands.app_server.app_conversation.app_conversation_start_task_service import (
-    AppConversationStartTaskService,
-    AppConversationStartTaskServiceInjector,
-)
-from openhands.app_server.app_lifespan.app_lifespan_service import AppLifespanService
-from openhands.app_server.app_lifespan.oss_app_lifespan_service import (
-    OssAppLifespanService,
-)
-from openhands.app_server.event.event_service import EventService, EventServiceInjector
+    AppConversationStartTaskService, AppConversationStartTaskServiceInjector)
+from openhands.app_server.app_lifespan.app_lifespan_service import \
+    AppLifespanService
+from openhands.app_server.app_lifespan.oss_app_lifespan_service import \
+    OssAppLifespanService
+from openhands.app_server.event.event_service import (EventService,
+                                                      EventServiceInjector)
 from openhands.app_server.event_callback.event_callback_service import (
-    EventCallbackService,
-    EventCallbackServiceInjector,
-)
+    EventCallbackService, EventCallbackServiceInjector)
 from openhands.app_server.pending_messages.pending_message_service import (
-    PendingMessageService,
-    PendingMessageServiceInjector,
-)
+    PendingMessageService, PendingMessageServiceInjector)
 from openhands.app_server.sandbox.sandbox_service import (
-    SandboxService,
-    SandboxServiceInjector,
-)
+    SandboxService, SandboxServiceInjector)
 from openhands.app_server.sandbox.sandbox_spec_service import (
-    SandboxSpecService,
-    SandboxSpecServiceInjector,
-)
-from openhands.app_server.services.db_session_injector import (
-    DbSessionInjector,
-)
-from openhands.app_server.services.httpx_client_injector import HttpxClientInjector
+    SandboxSpecService, SandboxSpecServiceInjector)
+from openhands.app_server.services.db_session_injector import DbSessionInjector
+from openhands.app_server.services.httpx_client_injector import \
+    HttpxClientInjector
 from openhands.app_server.services.injector import InjectorState
-from openhands.app_server.services.jwt_service import JwtService, JwtServiceInjector
-from openhands.app_server.user.user_context import UserContext, UserContextInjector
-from openhands.app_server.web_client.default_web_client_config_injector import (
-    DefaultWebClientConfigInjector,
-)
-from openhands.app_server.web_client.web_client_config_injector import (
-    WebClientConfigInjector,
-)
-from openhands.sdk.utils.models import OpenHandsModel
+from openhands.app_server.services.jwt_service import (JwtService,
+                                                       JwtServiceInjector)
+from openhands.app_server.user.user_context import (UserContext,
+                                                    UserContextInjector)
+from openhands.app_server.web_client.default_web_client_config_injector import \
+    DefaultWebClientConfigInjector
+from openhands.app_server.web_client.web_client_config_injector import \
+    WebClientConfigInjector
 from openhands.server.types import AppMode
 from openhands.utils.environment import StorageProvider, get_storage_provider
 
@@ -162,48 +148,34 @@ class AppServerConfig(OpenHandsModel):
 
 def config_from_env() -> AppServerConfig:
     # Import defaults...
-    from openhands.app_server.app_conversation.live_status_app_conversation_service import (  # noqa: E501
-        LiveStatusAppConversationServiceInjector,
-    )
-    from openhands.app_server.app_conversation.sql_app_conversation_info_service import (  # noqa: E501
-        SQLAppConversationInfoServiceInjector,
-    )
-    from openhands.app_server.app_conversation.sql_app_conversation_start_task_service import (  # noqa: E501
-        SQLAppConversationStartTaskServiceInjector,
-    )
-    from openhands.app_server.event.aws_event_service import (
-        AwsEventServiceInjector,
-    )
-    from openhands.app_server.event.filesystem_event_service import (
-        FilesystemEventServiceInjector,
-    )
-    from openhands.app_server.event.google_cloud_event_service import (
-        GoogleCloudEventServiceInjector,
-    )
-    from openhands.app_server.event_callback.sql_event_callback_service import (
-        SQLEventCallbackServiceInjector,
-    )
-    from openhands.app_server.sandbox.docker_sandbox_service import (
-        DockerSandboxServiceInjector,
-    )
-    from openhands.app_server.sandbox.docker_sandbox_spec_service import (
-        DockerSandboxSpecServiceInjector,
-    )
-    from openhands.app_server.sandbox.process_sandbox_service import (
-        ProcessSandboxServiceInjector,
-    )
-    from openhands.app_server.sandbox.process_sandbox_spec_service import (
-        ProcessSandboxSpecServiceInjector,
-    )
-    from openhands.app_server.sandbox.remote_sandbox_service import (
-        RemoteSandboxServiceInjector,
-    )
-    from openhands.app_server.sandbox.remote_sandbox_spec_service import (
-        RemoteSandboxSpecServiceInjector,
-    )
-    from openhands.app_server.user.auth_user_context import (
-        AuthUserContextInjector,
-    )
+    from openhands.app_server.app_conversation.live_status_app_conversation_service import \
+        LiveStatusAppConversationServiceInjector  # noqa: E501
+    from openhands.app_server.app_conversation.sql_app_conversation_info_service import \
+        SQLAppConversationInfoServiceInjector  # noqa: E501
+    from openhands.app_server.app_conversation.sql_app_conversation_start_task_service import \
+        SQLAppConversationStartTaskServiceInjector  # noqa: E501
+    from openhands.app_server.event.aws_event_service import \
+        AwsEventServiceInjector
+    from openhands.app_server.event.filesystem_event_service import \
+        FilesystemEventServiceInjector
+    from openhands.app_server.event.google_cloud_event_service import \
+        GoogleCloudEventServiceInjector
+    from openhands.app_server.event_callback.sql_event_callback_service import \
+        SQLEventCallbackServiceInjector
+    from openhands.app_server.sandbox.docker_sandbox_service import \
+        DockerSandboxServiceInjector
+    from openhands.app_server.sandbox.docker_sandbox_spec_service import \
+        DockerSandboxSpecServiceInjector
+    from openhands.app_server.sandbox.process_sandbox_service import \
+        ProcessSandboxServiceInjector
+    from openhands.app_server.sandbox.process_sandbox_spec_service import \
+        ProcessSandboxSpecServiceInjector
+    from openhands.app_server.sandbox.remote_sandbox_service import \
+        RemoteSandboxServiceInjector
+    from openhands.app_server.sandbox.remote_sandbox_spec_service import \
+        RemoteSandboxSpecServiceInjector
+    from openhands.app_server.user.auth_user_context import \
+        AuthUserContextInjector
 
     config: AppServerConfig = from_env(AppServerConfig, 'OH')  # type: ignore
 
@@ -260,9 +232,8 @@ def config_from_env() -> AppServerConfig:
             # This is set by the CLI's --mount-cwd flag
             sandbox_volumes = os.getenv('SANDBOX_VOLUMES')
             if sandbox_volumes:
-                from openhands.app_server.sandbox.docker_sandbox_service import (
-                    VolumeMount,
-                )
+                from openhands.app_server.sandbox.docker_sandbox_service import \
+                    VolumeMount
 
                 mounts = []
                 for mount_spec in sandbox_volumes.split(','):
@@ -311,9 +282,8 @@ def config_from_env() -> AppServerConfig:
         )
 
     if config.pending_message is None:
-        from openhands.app_server.pending_messages.pending_message_service import (
-            SQLPendingMessageServiceInjector,
-        )
+        from openhands.app_server.pending_messages.pending_message_service import \
+            SQLPendingMessageServiceInjector
 
         config.pending_message = SQLPendingMessageServiceInjector()
 

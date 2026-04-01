@@ -10,22 +10,22 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import UUID, uuid4
 
 import pytest
-from server.utils.saas_app_conversation_info_injector import (
-    SaasSQLAppConversationInfoService,
-)
+from server.utils.saas_app_conversation_info_injector import \
+    SaasSQLAppConversationInfoService
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
 from sqlalchemy.pool import StaticPool
 from storage.base import Base
 from storage.org import Org
 from storage.user import User
 
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-)
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversationInfo
 from openhands.app_server.user.specifiy_user_context import SpecifyUserContext
 from openhands.integrations.service_types import ProviderType
-from openhands.storage.data_models.conversation_metadata import ConversationTrigger
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationTrigger
 
 # Test UUIDs
 USER1_ID = UUID('a1111111-1111-1111-1111-111111111111')
@@ -249,10 +249,10 @@ class TestSaasSQLAppConversationInfoService:
         saas_service_user1: SaasSQLAppConversationInfoService,
     ):
         """Test that _to_info_with_user_id properly sets user_id from SAAS metadata."""
-        from storage.stored_conversation_metadata import StoredConversationMetadata
-        from storage.stored_conversation_metadata_saas import (
-            StoredConversationMetadataSaas,
-        )
+        from storage.stored_conversation_metadata import \
+            StoredConversationMetadata
+        from storage.stored_conversation_metadata_saas import \
+            StoredConversationMetadataSaas
 
         # Create mock metadata objects
         stored_metadata = MagicMock(spec=StoredConversationMetadata)
@@ -679,9 +679,8 @@ class TestSaasSQLAppConversationInfoServiceWebhookFallback:
         uses ADMIN context (user_id=None), the service should fall back to using
         the created_by_user_id from the AppConversationInfo object.
         """
-        from storage.stored_conversation_metadata_saas import (
-            StoredConversationMetadataSaas,
-        )
+        from storage.stored_conversation_metadata_saas import \
+            StoredConversationMetadataSaas
 
         from openhands.app_server.user.specifiy_user_context import ADMIN
 
@@ -722,9 +721,8 @@ class TestSaasSQLAppConversationInfoServiceWebhookFallback:
         async_session_with_users: AsyncSession,
     ):
         """Test that save_app_conversation_info skips SAAS metadata when both user_context and info have no user_id."""
-        from storage.stored_conversation_metadata_saas import (
-            StoredConversationMetadataSaas,
-        )
+        from storage.stored_conversation_metadata_saas import \
+            StoredConversationMetadataSaas
 
         from openhands.app_server.user.specifiy_user_context import ADMIN
 
@@ -1014,9 +1012,8 @@ class TestApiKeyOrgIdHandling:
         """
         from dataclasses import dataclass
 
-        from storage.stored_conversation_metadata_saas import (
-            StoredConversationMetadataSaas,
-        )
+        from storage.stored_conversation_metadata_saas import \
+            StoredConversationMetadataSaas
 
         # Create a mock UserAuth with API key org_id
         @dataclass
@@ -1096,9 +1093,8 @@ class TestApiKeyOrgIdHandling:
         """
         from dataclasses import dataclass
 
-        from storage.stored_conversation_metadata_saas import (
-            StoredConversationMetadataSaas,
-        )
+        from storage.stored_conversation_metadata_saas import \
+            StoredConversationMetadataSaas
 
         # Create a mock UserAuth with API key but NO org_id (legacy key)
         @dataclass
@@ -1166,9 +1162,8 @@ class TestApiKeyOrgIdHandling:
         This is already tested by other tests using SpecifyUserContext,
         but we explicitly test the case where user_context doesn't have user_auth.
         """
-        from storage.stored_conversation_metadata_saas import (
-            StoredConversationMetadataSaas,
-        )
+        from storage.stored_conversation_metadata_saas import \
+            StoredConversationMetadataSaas
 
         # Use SpecifyUserContext which doesn't have user_auth attribute
         service = SaasSQLAppConversationInfoService(

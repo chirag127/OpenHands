@@ -6,23 +6,13 @@ from typing import cast
 from urllib.parse import urlencode, urlparse
 
 import requests
-from fastapi import (
-    APIRouter,
-    BackgroundTasks,
-    HTTPException,
-    Request,
-    status,
-)
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Request, status
 from fastapi.responses import JSONResponse, RedirectResponse
 from integrations.jira_dc.jira_dc_manager import JiraDcManager
 from integrations.models import Message, SourceType
 from pydantic import BaseModel, Field, field_validator
-from server.auth.constants import (
-    JIRA_DC_BASE_URL,
-    JIRA_DC_CLIENT_ID,
-    JIRA_DC_CLIENT_SECRET,
-    JIRA_DC_ENABLE_OAUTH,
-)
+from server.auth.constants import (JIRA_DC_BASE_URL, JIRA_DC_CLIENT_ID,
+                                   JIRA_DC_CLIENT_SECRET, JIRA_DC_ENABLE_OAUTH)
 from server.auth.saas_user_auth import SaasUserAuth
 from server.auth.token_manager import TokenManager
 from server.constants import WEB_HOST

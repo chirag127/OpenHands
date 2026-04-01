@@ -18,13 +18,12 @@ if TYPE_CHECKING:
     from openhands.events.action import Action
     from openhands.events.action.message import SystemMessageAction
     from openhands.utils.prompt import PromptManager
+
 from litellm import ChatCompletionToolParam
 
 from openhands.core.config import AgentConfig
-from openhands.core.exceptions import (
-    AgentAlreadyRegisteredError,
-    AgentNotRegisteredError,
-)
+from openhands.core.exceptions import (AgentAlreadyRegisteredError,
+                                       AgentNotRegisteredError)
 from openhands.core.logger import openhands_logger as logger
 from openhands.events.event import EventSource
 from openhands.runtime.plugins import PluginRequirement

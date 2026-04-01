@@ -1,5 +1,4 @@
-"""
-Tests for UserStore following the async pattern from test_api_key_store.py.
+"""Tests for UserStore following the async pattern from test_api_key_store.py.
 Uses SQLite database with standard fixtures.
 """
 
@@ -105,8 +104,7 @@ async def test_create_default_settings_with_litellm(mock_litellm_api):
 async def test_create_default_settings_v1_enabled_true_when_default_is_true(
     mock_litellm_api,
 ):
-    """
-    GIVEN: DEFAULT_V1_ENABLED is True
+    """GIVEN: DEFAULT_V1_ENABLED is True
     WHEN: create_default_settings is called
     THEN: The default_settings.v1_enabled should be set to True
     """
@@ -138,8 +136,7 @@ async def test_create_default_settings_v1_enabled_true_when_default_is_true(
 async def test_create_default_settings_v1_enabled_false_when_default_is_false(
     mock_litellm_api,
 ):
-    """
-    GIVEN: DEFAULT_V1_ENABLED is False
+    """GIVEN: DEFAULT_V1_ENABLED is False
     WHEN: create_default_settings is called
     THEN: The default_settings.v1_enabled should be set to False
     """
@@ -933,12 +930,10 @@ async def test_migrate_user_sql_type_handling(async_session_maker):
             text('ALTER TABLE conversation_metadata ADD COLUMN user_id VARCHAR')
         )
         await session.execute(
-            text(
-                """
+            text("""
                 INSERT INTO conversation_metadata (conversation_id, user_id, conversation_version, created_at, last_updated_at)
                 VALUES (:conv_id, :user_id, 'V0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-                """
-            ),
+                """),
             {'conv_id': 'test-conv-1', 'user_id': user_id},
         )
 
@@ -1017,8 +1012,7 @@ async def test_migrate_user_sql_type_handling(async_session_maker):
         # The fix uses user_uuid (UUID) for inserting into user_id/org_id (UUID columns)
         # and user_id_text (string) for comparing with user_id in conversation_metadata (string column)
         await session.execute(
-            text(
-                """
+            text("""
                 INSERT INTO conversation_metadata_saas (conversation_id, user_id, org_id)
                 SELECT
                     conversation_id,
@@ -1026,8 +1020,7 @@ async def test_migrate_user_sql_type_handling(async_session_maker):
                     :user_uuid
                 FROM conversation_metadata
                 WHERE user_id = :user_id_text
-                """
-            ),
+                """),
             {'user_uuid': user_uuid_str, 'user_id_text': user_id},
         )
 
@@ -1080,9 +1073,8 @@ async def test_migrate_user_sql_type_handling(async_session_maker):
         await session.commit()
 
         # Verify the data was migrated correctly
-        from storage.stored_conversation_metadata_saas import (
-            StoredConversationMetadataSaas,
-        )
+        from storage.stored_conversation_metadata_saas import \
+            StoredConversationMetadataSaas
 
         # Verify conversation_metadata_saas
         result = await session.execute(
@@ -1178,12 +1170,10 @@ async def test_migrate_user_sql_no_matching_records(async_session_maker):
             text('ALTER TABLE conversation_metadata ADD COLUMN user_id VARCHAR')
         )
         await session.execute(
-            text(
-                """
+            text("""
                 INSERT INTO conversation_metadata (conversation_id, user_id, conversation_version, created_at, last_updated_at)
                 VALUES (:conv_id, :user_id, 'V0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-                """
-            ),
+                """),
             {'conv_id': 'other-conv-1', 'user_id': other_user_id},
         )
 
@@ -1196,8 +1186,7 @@ async def test_migrate_user_sql_no_matching_records(async_session_maker):
 
         # Execute migration SQL for our user (no data should match)
         await session.execute(
-            text(
-                """
+            text("""
                 INSERT INTO conversation_metadata_saas (conversation_id, user_id, org_id)
                 SELECT
                     conversation_id,
@@ -1205,16 +1194,14 @@ async def test_migrate_user_sql_no_matching_records(async_session_maker):
                     :user_uuid
                 FROM conversation_metadata
                 WHERE user_id = :user_id_text
-                """
-            ),
+                """),
             {'user_uuid': user_uuid_str, 'user_id_text': user_id},
         )
         await session.commit()
 
         # Verify no records were created for our user
-        from storage.stored_conversation_metadata_saas import (
-            StoredConversationMetadataSaas,
-        )
+        from storage.stored_conversation_metadata_saas import \
+            StoredConversationMetadataSaas
 
         result = await session.execute(
             select(StoredConversationMetadataSaas).filter(
@@ -1253,12 +1240,10 @@ async def test_migrate_user_sql_multiple_conversations(async_session_maker):
         # Insert multiple conversations for the same user
         for i in range(3):
             await session.execute(
-                text(
-                    """
+                text("""
                     INSERT INTO conversation_metadata (conversation_id, user_id, conversation_version, created_at, last_updated_at)
                     VALUES (:conv_id, :user_id, 'V0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-                    """
-                ),
+                    """),
                 {'conv_id': f'test-conv-{i}', 'user_id': user_id},
             )
 
@@ -1275,8 +1260,7 @@ async def test_migrate_user_sql_multiple_conversations(async_session_maker):
 
         # Execute migration SQL
         await session.execute(
-            text(
-                """
+            text("""
                 INSERT INTO conversation_metadata_saas (conversation_id, user_id, org_id)
                 SELECT
                     conversation_id,
@@ -1284,8 +1268,7 @@ async def test_migrate_user_sql_multiple_conversations(async_session_maker):
                     :user_uuid
                 FROM conversation_metadata
                 WHERE user_id = :user_id_text
-                """
-            ),
+                """),
             {'user_uuid': user_uuid_str, 'user_id_text': user_id},
         )
         await session.commit()

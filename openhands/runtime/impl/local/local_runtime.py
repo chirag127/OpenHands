@@ -25,29 +25,22 @@ from openhands.core.config import OpenHandsConfig
 from openhands.core.exceptions import AgentRuntimeDisconnectedError
 from openhands.core.logger import openhands_logger as logger
 from openhands.events import EventStream
-from openhands.events.action import (
-    Action,
-)
-from openhands.events.observation import (
-    Observation,
-)
+from openhands.events.action import Action
+from openhands.events.observation import Observation
 from openhands.events.serialization import event_to_dict, observation_from_dict
 from openhands.integrations.provider import PROVIDER_TOKEN_TYPE
 from openhands.llm.llm_registry import LLMRegistry
-from openhands.runtime.impl.action_execution.action_execution_client import (
-    ActionExecutionClient,
-)
+from openhands.runtime.impl.action_execution.action_execution_client import \
+    ActionExecutionClient
 from openhands.runtime.impl.docker.docker_runtime import (
-    APP_PORT_RANGE_1,
-    APP_PORT_RANGE_2,
-    EXECUTION_SERVER_PORT_RANGE,
-    VSCODE_PORT_RANGE,
-)
+    APP_PORT_RANGE_1, APP_PORT_RANGE_2, EXECUTION_SERVER_PORT_RANGE,
+    VSCODE_PORT_RANGE)
 from openhands.runtime.plugins import PluginRequirement
 from openhands.runtime.plugins.vscode import VSCodeRequirement
 from openhands.runtime.runtime_status import RuntimeStatus
 from openhands.runtime.utils import find_available_tcp_port
-from openhands.runtime.utils.command import get_action_execution_server_startup_command
+from openhands.runtime.utils.command import \
+    get_action_execution_server_startup_command
 from openhands.utils.async_utils import call_sync_from_async
 from openhands.utils.http_session import httpx_verify_option
 from openhands.utils.tenacity_stop import stop_if_should_exit

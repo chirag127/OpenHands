@@ -1,15 +1,13 @@
 from typing import Any
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.integrations.bitbucket_data_center.service.base import (
-    BitbucketDCMixinBase,
-)
+from openhands.integrations.bitbucket_data_center.service.base import \
+    BitbucketDCMixinBase
 from openhands.integrations.service_types import RequestMethod
 
 
 class BitbucketDCPRsMixin(BitbucketDCMixinBase):
-    """
-    Mixin for BitBucket data center pull request operations
+    """Mixin for BitBucket data center pull request operations
     """
 
     async def create_pr(

@@ -9,23 +9,25 @@ from unittest.mock import MagicMock, patch
 from uuid import uuid4
 
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from openhands.agent_server.models import ConversationInfo, Success
+from openhands.sdk.conversation.state import ConversationExecutionStatus
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
 from sqlalchemy.pool import StaticPool
 
-from openhands.agent_server.models import ConversationInfo, Success
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-)
-from openhands.app_server.app_conversation.sql_app_conversation_info_service import (
-    SQLAppConversationInfoService,
-)
-from openhands.app_server.event_callback.webhook_router import on_conversation_update
-from openhands.app_server.sandbox.sandbox_models import SandboxInfo, SandboxStatus
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversationInfo
+from openhands.app_server.app_conversation.sql_app_conversation_info_service import \
+    SQLAppConversationInfoService
+from openhands.app_server.event_callback.webhook_router import \
+    on_conversation_update
+from openhands.app_server.sandbox.sandbox_models import (SandboxInfo,
+                                                         SandboxStatus)
 from openhands.app_server.user.specifiy_user_context import SpecifyUserContext
 from openhands.app_server.utils.sql_utils import Base
 from openhands.integrations.provider import ProviderType
-from openhands.sdk.conversation.state import ConversationExecutionStatus
-from openhands.storage.data_models.conversation_metadata import ConversationTrigger
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationTrigger
 
 
 @pytest.fixture
@@ -119,7 +121,6 @@ class TestOnConversationUpdateParentConversationId:
         Assert:
             - Saved conversation retains the parent_conversation_id
         """
-
         # Arrange
         parent_id = uuid4()
         conversation_id = mock_conversation_info.id
@@ -172,7 +173,6 @@ class TestOnConversationUpdateParentConversationId:
         Assert:
             - Saved conversation has parent_conversation_id as None
         """
-
         # Arrange
         conversation_id = mock_conversation_info.id
 
@@ -221,7 +221,6 @@ class TestOnConversationUpdateParentConversationId:
         Assert:
             - New conversation has parent_conversation_id as None
         """
-
         # Arrange
         conversation_id = mock_conversation_info.id
 
@@ -269,7 +268,6 @@ class TestOnConversationUpdateParentConversationId:
         Assert:
             - All metadata including parent_conversation_id is preserved
         """
-
         # Arrange
         parent_id = uuid4()
         conversation_id = mock_conversation_info.id
@@ -334,7 +332,6 @@ class TestOnConversationUpdateParentConversationId:
         Assert:
             - Parent_conversation_id remains unchanged after all updates
         """
-
         # Arrange
         parent_id = uuid4()
         conversation_id = mock_conversation_info.id
@@ -397,7 +394,6 @@ class TestOnConversationUpdateParentConversationId:
         Assert:
             - Function returns early, no updates are made
         """
-
         # Arrange
         parent_id = uuid4()
         conversation_id = mock_conversation_info.id
@@ -457,7 +453,6 @@ class TestOnConversationUpdateParentConversationId:
         Assert:
             - Parent_conversation_id is preserved and title is generated
         """
-
         # Arrange
         parent_id = uuid4()
         conversation_id = mock_conversation_info.id

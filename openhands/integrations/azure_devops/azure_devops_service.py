@@ -4,27 +4,20 @@ from typing import Any
 import httpx
 from pydantic import SecretStr
 
-from openhands.integrations.azure_devops.service.branches import (
-    AzureDevOpsBranchesMixin,
-)
-from openhands.integrations.azure_devops.service.features import (
-    AzureDevOpsFeaturesMixin,
-)
+from openhands.integrations.azure_devops.service.branches import \
+    AzureDevOpsBranchesMixin
+from openhands.integrations.azure_devops.service.features import \
+    AzureDevOpsFeaturesMixin
 from openhands.integrations.azure_devops.service.prs import AzureDevOpsPRsMixin
-from openhands.integrations.azure_devops.service.repos import AzureDevOpsReposMixin
-from openhands.integrations.azure_devops.service.resolver import (
-    AzureDevOpsResolverMixin,
-)
-from openhands.integrations.azure_devops.service.work_items import (
-    AzureDevOpsWorkItemsMixin,
-)
+from openhands.integrations.azure_devops.service.repos import \
+    AzureDevOpsReposMixin
+from openhands.integrations.azure_devops.service.resolver import \
+    AzureDevOpsResolverMixin
+from openhands.integrations.azure_devops.service.work_items import \
+    AzureDevOpsWorkItemsMixin
 from openhands.integrations.protocols.http_client import HTTPClient
-from openhands.integrations.service_types import (
-    BaseGitService,
-    GitService,
-    ProviderType,
-    RequestMethod,
-)
+from openhands.integrations.service_types import (BaseGitService, GitService,
+                                                  ProviderType, RequestMethod)
 from openhands.utils.import_utils import get_impl
 
 

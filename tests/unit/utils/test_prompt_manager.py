@@ -8,12 +8,8 @@ from openhands.controller.state.state import State
 from openhands.core.message import Message, TextContent
 from openhands.events.observation.agent import MicroagentKnowledge
 from openhands.microagent import BaseMicroagent
-from openhands.utils.prompt import (
-    ConversationInstructions,
-    PromptManager,
-    RepositoryInfo,
-    RuntimeInfo,
-)
+from openhands.utils.prompt import (ConversationInstructions, PromptManager,
+                                    RepositoryInfo, RuntimeInfo)
 
 
 @pytest.fixture
@@ -321,12 +317,14 @@ def test_jinja2_template_inheritance(prompt_dir):
     """
     # Create base system prompt template (no blocks defined here)
     with open(os.path.join(prompt_dir, 'system_prompt.j2'), 'w') as f:
-        f.write("""You are OpenHands agent, a helpful AI assistant that can interact with a computer to solve tasks.
+        f.write(
+            """You are OpenHands agent, a helpful AI assistant that can interact with a computer to solve tasks.
 
 <ROLE>
 Your primary role is to assist users by executing commands, modifying code, and solving technical problems effectively.
 </ROLE>
-""")
+"""
+        )
 
     # Create interactive system prompt that imports the base template and adds content
     with open(os.path.join(prompt_dir, 'system_prompt_interactive.j2'), 'w') as f:

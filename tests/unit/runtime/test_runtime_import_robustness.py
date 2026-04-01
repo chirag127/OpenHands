@@ -130,6 +130,6 @@ def test_import_error_handled_silently(caplog):
     warning_records = [
         record for record in caplog.records if record.levelname == 'WARNING'
     ]
-    assert len(warning_records) == 0, (
-        f'ImportError should not generate warnings, but got: {warning_records}'
-    )
+    assert (
+        len(warning_records) == 0
+    ), f'ImportError should not generate warnings, but got: {warning_records}'

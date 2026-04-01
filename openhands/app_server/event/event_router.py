@@ -5,12 +5,12 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Query
-
 from openhands.agent_server.models import EventPage, EventSortOrder
+from openhands.sdk import Event
+
 from openhands.app_server.config import depends_event_service
 from openhands.app_server.event.event_service import EventService
 from openhands.app_server.event_callback.event_callback_models import EventKind
-from openhands.sdk import Event
 from openhands.server.dependencies import get_dependencies
 
 # We use the get_dependencies method here to signal to the OpenAPI docs that this endpoint

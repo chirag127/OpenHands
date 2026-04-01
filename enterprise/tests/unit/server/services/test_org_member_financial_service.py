@@ -5,7 +5,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from server.routes.org_models import OrgMemberFinancialPage
-from server.services.org_member_financial_service import OrgMemberFinancialService
+from server.services.org_member_financial_service import \
+    OrgMemberFinancialService
 from storage.org_member import OrgMember
 
 
@@ -53,8 +54,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
     async def test_returns_paginated_financial_data_with_individual_budget(
         self, org_id, mock_org_member
     ):
-        """
-        GIVEN: Organization with members having individual budget limits
+        """GIVEN: Organization with members having individual budget limits
         WHEN: get_org_members_financial_data is called
         THEN: Returns financial data using individual spend for current_budget calc
         """
@@ -104,8 +104,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
     async def test_returns_shared_budget_using_team_spend(
         self, org_id, mock_org_member
     ):
-        """
-        GIVEN: Organization with shared team budget
+        """GIVEN: Organization with shared team budget
         WHEN: get_org_members_financial_data is called
         THEN: Uses team_spend (not individual spend) for current_budget calculation
         """
@@ -152,8 +151,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
     async def test_returns_defaults_when_litellm_data_missing(
         self, org_id, mock_org_member
     ):
-        """
-        GIVEN: Organization with members but no LiteLLM data for them
+        """GIVEN: Organization with members but no LiteLLM data for them
         WHEN: get_org_members_financial_data is called
         THEN: Returns financial data with default values (spend=0, budget=None)
         """
@@ -188,8 +186,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
 
     @pytest.mark.asyncio
     async def test_handles_litellm_failure_gracefully(self, org_id, mock_org_member):
-        """
-        GIVEN: LiteLLM service throws an exception
+        """GIVEN: LiteLLM service throws an exception
         WHEN: get_org_members_financial_data is called
         THEN: Returns financial data with default values (doesn't fail)
         """
@@ -219,8 +216,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
 
     @pytest.mark.asyncio
     async def test_pagination_returns_next_page_id(self, org_id, mock_org_member):
-        """
-        GIVEN: Organization with more members than limit
+        """GIVEN: Organization with more members than limit
         WHEN: get_org_members_financial_data is called
         THEN: Returns next_page_id for pagination
         """
@@ -255,8 +251,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
 
     @pytest.mark.asyncio
     async def test_pagination_no_next_page_on_last_page(self, org_id, mock_org_member):
-        """
-        GIVEN: Organization on last page of results
+        """GIVEN: Organization on last page of results
         WHEN: get_org_members_financial_data is called
         THEN: Returns next_page_id as None
         """
@@ -290,8 +285,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
 
     @pytest.mark.asyncio
     async def test_empty_organization_returns_empty_items(self, org_id):
-        """
-        GIVEN: Organization with no members
+        """GIVEN: Organization with no members
         WHEN: get_org_members_financial_data is called
         THEN: Returns empty items list
         """
@@ -313,8 +307,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
 
     @pytest.mark.asyncio
     async def test_invalid_page_id_raises_value_error(self, org_id):
-        """
-        GIVEN: Invalid page_id format
+        """GIVEN: Invalid page_id format
         WHEN: get_org_members_financial_data is called
         THEN: Raises ValueError
         """
@@ -329,8 +322,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
 
     @pytest.mark.asyncio
     async def test_negative_page_id_raises_value_error(self, org_id):
-        """
-        GIVEN: Negative page_id
+        """GIVEN: Negative page_id
         WHEN: get_org_members_financial_data is called
         THEN: Raises ValueError
         """
@@ -345,8 +337,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
 
     @pytest.mark.asyncio
     async def test_passes_email_filter_to_store(self, org_id, mock_org_member):
-        """
-        GIVEN: Email filter parameter
+        """GIVEN: Email filter parameter
         WHEN: get_org_members_financial_data is called
         THEN: Passes email filter to the store
         """
@@ -381,8 +372,7 @@ class TestOrgMemberFinancialServiceGetFinancialData:
 
     @pytest.mark.asyncio
     async def test_handles_missing_user_relationship(self, org_id, mock_role):
-        """
-        GIVEN: Member with no user relationship loaded
+        """GIVEN: Member with no user relationship loaded
         WHEN: get_org_members_financial_data is called
         THEN: Returns None for email
         """

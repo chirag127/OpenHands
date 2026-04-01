@@ -5,12 +5,10 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from server.routes.org_invitation_models import (
-    EmailMismatchError,
-    InvitationExpiredError,
-    InvitationInvalidError,
-    UserAlreadyMemberError,
-)
+from server.routes.org_invitation_models import (EmailMismatchError,
+                                                 InvitationExpiredError,
+                                                 InvitationInvalidError,
+                                                 UserAlreadyMemberError)
 from server.routes.org_invitations import accept_router, invitation_router
 
 
@@ -67,7 +65,6 @@ class TestAcceptInvitationPostEndpoint:
     @pytest.fixture
     def auth_app(self):
         """Create a FastAPI app with dependency overrides for authenticated tests."""
-
         from openhands.server.user_auth import get_user_id
 
         app = FastAPI()
@@ -308,7 +305,8 @@ class TestCreateInvitationBatchEndpoint:
     @pytest.mark.asyncio
     async def test_batch_create_permission_denied_returns_403(self, batch_client):
         """Test that permission denied returns 403 for entire batch."""
-        from server.routes.org_invitation_models import InsufficientPermissionError
+        from server.routes.org_invitation_models import \
+            InsufficientPermissionError
 
         with (
             patch(

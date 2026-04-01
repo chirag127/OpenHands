@@ -22,90 +22,66 @@ import httpx
 from fastapi import APIRouter, Depends, Query, Request, status
 from fastapi.responses import JSONResponse
 from jinja2 import Environment, FileSystemLoader
+from openhands.sdk.conversation.state import ConversationExecutionStatus
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from openhands.app_server.app_conversation.app_conversation_info_service import (
-    AppConversationInfoService,
-)
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversation,
-)
-from openhands.app_server.app_conversation.app_conversation_service import (
-    AppConversationService,
-)
-from openhands.app_server.config import (
-    depends_app_conversation_info_service,
-    depends_app_conversation_service,
-    depends_db_session,
-    depends_httpx_client,
-    depends_sandbox_service,
-)
-from openhands.app_server.sandbox.sandbox_models import AGENT_SERVER, SandboxStatus
+from openhands.app_server.app_conversation.app_conversation_info_service import \
+    AppConversationInfoService
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversation
+from openhands.app_server.app_conversation.app_conversation_service import \
+    AppConversationService
+from openhands.app_server.config import (depends_app_conversation_info_service,
+                                         depends_app_conversation_service,
+                                         depends_db_session,
+                                         depends_httpx_client,
+                                         depends_sandbox_service)
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER,
+                                                         SandboxStatus)
 from openhands.app_server.sandbox.sandbox_service import SandboxService
-from openhands.app_server.services.db_session_injector import set_db_session_keep_open
-from openhands.app_server.services.httpx_client_injector import (
-    set_httpx_client_keep_open,
-)
+from openhands.app_server.services.db_session_injector import \
+    set_db_session_keep_open
+from openhands.app_server.services.httpx_client_injector import \
+    set_httpx_client_keep_open
 from openhands.core.config.llm_config import LLMConfig
 from openhands.core.config.mcp_config import MCPConfig
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    ChangeAgentStateAction,
-    NullAction,
-)
+from openhands.events.action import ChangeAgentStateAction, NullAction
 from openhands.events.event_filter import EventFilter
 from openhands.events.event_store import EventStore
-from openhands.events.observation import (
-    AgentStateChangedObservation,
-    NullObservation,
-)
-from openhands.integrations.provider import (
-    PROVIDER_TOKEN_TYPE,
-    ProviderHandler,
-)
-from openhands.integrations.service_types import (
-    CreateMicroagent,
-    ProviderType,
-    SuggestedTask,
-)
+from openhands.events.observation import (AgentStateChangedObservation,
+                                          NullObservation)
+from openhands.integrations.provider import (PROVIDER_TOKEN_TYPE,
+                                             ProviderHandler)
+from openhands.integrations.service_types import (CreateMicroagent,
+                                                  ProviderType, SuggestedTask)
 from openhands.runtime import get_runtime_cls
 from openhands.runtime.runtime_status import RuntimeStatus
-from openhands.sdk.conversation.state import ConversationExecutionStatus
 from openhands.server.data_models.agent_loop_info import AgentLoopInfo
 from openhands.server.data_models.conversation_info import ConversationInfo
-from openhands.server.data_models.conversation_info_result_set import (
-    ConversationInfoResultSet,
-)
+from openhands.server.data_models.conversation_info_result_set import \
+    ConversationInfoResultSet
 from openhands.server.dependencies import get_dependencies
 from openhands.server.services.conversation_service import (
-    create_new_conversation,
-    setup_init_conversation_settings,
-)
-from openhands.server.shared import (
-    ConversationStoreImpl,
-    config,
-    conversation_manager,
-    file_store,
-)
+    create_new_conversation, setup_init_conversation_settings)
+from openhands.server.shared import (ConversationStoreImpl, config,
+                                     conversation_manager, file_store)
 from openhands.server.types import LLMAuthenticationError, MissingSettingsError
-from openhands.server.user_auth import (
-    get_auth_type,
-    get_provider_tokens,
-    get_secrets,
-    get_user_id,
-    get_user_settings,
-    get_user_settings_store,
-)
+from openhands.server.user_auth import (get_auth_type, get_provider_tokens,
+                                        get_secrets, get_user_id,
+                                        get_user_settings,
+                                        get_user_settings_store)
 from openhands.server.user_auth.user_auth import AuthType
-from openhands.server.utils import get_conversation as get_conversation_metadata
-from openhands.server.utils import get_conversation_store, validate_conversation_id
+from openhands.server.utils import \
+    get_conversation as get_conversation_metadata
+from openhands.server.utils import (get_conversation_store,
+                                    validate_conversation_id)
 from openhands.storage.conversation.conversation_store import ConversationStore
 from openhands.storage.data_models.conversation_metadata import (
-    ConversationMetadata,
-    ConversationTrigger,
-)
-from openhands.storage.data_models.conversation_status import ConversationStatus
+    ConversationMetadata, ConversationTrigger)
+from openhands.storage.data_models.conversation_status import \
+    ConversationStatus
 from openhands.storage.data_models.secrets import Secrets
 from openhands.storage.data_models.settings import Settings
 from openhands.storage.settings.settings_store import SettingsStore

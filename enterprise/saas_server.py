@@ -12,15 +12,11 @@ import socketio  # noqa: E402
 from fastapi import Request, status  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 from fastapi.responses import JSONResponse  # noqa: E402
-from server.auth.auth_error import ExpiredError, NoCredentialsError  # noqa: E402
-from server.auth.constants import (  # noqa: E402
-    BITBUCKET_DATA_CENTER_HOST,
-    ENABLE_JIRA,
-    ENABLE_JIRA_DC,
-    ENABLE_LINEAR,
-    GITHUB_APP_CLIENT_ID,
-    GITLAB_APP_CLIENT_ID,
-)
+from server.auth.auth_error import (ExpiredError,  # noqa: E402
+                                    NoCredentialsError)
+from server.auth.constants import (BITBUCKET_DATA_CENTER_HOST,  # noqa: E402
+                                   ENABLE_JIRA, ENABLE_JIRA_DC, ENABLE_LINEAR,
+                                   GITHUB_APP_CLIENT_ID, GITLAB_APP_CLIENT_ID)
 from server.constants import PERMITTED_CORS_ORIGINS  # noqa: E402
 from server.logger import logger  # noqa: E402
 from server.middleware import SetAuthCookieMiddleware  # noqa: E402
@@ -32,41 +28,36 @@ from server.routes.email import api_router as email_router  # noqa: E402
 from server.routes.event_webhook import event_webhook_router  # noqa: E402
 from server.routes.feedback import router as feedback_router  # noqa: E402
 from server.routes.github_proxy import add_github_proxy_routes  # noqa: E402
-from server.routes.integration.jira import jira_integration_router  # noqa: E402
-from server.routes.integration.jira_dc import jira_dc_integration_router  # noqa: E402
-from server.routes.integration.linear import linear_integration_router  # noqa: E402
+from server.routes.integration.jira import \
+    jira_integration_router  # noqa: E402
+from server.routes.integration.jira_dc import \
+    jira_dc_integration_router  # noqa: E402
+from server.routes.integration.linear import \
+    linear_integration_router  # noqa: E402
 from server.routes.integration.slack import slack_router  # noqa: E402
 from server.routes.mcp_patch import patch_mcp_server  # noqa: E402
 from server.routes.oauth_device import oauth_device_router  # noqa: E402
-from server.routes.org_invitations import (  # noqa: E402
-    accept_router as invitation_accept_router,
-)
-from server.routes.org_invitations import (  # noqa: E402
-    invitation_router,
-)
+from server.routes.org_invitations import \
+    accept_router as invitation_accept_router  # noqa: E402
+from server.routes.org_invitations import invitation_router  # noqa: E402
 from server.routes.orgs import org_router  # noqa: E402
 from server.routes.readiness import readiness_router  # noqa: E402
 from server.routes.service import service_router  # noqa: E402
 from server.routes.user import saas_user_router  # noqa: E402
-from server.routes.user_app_settings import user_app_settings_router  # noqa: E402
-from server.sharing.shared_conversation_router import (  # noqa: E402
-    router as shared_conversation_router,
-)
-from server.sharing.shared_event_router import (  # noqa: E402
-    router as shared_event_router,
-)
-from server.verified_models.verified_model_router import (  # noqa: E402
-    api_router as verified_models_router,
-)
-from server.verified_models.verified_model_router import (  # noqa: E402
-    override_llm_models_dependency,
-)
+from server.routes.user_app_settings import \
+    user_app_settings_router  # noqa: E402
+from server.sharing.shared_conversation_router import \
+    router as shared_conversation_router  # noqa: E402
+from server.sharing.shared_event_router import \
+    router as shared_event_router  # noqa: E402
+from server.verified_models.verified_model_router import \
+    api_router as verified_models_router  # noqa: E402
+from server.verified_models.verified_model_router import \
+    override_llm_models_dependency  # noqa: E402
 
 from openhands.server.app import app as base_app  # noqa: E402
 from openhands.server.listen_socket import sio  # noqa: E402
-from openhands.server.middleware import (  # noqa: E402
-    CacheControlMiddleware,
-)
+from openhands.server.middleware import CacheControlMiddleware  # noqa: E402
 from openhands.server.static import SPAStaticFiles  # noqa: E402
 
 directory = os.getenv('FRONTEND_DIRECTORY', './frontend/build')
@@ -94,10 +85,10 @@ base_app.include_router(shared_event_router)
 # Add GitHub integration router only if GITHUB_APP_CLIENT_ID is set
 if GITHUB_APP_CLIENT_ID:
     # Make sure that the callback processor is loaded here so we don't get an error when deserializing
-    from integrations.github.github_v1_callback_processor import (  # noqa: E402
-        GithubV1CallbackProcessor,
-    )
-    from server.routes.integration.github import github_integration_router  # noqa: E402
+    from integrations.github.github_v1_callback_processor import \
+        GithubV1CallbackProcessor  # noqa: E402
+    from server.routes.integration.github import \
+        github_integration_router  # noqa: E402
 
     # Bludgeon mypy into not deleting my import
     logger.debug(f'Loaded {GithubV1CallbackProcessor.__name__}')
@@ -108,7 +99,8 @@ if GITHUB_APP_CLIENT_ID:
 
 # Add GitLab integration router only if GITLAB_APP_CLIENT_ID is set
 if GITLAB_APP_CLIENT_ID:
-    from server.routes.integration.gitlab import gitlab_integration_router  # noqa: E402
+    from server.routes.integration.gitlab import \
+        gitlab_integration_router  # noqa: E402
 
     base_app.include_router(gitlab_integration_router)
 
@@ -134,9 +126,8 @@ if ENABLE_JIRA_DC:
 if ENABLE_LINEAR:
     base_app.include_router(linear_integration_router)
 if BITBUCKET_DATA_CENTER_HOST:
-    from server.routes.bitbucket_dc_proxy import (
-        router as bitbucket_dc_proxy_router,  # noqa: E402
-    )
+    from server.routes.bitbucket_dc_proxy import \
+        router as bitbucket_dc_proxy_router  # noqa: E402
 
     base_app.include_router(bitbucket_dc_proxy_router)
 base_app.include_router(email_router)  # Add routes for email management

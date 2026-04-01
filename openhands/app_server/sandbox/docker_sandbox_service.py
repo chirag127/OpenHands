@@ -11,32 +11,26 @@ import docker
 import httpx
 from docker.errors import APIError, NotFound
 from fastapi import Request
+from openhands.agent_server.utils import utc_now
 from pydantic import BaseModel, ConfigDict, Field
 
-from openhands.agent_server.utils import utc_now
 from openhands.app_server.errors import SandboxError
-from openhands.app_server.sandbox.docker_sandbox_spec_service import get_docker_client
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    VSCODE,
-    WORKER_1,
-    WORKER_2,
-    ExposedUrl,
-    SandboxInfo,
-    SandboxPage,
-    SandboxStatus,
-)
+from openhands.app_server.sandbox.docker_sandbox_spec_service import \
+    get_docker_client
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER, VSCODE,
+                                                         WORKER_1, WORKER_2,
+                                                         ExposedUrl,
+                                                         SandboxInfo,
+                                                         SandboxPage,
+                                                         SandboxStatus)
 from openhands.app_server.sandbox.sandbox_service import (
-    SESSION_API_KEY_VARIABLE,
-    WEBHOOK_CALLBACK_VARIABLE,
-    SandboxService,
-    SandboxServiceInjector,
-)
-from openhands.app_server.sandbox.sandbox_spec_service import SandboxSpecService
+    SESSION_API_KEY_VARIABLE, WEBHOOK_CALLBACK_VARIABLE, SandboxService,
+    SandboxServiceInjector)
+from openhands.app_server.sandbox.sandbox_spec_service import \
+    SandboxSpecService
 from openhands.app_server.services.injector import InjectorState
-from openhands.app_server.utils.docker_utils import (
-    replace_localhost_hostname_for_docker,
-)
+from openhands.app_server.utils.docker_utils import \
+    replace_localhost_hostname_for_docker
 
 _logger = logging.getLogger(__name__)
 STARTUP_GRACE_SECONDS = 15
@@ -454,9 +448,11 @@ class DockerSandboxService(SandboxService):
                 # Allow agent-server containers to resolve host.docker.internal
                 # and other custom hostnames for LAN deployments
                 # Note: extra_hosts is not needed with host network mode
-                extra_hosts=self.extra_hosts
-                if self.extra_hosts and not self.use_host_network
-                else None,
+                extra_hosts=(
+                    self.extra_hosts
+                    if self.extra_hosts and not self.use_host_network
+                    else None
+                ),
                 # Network mode: 'host' for host networking, None for default bridge
                 network_mode=network_mode,
             )
@@ -625,11 +621,9 @@ class DockerSandboxServiceInjector(SandboxServiceInjector):
         self, state: InjectorState, request: Request | None = None
     ) -> AsyncGenerator[SandboxService, None]:
         # Define inline to prevent circular lookup
-        from openhands.app_server.config import (
-            get_global_config,
-            get_httpx_client,
-            get_sandbox_spec_service,
-        )
+        from openhands.app_server.config import (get_global_config,
+                                                 get_httpx_client,
+                                                 get_sandbox_spec_service)
 
         # Get web_url and permitted_cors_origins from global config
         config = get_global_config()

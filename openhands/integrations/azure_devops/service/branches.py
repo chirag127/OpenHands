@@ -1,7 +1,9 @@
 """Branch operations for Azure DevOps integration."""
 
-from openhands.integrations.azure_devops.service.base import AzureDevOpsMixinBase
-from openhands.integrations.service_types import Branch, PaginatedBranchesResponse
+from openhands.integrations.azure_devops.service.base import \
+    AzureDevOpsMixinBase
+from openhands.integrations.service_types import (Branch,
+                                                  PaginatedBranchesResponse)
 
 
 class AzureDevOpsBranchesMixin(AzureDevOpsMixinBase):

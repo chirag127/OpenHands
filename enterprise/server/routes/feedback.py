@@ -5,7 +5,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy.future import select
 from storage.database import a_session_maker
 from storage.feedback import ConversationFeedback
-from storage.stored_conversation_metadata_saas import StoredConversationMetadataSaas
+from storage.stored_conversation_metadata_saas import \
+    StoredConversationMetadataSaas
 
 from openhands.events.event_store import EventStore
 from openhands.server.dependencies import get_dependencies
@@ -34,7 +35,6 @@ async def get_event_ids(conversation_id: str, user_id: str) -> List[int]:
     Raises:
         HTTPException: If conversation metadata not found
     """
-
     # Verify the conversation belongs to the user
     async with a_session_maker() as session:
         result = await session.execute(
@@ -75,8 +75,7 @@ class FeedbackRequest(BaseModel):
 
 @router.post('/conversation', status_code=status.HTTP_201_CREATED)
 async def submit_conversation_feedback(feedback: FeedbackRequest):
-    """
-    Submit feedback for a conversation.
+    """Submit feedback for a conversation.
 
     This endpoint accepts a rating (1-5) and optional reason for the feedback.
     The feedback is associated with a specific conversation and optionally a specific event.
@@ -107,8 +106,7 @@ async def submit_conversation_feedback(feedback: FeedbackRequest):
 
 @router.get('/conversation/{conversation_id}/batch')
 async def get_batch_feedback(conversation_id: str, user_id: str = Depends(get_user_id)):
-    """
-    Get feedback for all events in a conversation.
+    """Get feedback for all events in a conversation.
 
     Returns feedback status for each event, including whether feedback exists
     and if so, the rating and reason.

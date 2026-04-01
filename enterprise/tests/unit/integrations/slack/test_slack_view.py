@@ -9,10 +9,8 @@ Focuses on the 3 essential scenarios:
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-from integrations.slack.slack_view import (
-    SlackNewConversationView,
-    SlackUpdateExistingConversationView,
-)
+from integrations.slack.slack_view import (SlackNewConversationView,
+                                           SlackUpdateExistingConversationView)
 from jinja2 import DictLoader, Environment
 from storage.slack_conversation import SlackConversation
 from storage.slack_user import SlackUser

@@ -7,21 +7,16 @@ import pytest
 
 from openhands.controller.agent import Agent
 from openhands.controller.agent_controller import AgentController
-from openhands.controller.state.control_flags import (
-    BudgetControlFlag,
-    IterationControlFlag,
-)
+from openhands.controller.state.control_flags import (BudgetControlFlag,
+                                                      IterationControlFlag)
 from openhands.controller.state.state import State
 from openhands.core.config import OpenHandsConfig
 from openhands.core.config.agent_config import AgentConfig
 from openhands.core.config.llm_config import LLMConfig
 from openhands.core.schema import AgentState
 from openhands.events import EventSource, EventStream
-from openhands.events.action import (
-    AgentDelegateAction,
-    AgentFinishAction,
-    MessageAction,
-)
+from openhands.events.action import (AgentDelegateAction, AgentFinishAction,
+                                     MessageAction)
 from openhands.events.action.agent import RecallAction
 from openhands.events.action.commands import CmdRunAction
 from openhands.events.action.message import SystemMessageAction
@@ -131,11 +126,10 @@ def create_mock_agent_factory(mock_child_agent, llm_registry):
 async def test_delegation_flow(
     mock_parent_agent, mock_child_agent, mock_event_stream, connected_registry_and_stats
 ):
-    """
-    Test that when the parent agent delegates to a child
-     1. the parent's delegate is set, and once the child finishes, the parent is cleaned up properly.
-     2. metrics are accumulated globally via LLM registry (delegate adds to the global metrics)
-     3. global metrics tracking works correctly through the LLM registry
+    """Test that when the parent agent delegates to a child
+    1. the parent's delegate is set, and once the child finishes, the parent is cleaned up properly.
+    2. metrics are accumulated globally via LLM registry (delegate adds to the global metrics)
+    3. global metrics tracking works correctly through the LLM registry
     """
     llm_registry, conversation_stats = connected_registry_and_stats
 
@@ -227,14 +221,14 @@ async def test_delegation_flow(
     assert any(isinstance(event, AgentDelegateAction) for event in events)
 
     # Verify that a delegate agent controller is created
-    assert parent_controller.delegate is not None, (
-        "Parent's delegate controller was not set."
-    )
+    assert (
+        parent_controller.delegate is not None
+    ), "Parent's delegate controller was not set."
 
     # The parent's iteration should have incremented
-    assert parent_controller.state.iteration_flag.current_value == 2, (
-        'Parent iteration should be incremented after step.'
-    )
+    assert (
+        parent_controller.state.iteration_flag.current_value == 2
+    ), 'Parent iteration should be incremented after step.'
 
     # Now simulate that the child increments local iteration and finishes its subtask
     delegate_controller = parent_controller.delegate
@@ -271,14 +265,14 @@ async def test_delegation_flow(
     await asyncio.sleep(0.5)
 
     # Now the parent's delegate is None
-    assert parent_controller.delegate is None, (
-        'Parent delegate should be None after child finishes.'
-    )
+    assert (
+        parent_controller.delegate is None
+    ), 'Parent delegate should be None after child finishes.'
 
     # Parent's global iteration is updated from the child
-    assert parent_controller.state.iteration_flag.current_value == 7, (
-        "Parent iteration should be the child's iteration + 1 after child is done."
-    )
+    assert (
+        parent_controller.state.iteration_flag.current_value == 7
+    ), "Parent iteration should be the child's iteration + 1 after child is done."
 
     # Cleanup
     await parent_controller.close()
@@ -364,8 +358,7 @@ async def test_delegate_step_different_states(
 async def test_delegate_hits_global_limits(
     mock_child_agent, mock_event_stream, mock_parent_agent, connected_registry_and_stats
 ):
-    """
-    Global limits from control flags should apply to delegates
+    """Global limits from control flags should apply to delegates
     """
     llm_registry, conversation_stats = connected_registry_and_stats
 
@@ -448,9 +441,9 @@ async def test_delegate_hits_global_limits(
     assert any(isinstance(event, AgentDelegateAction) for event in events)
 
     # Verify that a delegate agent controller is created
-    assert parent_controller.delegate is not None, (
-        "Parent's delegate controller was not set."
-    )
+    assert (
+        parent_controller.delegate is not None
+    ), "Parent's delegate controller was not set."
 
     delegate_controller = parent_controller.delegate
     await delegate_controller.set_agent_state_to(AgentState.RUNNING)

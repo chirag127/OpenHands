@@ -7,54 +7,36 @@ import httpx
 import pytest
 from fastapi import status
 from fastapi.responses import JSONResponse
+from openhands.sdk.conversation.state import ConversationExecutionStatus
 
-from openhands.app_server.app_conversation.app_conversation_info_service import (
-    AppConversationInfoService,
-)
+from openhands.app_server.app_conversation.app_conversation_info_service import \
+    AppConversationInfoService
 from openhands.app_server.app_conversation.app_conversation_models import (
-    AgentType,
-    AppConversation,
-    AppConversationInfo,
-    AppConversationPage,
-    AppConversationStartRequest,
-    AppConversationStartTask,
-    AppConversationStartTaskStatus,
-)
-from openhands.app_server.app_conversation.app_conversation_service import (
-    AppConversationService,
-)
+    AgentType, AppConversation, AppConversationInfo, AppConversationPage,
+    AppConversationStartRequest, AppConversationStartTask,
+    AppConversationStartTaskStatus)
+from openhands.app_server.app_conversation.app_conversation_service import \
+    AppConversationService
 from openhands.app_server.sandbox.sandbox_models import SandboxStatus
 from openhands.core.config.mcp_config import MCPConfig, MCPStdioServerConfig
 from openhands.microagent.microagent import KnowledgeMicroagent, RepoMicroagent
 from openhands.microagent.types import MicroagentMetadata, MicroagentType
 from openhands.runtime.runtime_status import RuntimeStatus
-from openhands.sdk.conversation.state import ConversationExecutionStatus
 from openhands.server.data_models.agent_loop_info import AgentLoopInfo
 from openhands.server.data_models.conversation_info import ConversationStatus
-from openhands.server.data_models.conversation_info_result_set import (
-    ConversationInfoResultSet,
-)
-from openhands.server.routes.conversation import (
-    AddMessageRequest,
-    add_message,
-    get_microagents,
-    get_remote_runtime_config,
-)
+from openhands.server.data_models.conversation_info_result_set import \
+    ConversationInfoResultSet
+from openhands.server.routes.conversation import (AddMessageRequest,
+                                                  add_message, get_microagents,
+                                                  get_remote_runtime_config)
 from openhands.server.routes.manage_conversations import (
-    _RESUME_GRACE_PERIOD,
-    UpdateConversationRequest,
-    _get_conversation_info,
-    _to_conversation_info,
-    get_conversation,
-    search_conversations,
-    update_conversation,
-)
+    _RESUME_GRACE_PERIOD, UpdateConversationRequest, _get_conversation_info,
+    _to_conversation_info, get_conversation, search_conversations,
+    update_conversation)
 from openhands.server.session.conversation import ServerConversation
 from openhands.storage.conversation.conversation_store import ConversationStore
 from openhands.storage.data_models.conversation_metadata import (
-    ConversationMetadata,
-    ConversationTrigger,
-)
+    ConversationMetadata, ConversationTrigger)
 
 
 @pytest.mark.asyncio

@@ -9,30 +9,19 @@ from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 import httpx
 import pytest
+from openhands.sdk.context.skills import KeywordTrigger, Skill, TaskTrigger
 
 from openhands.app_server.app_conversation.skill_loader import (
-    OrgConfig,
-    SandboxConfig,
-    SkillInfo,
-    _convert_skill_info_to_skill,
-    _determine_org_repo_path,
-    _get_org_repository_url,
-    _get_provider_type,
-    _is_azure_devops_repository,
-    _is_gitlab_repository,
-    build_org_config,
-    build_sandbox_config,
-    load_skills_from_agent_server,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    ExposedUrl,
-    SandboxInfo,
-    SandboxStatus,
-)
+    OrgConfig, SandboxConfig, SkillInfo, _convert_skill_info_to_skill,
+    _determine_org_repo_path, _get_org_repository_url, _get_provider_type,
+    _is_azure_devops_repository, _is_gitlab_repository, build_org_config,
+    build_sandbox_config, load_skills_from_agent_server)
+from openhands.app_server.sandbox.sandbox_models import (ExposedUrl,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
 from openhands.app_server.user.user_context import UserContext
 from openhands.integrations.provider import ProviderType
 from openhands.integrations.service_types import AuthenticationError
-from openhands.sdk.context.skills import KeywordTrigger, Skill, TaskTrigger
 
 # ===== Test Fixtures =====
 

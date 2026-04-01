@@ -2,12 +2,9 @@ import asyncio
 import time
 
 from github import Auth, Github
-from integrations.github.github_view import (
-    GithubInlinePRComment,
-    GithubIssueComment,
-    GithubPRComment,
-    GithubViewType,
-)
+from integrations.github.github_view import (GithubInlinePRComment,
+                                             GithubIssueComment,
+                                             GithubPRComment, GithubViewType)
 from integrations.solvability.data import load_classifier
 from integrations.solvability.models.report import SolvabilityReport
 from integrations.solvability.models.summary import SolvabilitySummary
@@ -38,7 +35,6 @@ def fetch_github_issue_context(
     Returns:
         A comprehensive string containing the issue/PR context
     """
-
     # Build context string
     context_parts = []
 

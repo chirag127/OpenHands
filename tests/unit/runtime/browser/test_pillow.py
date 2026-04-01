@@ -12,10 +12,8 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
 
-from openhands.runtime.browser.base64 import (
-    image_to_png_base64_url,
-    png_base64_url_to_image,
-)
+from openhands.runtime.browser.base64 import (image_to_png_base64_url,
+                                              png_base64_url_to_image)
 
 
 class TestImageToPngBase64Url:

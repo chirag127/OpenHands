@@ -13,37 +13,18 @@ This is similar to the functionality of `CodeActResponseParser`.
 import json
 import shlex
 
-from litellm import (
-    ChatCompletionToolParam,
-    ModelResponse,
-)
+from litellm import ChatCompletionToolParam, ModelResponse
 
-from openhands.agenthub.codeact_agent.function_calling import (
-    combine_thought,
-)
-from openhands.agenthub.codeact_agent.tools import (
-    FinishTool,
-    ThinkTool,
-)
-from openhands.agenthub.readonly_agent.tools import (
-    GlobTool,
-    GrepTool,
-    ViewTool,
-)
-from openhands.core.exceptions import (
-    FunctionCallNotExistsError,
-    FunctionCallValidationError,
-)
+from openhands.agenthub.codeact_agent.function_calling import combine_thought
+from openhands.agenthub.codeact_agent.tools import FinishTool, ThinkTool
+from openhands.agenthub.readonly_agent.tools import (GlobTool, GrepTool,
+                                                     ViewTool)
+from openhands.core.exceptions import (FunctionCallNotExistsError,
+                                       FunctionCallValidationError)
 from openhands.core.logger import openhands_logger as logger
-from openhands.events.action import (
-    Action,
-    AgentFinishAction,
-    AgentThinkAction,
-    CmdRunAction,
-    FileReadAction,
-    MCPAction,
-    MessageAction,
-)
+from openhands.events.action import (Action, AgentFinishAction,
+                                     AgentThinkAction, CmdRunAction,
+                                     FileReadAction, MCPAction, MessageAction)
 from openhands.events.event import FileReadSource
 from openhands.events.tool import ToolCallMetadata
 

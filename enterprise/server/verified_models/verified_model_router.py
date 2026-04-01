@@ -4,16 +4,12 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from server.email_validation import get_admin_user_id
-from server.verified_models.verified_model_models import (
-    VerifiedModel,
-    VerifiedModelCreate,
-    VerifiedModelPage,
-    VerifiedModelUpdate,
-)
+from server.verified_models.verified_model_models import (VerifiedModel,
+                                                          VerifiedModelCreate,
+                                                          VerifiedModelPage,
+                                                          VerifiedModelUpdate)
 from server.verified_models.verified_model_service import (
-    VerifiedModelService,
-    verified_model_store_dependency,
-)
+    VerifiedModelService, verified_model_store_dependency)
 
 from openhands.app_server.config import get_db_session
 from openhands.server.routes import public

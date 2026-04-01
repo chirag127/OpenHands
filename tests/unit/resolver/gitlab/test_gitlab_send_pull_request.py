@@ -10,16 +10,12 @@ from openhands.integrations.service_types import ProviderType
 from openhands.resolver.interfaces.gitlab import GitlabIssueHandler
 from openhands.resolver.interfaces.issue import ReviewThread
 from openhands.resolver.resolver_output import Issue, ResolverOutput
-from openhands.resolver.send_pull_request import (
-    apply_patch,
-    initialize_repo,
-    load_single_resolver_output,
-    main,
-    make_commit,
-    process_single_issue,
-    send_pull_request,
-    update_existing_pull_request,
-)
+from openhands.resolver.send_pull_request import (apply_patch, initialize_repo,
+                                                  load_single_resolver_output,
+                                                  main, make_commit,
+                                                  process_single_issue,
+                                                  send_pull_request,
+                                                  update_existing_pull_request)
 
 
 @pytest.fixture
@@ -143,9 +139,9 @@ index 9daeafb..b02def2 100644
     with open(dos_file, 'rb') as f:
         dos_content = f.read()
 
-    assert b'\r\n' not in unix_content, (
-        'Unix-style line endings were changed to DOS-style'
-    )
+    assert (
+        b'\r\n' not in unix_content
+    ), 'Unix-style line endings were changed to DOS-style'
     assert b'\r\n' in dos_content, 'DOS-style line endings were changed to Unix-style'
 
     # Check if content was updated correctly
@@ -1053,8 +1049,8 @@ def test_main(
     mock_parser.return_value.parse_args.return_value = mock_args
 
     # Setup environment variables
-    mock_getenv.side_effect = (
-        lambda key, default=None: 'mock_token' if key == 'GITLAB_TOKEN' else default
+    mock_getenv.side_effect = lambda key, default=None: (
+        'mock_token' if key == 'GITLAB_TOKEN' else default
     )
 
     # Setup path exists

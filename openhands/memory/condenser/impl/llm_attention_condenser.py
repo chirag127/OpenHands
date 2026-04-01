@@ -7,11 +7,8 @@ from openhands.core.config.condenser_config import LLMAttentionCondenserConfig
 from openhands.events.action.agent import CondensationAction
 from openhands.llm.llm import LLM
 from openhands.llm.llm_registry import LLMRegistry
-from openhands.memory.condenser.condenser import (
-    Condensation,
-    RollingCondenser,
-    View,
-)
+from openhands.memory.condenser.condenser import (Condensation,
+                                                  RollingCondenser, View)
 
 
 class ImportantEventSelection(BaseModel):

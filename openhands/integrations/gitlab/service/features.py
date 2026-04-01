@@ -1,16 +1,11 @@
 from openhands.integrations.gitlab.service.base import GitLabMixinBase
-from openhands.integrations.service_types import (
-    MicroagentContentResponse,
-    ProviderType,
-    RequestMethod,
-    SuggestedTask,
-    TaskType,
-)
+from openhands.integrations.service_types import (MicroagentContentResponse,
+                                                  ProviderType, RequestMethod,
+                                                  SuggestedTask, TaskType)
 
 
 class GitLabFeaturesMixin(GitLabMixinBase):
-    """
-    Methods used for custom features in UI driven via GitLab integration
+    """Methods used for custom features in UI driven via GitLab integration
     """
 
     async def _get_cursorrules_url(self, repository: str) -> str:

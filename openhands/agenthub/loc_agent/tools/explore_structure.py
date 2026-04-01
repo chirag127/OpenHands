@@ -5,10 +5,8 @@
 #   - V1 application server (in this repo): openhands/app_server/
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
-from litellm import (
-    ChatCompletionToolParam,
-    ChatCompletionToolParamFunctionChunk,
-)
+from litellm import (ChatCompletionToolParam,
+                     ChatCompletionToolParamFunctionChunk)
 
 _SIMPLIFIED_STRUCTURE_EXPLORER_DESCRIPTION = """
 A unified tool that traverses a pre-built code graph to retrieve dependency structure around specified entities,

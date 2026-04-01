@@ -1,6 +1,7 @@
 """Repository operations for Azure DevOps integration."""
 
-from openhands.integrations.azure_devops.service.base import AzureDevOpsMixinBase
+from openhands.integrations.azure_devops.service.base import \
+    AzureDevOpsMixinBase
 from openhands.integrations.service_types import ProviderType, Repository
 from openhands.server.types import AppMode
 

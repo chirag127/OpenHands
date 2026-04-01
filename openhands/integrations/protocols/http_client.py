@@ -7,14 +7,12 @@ from httpx import AsyncClient, HTTPError, HTTPStatusError, TimeoutException
 from pydantic import SecretStr
 
 from openhands.core.logger import openhands_logger as logger
-from openhands.integrations.service_types import (
-    AuthenticationError,
-    ProviderTimeoutError,
-    RateLimitError,
-    RequestMethod,
-    ResourceNotFoundError,
-    UnknownException,
-)
+from openhands.integrations.service_types import (AuthenticationError,
+                                                  ProviderTimeoutError,
+                                                  RateLimitError,
+                                                  RequestMethod,
+                                                  ResourceNotFoundError,
+                                                  UnknownException)
 
 
 class HTTPClient(ABC):

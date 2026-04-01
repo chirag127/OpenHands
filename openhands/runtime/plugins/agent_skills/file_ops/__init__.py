@@ -6,7 +6,8 @@
 # Unless you are working on deprecation, please avoid extending this legacy file and consult the V1 codepaths above.
 # Tag: Legacy-V0
 from openhands.runtime.plugins.agent_skills.file_ops import file_ops
-from openhands.runtime.plugins.agent_skills.utils.dependency import import_functions
+from openhands.runtime.plugins.agent_skills.utils.dependency import \
+    import_functions
 
 import_functions(
     module=file_ops, function_names=file_ops.__all__, target_globals=globals()

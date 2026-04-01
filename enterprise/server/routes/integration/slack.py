@@ -4,30 +4,17 @@ from urllib.parse import quote
 
 import jwt
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
-from fastapi.responses import (
-    HTMLResponse,
-    JSONResponse,
-    PlainTextResponse,
-    RedirectResponse,
-)
+from fastapi.responses import (HTMLResponse, JSONResponse, PlainTextResponse,
+                               RedirectResponse)
 from integrations.models import Message, SourceType
 from integrations.slack.slack_errors import SlackError, SlackErrorCode
 from integrations.slack.slack_manager import SlackManager
-from integrations.utils import (
-    HOST_URL,
-)
-from server.auth.constants import (
-    KEYCLOAK_CLIENT_ID,
-    KEYCLOAK_REALM_NAME,
-    KEYCLOAK_SERVER_URL_EXT,
-)
+from integrations.utils import HOST_URL
+from server.auth.constants import (KEYCLOAK_CLIENT_ID, KEYCLOAK_REALM_NAME,
+                                   KEYCLOAK_SERVER_URL_EXT)
 from server.auth.token_manager import TokenManager
-from server.constants import (
-    SLACK_CLIENT_ID,
-    SLACK_CLIENT_SECRET,
-    SLACK_SIGNING_SECRET,
-    SLACK_WEBHOOKS_ENABLED,
-)
+from server.constants import (SLACK_CLIENT_ID, SLACK_CLIENT_SECRET,
+                              SLACK_SIGNING_SECRET, SLACK_WEBHOOKS_ENABLED)
 from server.logger import logger
 from slack_sdk.oauth import AuthorizeUrlGenerator
 from slack_sdk.signature import SignatureVerifier
@@ -38,7 +25,8 @@ from storage.slack_team_store import SlackTeamStore
 from storage.slack_user import SlackUser
 from storage.user_store import UserStore
 
-from openhands.integrations.service_types import ProviderTimeoutError, ProviderType
+from openhands.integrations.service_types import (ProviderTimeoutError,
+                                                  ProviderType)
 from openhands.server.shared import config, sio
 
 signature_verifier = SignatureVerifier(signing_secret=SLACK_SIGNING_SECRET)

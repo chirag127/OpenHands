@@ -3,7 +3,6 @@
 from unittest.mock import MagicMock
 
 import pytest
-
 # Import directly from the module files to avoid loading all of storage/__init__.py
 # which has many dependencies
 from storage.resend_synced_user import ResendSyncedUser

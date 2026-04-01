@@ -10,18 +10,15 @@ from typing import AsyncGenerator
 from uuid import uuid4
 
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
 from sqlalchemy.pool import StaticPool
 
 from openhands.app_server.event_callback.event_callback_models import (
-    CreateEventCallbackRequest,
-    EventCallback,
-    EventCallbackProcessor,
-    LoggingCallbackProcessor,
-)
-from openhands.app_server.event_callback.sql_event_callback_service import (
-    SQLEventCallbackService,
-)
+    CreateEventCallbackRequest, EventCallback, EventCallbackProcessor,
+    LoggingCallbackProcessor)
+from openhands.app_server.event_callback.sql_event_callback_service import \
+    SQLEventCallbackService
 from openhands.app_server.utils.sql_utils import Base
 
 
@@ -426,9 +423,8 @@ class TestSQLEventCallbackService:
 
         # Modify the callback
         created_callback.event_kind = 'ObservationEvent'
-        from openhands.app_server.event_callback.event_callback_models import (
-            EventCallbackStatus,
-        )
+        from openhands.app_server.event_callback.event_callback_models import \
+            EventCallbackStatus
 
         created_callback.status = EventCallbackStatus.DISABLED
 
@@ -566,9 +562,8 @@ class TestSQLEventCallbackService:
         sample_processor: EventCallbackProcessor,
     ):
         """Test saving callbacks with different status values."""
-        from openhands.app_server.event_callback.event_callback_models import (
-            EventCallbackStatus,
-        )
+        from openhands.app_server.event_callback.event_callback_models import \
+            EventCallbackStatus
 
         # Test each status
         statuses = [

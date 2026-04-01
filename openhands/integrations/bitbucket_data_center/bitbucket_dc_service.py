@@ -3,17 +3,11 @@ import os
 from pydantic import SecretStr
 
 from openhands.integrations.bitbucket_data_center.service import (
-    BitbucketDCBranchesMixin,
-    BitbucketDCFeaturesMixin,
-    BitbucketDCPRsMixin,
-    BitbucketDCReposMixin,
-    BitbucketDCResolverMixin,
-)
-from openhands.integrations.service_types import (
-    GitService,
-    InstallationsService,
-    ProviderType,
-)
+    BitbucketDCBranchesMixin, BitbucketDCFeaturesMixin, BitbucketDCPRsMixin,
+    BitbucketDCReposMixin, BitbucketDCResolverMixin)
+from openhands.integrations.service_types import (GitService,
+                                                  InstallationsService,
+                                                  ProviderType)
 from openhands.utils.import_utils import get_impl
 
 

@@ -10,18 +10,14 @@ import httpx
 import pytest
 from fastapi import status
 
-from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversation,
-)
-from openhands.app_server.app_conversation.app_conversation_router import (
-    get_conversation_hooks,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    ExposedUrl,
-    SandboxInfo,
-    SandboxStatus,
-)
+from openhands.app_server.app_conversation.app_conversation_models import \
+    AppConversation
+from openhands.app_server.app_conversation.app_conversation_router import \
+    get_conversation_hooks
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER,
+                                                         ExposedUrl,
+                                                         SandboxInfo,
+                                                         SandboxStatus)
 from openhands.app_server.sandbox.sandbox_spec_models import SandboxSpecInfo
 
 

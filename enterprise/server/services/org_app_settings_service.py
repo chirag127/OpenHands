@@ -10,11 +10,8 @@ from dataclasses import dataclass
 from typing import AsyncGenerator
 
 from fastapi import Request
-from server.routes.org_models import (
-    OrgAppSettingsResponse,
-    OrgAppSettingsUpdate,
-    OrgNotFoundError,
-)
+from server.routes.org_models import (OrgAppSettingsResponse,
+                                      OrgAppSettingsUpdate, OrgNotFoundError)
 from storage.org_app_settings_store import OrgAppSettingsStore
 
 from openhands.app_server.errors import AuthError
@@ -127,7 +124,8 @@ class OrgAppSettingsServiceInjector(Injector[OrgAppSettingsService]):
         self, state: InjectorState, request: Request | None = None
     ) -> AsyncGenerator[OrgAppSettingsService, None]:
         # Local imports to avoid circular dependencies
-        from openhands.app_server.config import get_db_session, get_user_context
+        from openhands.app_server.config import (get_db_session,
+                                                 get_user_context)
 
         async with (
             get_user_context(state, request) as user_context,

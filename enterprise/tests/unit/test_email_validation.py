@@ -2,12 +2,10 @@
 
 import re
 
-from server.auth.email_validation import (
-    extract_base_email,
-    get_base_email_regex_pattern,
-    has_plus_modifier,
-    matches_base_email,
-)
+from server.auth.email_validation import (extract_base_email,
+                                          get_base_email_regex_pattern,
+                                          has_plus_modifier,
+                                          matches_base_email)
 
 
 class TestExtractBaseEmail:

@@ -1,8 +1,7 @@
 from unittest.mock import patch
 
-from openhands.app_server.utils.docker_utils import (
-    replace_localhost_hostname_for_docker,
-)
+from openhands.app_server.utils.docker_utils import \
+    replace_localhost_hostname_for_docker
 
 
 class TestReplaceLocalhostHostnameForDocker:

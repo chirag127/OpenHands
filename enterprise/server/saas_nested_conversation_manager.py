@@ -16,14 +16,13 @@ from pydantic import SecretStr
 from server.auth.token_manager import TokenManager
 from server.constants import PERMITTED_CORS_ORIGINS, WEB_HOST
 from server.utils.conversation_callback_utils import (
-    process_event,
-    update_conversation_metadata,
-)
+    process_event, update_conversation_metadata)
 from sqlalchemy import select
 from storage.api_key_store import ApiKeyStore
 from storage.database import a_session_maker
 from storage.stored_conversation_metadata import StoredConversationMetadata
-from storage.stored_conversation_metadata_saas import StoredConversationMetadataSaas
+from storage.stored_conversation_metadata_saas import \
+    StoredConversationMetadataSaas
 
 from openhands.controller.agent import Agent
 from openhands.core.config import LLMConfig, OpenHandsConfig
@@ -32,33 +31,30 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.events.action import MessageAction
 from openhands.events.event_store import EventStore
 from openhands.events.serialization.event import event_to_dict
-from openhands.integrations.provider import (
-    PROVIDER_TOKEN_TYPE,
-    ProviderHandler,
-    ProviderToken,
-)
+from openhands.integrations.provider import (PROVIDER_TOKEN_TYPE,
+                                             ProviderHandler, ProviderToken)
 from openhands.runtime.impl.remote.remote_runtime import RemoteRuntime
 from openhands.runtime.plugins.vscode import VSCodeRequirement
 from openhands.runtime.runtime_status import RuntimeStatus
 from openhands.server.config.server_config import ServerConfig
 from openhands.server.constants import ROOM_KEY
-from openhands.server.conversation_manager.conversation_manager import (
-    ConversationManager,
-)
+from openhands.server.conversation_manager.conversation_manager import \
+    ConversationManager
 from openhands.server.data_models.agent_loop_info import AgentLoopInfo
 from openhands.server.monitoring import MonitoringListener
 from openhands.server.session import Session
 from openhands.server.session.conversation import ServerConversation
-from openhands.server.session.conversation_init_data import ConversationInitData
+from openhands.server.session.conversation_init_data import \
+    ConversationInitData
 from openhands.storage.conversation.conversation_store import ConversationStore
-from openhands.storage.data_models.conversation_metadata import ConversationMetadata
-from openhands.storage.data_models.conversation_status import ConversationStatus
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationMetadata
+from openhands.storage.data_models.conversation_status import \
+    ConversationStatus
 from openhands.storage.data_models.settings import Settings
 from openhands.storage.files import FileStore
-from openhands.storage.locations import (
-    get_conversation_event_filename,
-    get_conversation_events_dir,
-)
+from openhands.storage.locations import (get_conversation_event_filename,
+                                         get_conversation_events_dir)
 from openhands.utils.http_session import httpx_verify_option
 from openhands.utils.import_utils import get_impl
 from openhands.utils.shutdown_listener import should_continue
@@ -152,8 +148,7 @@ class SaasNestedConversationManager(ConversationManager):
     async def get_running_agent_loops(
         self, user_id: str | None = None, filter_to_sids: set[str] | None = None
     ) -> set[str]:
-        """
-        Get the running agent loops directly from the remote runtime.
+        """Get the running agent loops directly from the remote runtime.
         """
         conversation_ids = await self._get_all_running_conversation_ids()
 
@@ -615,10 +610,8 @@ class SaasNestedConversationManager(ConversationManager):
                 )
 
     async def _get_user_id_from_conversation(self, conversation_id: str) -> str:
+        """Get user_id from conversation_id.
         """
-        Get user_id from conversation_id.
-        """
-
         async with a_session_maker() as session:
             result = await session.execute(
                 select(StoredConversationMetadataSaas).where(
@@ -936,7 +929,7 @@ class SaasNestedConversationManager(ConversationManager):
         # check and not invoke the endpoint if there are no variables, or find a way to access the
         # action execution server directly (e.g.: Merge the action execution server with the app
         # server for local runtimes)
-        runtime.setup_initial_env = lambda: None  # type:ignore
+        runtime.setup_initial_env = lambda: None  # type: ignore
 
         return runtime
 

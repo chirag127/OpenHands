@@ -10,13 +10,9 @@ class MockStaticFiles:
 
 
 # Patch necessary components before importing from listen
-with (
-    patch('fastapi.staticfiles.StaticFiles', MockStaticFiles),
-):
-    from openhands.server.file_config import (
-        is_extension_allowed,
-        load_file_upload_config,
-    )
+with (patch('fastapi.staticfiles.StaticFiles', MockStaticFiles),):
+    from openhands.server.file_config import (is_extension_allowed,
+                                              load_file_upload_config)
 
 
 def test_load_file_upload_config():

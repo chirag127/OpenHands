@@ -19,27 +19,23 @@ import base62
 import httpx
 import psutil
 from fastapi import Request
+from openhands.agent_server.utils import utc_now
 from pydantic import BaseModel, ConfigDict, Field
 
-from openhands.agent_server.utils import utc_now
 from openhands.app_server.errors import SandboxError
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    ExposedUrl,
-    SandboxInfo,
-    SandboxPage,
-    SandboxStatus,
-)
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER,
+                                                         ExposedUrl,
+                                                         SandboxInfo,
+                                                         SandboxPage,
+                                                         SandboxStatus)
 from openhands.app_server.sandbox.sandbox_service import (
-    SandboxService,
-    SandboxServiceInjector,
-)
+    SandboxService, SandboxServiceInjector)
 from openhands.app_server.sandbox.sandbox_spec_models import SandboxSpecInfo
-from openhands.app_server.sandbox.sandbox_spec_service import SandboxSpecService
+from openhands.app_server.sandbox.sandbox_spec_service import \
+    SandboxSpecService
 from openhands.app_server.services.injector import InjectorState
-from openhands.app_server.utils.docker_utils import (
-    replace_localhost_hostname_for_docker,
-)
+from openhands.app_server.utils.docker_utils import \
+    replace_localhost_hostname_for_docker
 
 _logger = logging.getLogger(__name__)
 
@@ -114,7 +110,6 @@ class ProcessSandboxService(SandboxService):
         sandbox_spec: SandboxSpecInfo,
     ) -> subprocess.Popen:
         """Start the agent server process."""
-
         # Prepare environment variables
         env = os.environ.copy()
         env.update(sandbox_spec.initial_env)
@@ -434,11 +429,9 @@ class ProcessSandboxServiceInjector(SandboxServiceInjector):
         self, state: InjectorState, request: Request | None = None
     ) -> AsyncGenerator[SandboxService, None]:
         # Define inline to prevent circular lookup
-        from openhands.app_server.config import (
-            get_httpx_client,
-            get_sandbox_spec_service,
-            get_user_context,
-        )
+        from openhands.app_server.config import (get_httpx_client,
+                                                 get_sandbox_spec_service,
+                                                 get_user_context)
 
         async with (
             get_httpx_client(state, request) as httpx_client,

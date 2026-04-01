@@ -6,19 +6,16 @@ import pytest
 
 from openhands.core.config import LLMConfig
 from openhands.events.action import CmdRunAction, MessageAction
-from openhands.events.observation import (
-    CmdOutputMetadata,
-    CmdOutputObservation,
-    NullObservation,
-)
+from openhands.events.observation import (CmdOutputMetadata,
+                                          CmdOutputObservation,
+                                          NullObservation)
 from openhands.integrations.service_types import ProviderType
 from openhands.llm.llm import LLM
-from openhands.resolver.interfaces.github import GithubIssueHandler, GithubPRHandler
+from openhands.resolver.interfaces.github import (GithubIssueHandler,
+                                                  GithubPRHandler)
 from openhands.resolver.interfaces.issue import Issue, ReviewThread
 from openhands.resolver.interfaces.issue_definitions import (
-    ServiceContextIssue,
-    ServiceContextPR,
-)
+    ServiceContextIssue, ServiceContextPR)
 from openhands.resolver.issue_resolver import IssueResolver
 from openhands.resolver.resolver_output import ResolverOutput
 

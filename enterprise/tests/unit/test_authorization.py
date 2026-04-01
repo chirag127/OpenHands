@@ -1,5 +1,4 @@
-"""
-Unit tests for permission-based authorization (authorization.py).
+"""Unit tests for permission-based authorization (authorization.py).
 
 Tests the FastAPI dependencies that validate user permissions within organizations.
 """
@@ -9,16 +8,10 @@ from uuid import uuid4
 
 import pytest
 from fastapi import HTTPException
-from server.auth.authorization import (
-    ROLE_PERMISSIONS,
-    Permission,
-    RoleName,
-    get_api_key_org_id_from_request,
-    get_role_permissions,
-    get_user_org_role,
-    has_permission,
-    require_permission,
-)
+from server.auth.authorization import (ROLE_PERMISSIONS, Permission, RoleName,
+                                       get_api_key_org_id_from_request,
+                                       get_role_permissions, get_user_org_role,
+                                       has_permission, require_permission)
 
 # =============================================================================
 # Tests for Permission enum
@@ -29,8 +22,7 @@ class TestPermission:
     """Tests for Permission enum."""
 
     def test_permission_values(self):
-        """
-        GIVEN: Permission enum
+        """GIVEN: Permission enum
         WHEN: Accessing permission values
         THEN: All expected permissions exist with correct string values
         """
@@ -58,8 +50,7 @@ class TestPermission:
         assert Permission.DELETE_ORGANIZATION.value == 'delete_organization'
 
     def test_permission_from_string(self):
-        """
-        GIVEN: Valid permission string
+        """GIVEN: Valid permission string
         WHEN: Creating Permission from string
         THEN: Correct enum value is returned
         """
@@ -68,8 +59,7 @@ class TestPermission:
         assert Permission('delete_organization') == Permission.DELETE_ORGANIZATION
 
     def test_permission_invalid_string(self):
-        """
-        GIVEN: Invalid permission string
+        """GIVEN: Invalid permission string
         WHEN: Creating Permission from string
         THEN: ValueError is raised
         """
@@ -86,8 +76,7 @@ class TestRoleName:
     """Tests for RoleName enum."""
 
     def test_role_name_values(self):
-        """
-        GIVEN: RoleName enum
+        """GIVEN: RoleName enum
         WHEN: Accessing role name values
         THEN: All expected roles exist with correct string values
         """
@@ -96,8 +85,7 @@ class TestRoleName:
         assert RoleName.MEMBER.value == 'member'
 
     def test_role_name_from_string(self):
-        """
-        GIVEN: Valid role name string
+        """GIVEN: Valid role name string
         WHEN: Creating RoleName from string
         THEN: Correct enum value is returned
         """
@@ -106,8 +94,7 @@ class TestRoleName:
         assert RoleName('member') == RoleName.MEMBER
 
     def test_role_name_invalid_string(self):
-        """
-        GIVEN: Invalid role name string
+        """GIVEN: Invalid role name string
         WHEN: Creating RoleName from string
         THEN: ValueError is raised
         """
@@ -124,8 +111,7 @@ class TestRolePermissions:
     """Tests for role permission mappings."""
 
     def test_owner_has_all_permissions(self):
-        """
-        GIVEN: ROLE_PERMISSIONS mapping
+        """GIVEN: ROLE_PERMISSIONS mapping
         WHEN: Checking owner permissions
         THEN: Owner has all permissions including owner-only permissions
         """
@@ -144,8 +130,7 @@ class TestRolePermissions:
         assert Permission.DELETE_ORGANIZATION in owner_perms
 
     def test_admin_has_admin_permissions(self):
-        """
-        GIVEN: ROLE_PERMISSIONS mapping
+        """GIVEN: ROLE_PERMISSIONS mapping
         WHEN: Checking admin permissions
         THEN: Admin has admin permissions but not owner-only permissions
         """
@@ -165,8 +150,7 @@ class TestRolePermissions:
         assert Permission.DELETE_ORGANIZATION not in admin_perms
 
     def test_member_has_limited_permissions(self):
-        """
-        GIVEN: ROLE_PERMISSIONS mapping
+        """GIVEN: ROLE_PERMISSIONS mapping
         WHEN: Checking member permissions
         THEN: Member has limited permissions
         """
@@ -200,8 +184,7 @@ class TestGetRolePermissions:
     """Tests for get_role_permissions function."""
 
     def test_get_owner_permissions(self):
-        """
-        GIVEN: Role name 'owner'
+        """GIVEN: Role name 'owner'
         WHEN: get_role_permissions is called
         THEN: Owner permissions are returned
         """
@@ -210,8 +193,7 @@ class TestGetRolePermissions:
         assert Permission.CHANGE_ORGANIZATION_NAME in perms
 
     def test_get_admin_permissions(self):
-        """
-        GIVEN: Role name 'admin'
+        """GIVEN: Role name 'admin'
         WHEN: get_role_permissions is called
         THEN: Admin permissions are returned
         """
@@ -220,8 +202,7 @@ class TestGetRolePermissions:
         assert Permission.DELETE_ORGANIZATION not in perms
 
     def test_get_member_permissions(self):
-        """
-        GIVEN: Role name 'member'
+        """GIVEN: Role name 'member'
         WHEN: get_role_permissions is called
         THEN: Member permissions are returned
         """
@@ -230,8 +211,7 @@ class TestGetRolePermissions:
         assert Permission.EDIT_LLM_SETTINGS not in perms
 
     def test_get_invalid_role_permissions(self):
-        """
-        GIVEN: Invalid role name
+        """GIVEN: Invalid role name
         WHEN: get_role_permissions is called
         THEN: Empty frozenset is returned
         """
@@ -248,8 +228,7 @@ class TestHasPermission:
     """Tests for has_permission function."""
 
     def test_owner_has_delete_organization_permission(self):
-        """
-        GIVEN: User with owner role
+        """GIVEN: User with owner role
         WHEN: Checking for DELETE_ORGANIZATION permission
         THEN: Returns True
         """
@@ -258,8 +237,7 @@ class TestHasPermission:
         assert has_permission(mock_role, Permission.DELETE_ORGANIZATION) is True
 
     def test_owner_has_view_llm_settings_permission(self):
-        """
-        GIVEN: User with owner role
+        """GIVEN: User with owner role
         WHEN: Checking for VIEW_LLM_SETTINGS permission
         THEN: Returns True
         """
@@ -268,8 +246,7 @@ class TestHasPermission:
         assert has_permission(mock_role, Permission.VIEW_LLM_SETTINGS) is True
 
     def test_admin_has_edit_llm_settings_permission(self):
-        """
-        GIVEN: User with admin role
+        """GIVEN: User with admin role
         WHEN: Checking for EDIT_LLM_SETTINGS permission
         THEN: Returns True
         """
@@ -278,8 +255,7 @@ class TestHasPermission:
         assert has_permission(mock_role, Permission.EDIT_LLM_SETTINGS) is True
 
     def test_admin_lacks_delete_organization_permission(self):
-        """
-        GIVEN: User with admin role
+        """GIVEN: User with admin role
         WHEN: Checking for DELETE_ORGANIZATION permission
         THEN: Returns False
         """
@@ -288,8 +264,7 @@ class TestHasPermission:
         assert has_permission(mock_role, Permission.DELETE_ORGANIZATION) is False
 
     def test_member_has_view_llm_settings_permission(self):
-        """
-        GIVEN: User with member role
+        """GIVEN: User with member role
         WHEN: Checking for VIEW_LLM_SETTINGS permission
         THEN: Returns True
         """
@@ -298,8 +273,7 @@ class TestHasPermission:
         assert has_permission(mock_role, Permission.VIEW_LLM_SETTINGS) is True
 
     def test_member_lacks_edit_llm_settings_permission(self):
-        """
-        GIVEN: User with member role
+        """GIVEN: User with member role
         WHEN: Checking for EDIT_LLM_SETTINGS permission
         THEN: Returns False
         """
@@ -308,8 +282,7 @@ class TestHasPermission:
         assert has_permission(mock_role, Permission.EDIT_LLM_SETTINGS) is False
 
     def test_member_lacks_delete_organization_permission(self):
-        """
-        GIVEN: User with member role
+        """GIVEN: User with member role
         WHEN: Checking for DELETE_ORGANIZATION permission
         THEN: Returns False
         """
@@ -318,8 +291,7 @@ class TestHasPermission:
         assert has_permission(mock_role, Permission.DELETE_ORGANIZATION) is False
 
     def test_invalid_role_has_no_permissions(self):
-        """
-        GIVEN: User with invalid role
+        """GIVEN: User with invalid role
         WHEN: Checking for any permission
         THEN: Returns False
         """
@@ -339,8 +311,7 @@ class TestGetUserOrgRole:
 
     @pytest.mark.asyncio
     async def test_returns_role_when_member_exists(self):
-        """
-        GIVEN: User is a member of organization with role
+        """GIVEN: User is a member of organization with role
         WHEN: get_user_org_role is called
         THEN: Role object is returned
         """
@@ -370,8 +341,7 @@ class TestGetUserOrgRole:
 
     @pytest.mark.asyncio
     async def test_returns_none_when_not_member(self):
-        """
-        GIVEN: User is not a member of organization
+        """GIVEN: User is not a member of organization
         WHEN: get_user_org_role is called
         THEN: None is returned
         """
@@ -388,8 +358,7 @@ class TestGetUserOrgRole:
 
     @pytest.mark.asyncio
     async def test_returns_role_when_org_id_is_none(self):
-        """
-        GIVEN: User with a current organization
+        """GIVEN: User with a current organization
         WHEN: get_user_org_role is called with org_id=None
         THEN: Role object is returned using get_org_member_for_current_org
         """
@@ -424,8 +393,7 @@ class TestGetUserOrgRole:
 
     @pytest.mark.asyncio
     async def test_returns_none_when_org_id_is_none_and_no_current_org(self):
-        """
-        GIVEN: User with no current organization membership
+        """GIVEN: User with no current organization membership
         WHEN: get_user_org_role is called with org_id=None
         THEN: None is returned
         """
@@ -459,8 +427,7 @@ class TestRequirePermission:
 
     @pytest.mark.asyncio
     async def test_returns_user_id_when_authorized(self):
-        """
-        GIVEN: User with required permission
+        """GIVEN: User with required permission
         WHEN: Permission checker is called
         THEN: User ID is returned
         """
@@ -483,8 +450,7 @@ class TestRequirePermission:
 
     @pytest.mark.asyncio
     async def test_raises_401_when_not_authenticated(self):
-        """
-        GIVEN: No user ID (not authenticated)
+        """GIVEN: No user ID (not authenticated)
         WHEN: Permission checker is called
         THEN: 401 Unauthorized is raised
         """
@@ -500,8 +466,7 @@ class TestRequirePermission:
 
     @pytest.mark.asyncio
     async def test_raises_403_when_not_member(self):
-        """
-        GIVEN: User is not a member of organization
+        """GIVEN: User is not a member of organization
         WHEN: Permission checker is called
         THEN: 403 Forbidden is raised
         """
@@ -524,8 +489,7 @@ class TestRequirePermission:
 
     @pytest.mark.asyncio
     async def test_raises_403_when_insufficient_permission(self):
-        """
-        GIVEN: User without required permission
+        """GIVEN: User without required permission
         WHEN: Permission checker is called
         THEN: 403 Forbidden is raised
         """
@@ -551,8 +515,7 @@ class TestRequirePermission:
 
     @pytest.mark.asyncio
     async def test_owner_can_delete_organization(self):
-        """
-        GIVEN: User with owner role
+        """GIVEN: User with owner role
         WHEN: DELETE_ORGANIZATION permission is required
         THEN: User ID is returned
         """
@@ -575,8 +538,7 @@ class TestRequirePermission:
 
     @pytest.mark.asyncio
     async def test_admin_cannot_delete_organization(self):
-        """
-        GIVEN: User with admin role
+        """GIVEN: User with admin role
         WHEN: DELETE_ORGANIZATION permission is required
         THEN: 403 Forbidden is raised
         """
@@ -601,8 +563,7 @@ class TestRequirePermission:
 
     @pytest.mark.asyncio
     async def test_logs_warning_on_insufficient_permission(self):
-        """
-        GIVEN: User without required permission
+        """GIVEN: User without required permission
         WHEN: Permission checker is called
         THEN: Warning is logged with details
         """
@@ -634,8 +595,7 @@ class TestRequirePermission:
 
     @pytest.mark.asyncio
     async def test_returns_user_id_when_org_id_is_none(self):
-        """
-        GIVEN: User with required permission in their current org
+        """GIVEN: User with required permission in their current org
         WHEN: Permission checker is called with org_id=None
         THEN: User ID is returned
         """
@@ -658,8 +618,7 @@ class TestRequirePermission:
 
     @pytest.mark.asyncio
     async def test_raises_403_when_org_id_is_none_and_not_member(self):
-        """
-        GIVEN: User not a member of their current organization
+        """GIVEN: User not a member of their current organization
         WHEN: Permission checker is called with org_id=None
         THEN: HTTPException with 403 status is raised
         """
@@ -690,8 +649,7 @@ class TestPermissionScenarios:
 
     @pytest.mark.asyncio
     async def test_member_can_manage_secrets(self):
-        """
-        GIVEN: User with member role
+        """GIVEN: User with member role
         WHEN: MANAGE_SECRETS permission is required
         THEN: User ID is returned
         """
@@ -714,8 +672,7 @@ class TestPermissionScenarios:
 
     @pytest.mark.asyncio
     async def test_member_cannot_invite_users(self):
-        """
-        GIVEN: User with member role
+        """GIVEN: User with member role
         WHEN: INVITE_USER_TO_ORGANIZATION permission is required
         THEN: 403 Forbidden is raised
         """
@@ -742,8 +699,7 @@ class TestPermissionScenarios:
 
     @pytest.mark.asyncio
     async def test_admin_can_invite_users(self):
-        """
-        GIVEN: User with admin role
+        """GIVEN: User with admin role
         WHEN: INVITE_USER_TO_ORGANIZATION permission is required
         THEN: User ID is returned
         """
@@ -768,8 +724,7 @@ class TestPermissionScenarios:
 
     @pytest.mark.asyncio
     async def test_admin_cannot_change_owner_role(self):
-        """
-        GIVEN: User with admin role
+        """GIVEN: User with admin role
         WHEN: CHANGE_USER_ROLE_OWNER permission is required
         THEN: 403 Forbidden is raised
         """
@@ -794,8 +749,7 @@ class TestPermissionScenarios:
 
     @pytest.mark.asyncio
     async def test_owner_can_change_owner_role(self):
-        """
-        GIVEN: User with owner role
+        """GIVEN: User with owner role
         WHEN: CHANGE_USER_ROLE_OWNER permission is required
         THEN: User ID is returned
         """
@@ -827,8 +781,7 @@ class TestApiKeyOrgValidation:
 
     @pytest.mark.asyncio
     async def test_allows_access_when_api_key_org_matches_target_org(self):
-        """
-        GIVEN: API key with org_id that matches the target org_id in the request
+        """GIVEN: API key with org_id that matches the target org_id in the request
         WHEN: Permission checker is called
         THEN: User ID is returned (access allowed)
         """
@@ -853,8 +806,7 @@ class TestApiKeyOrgValidation:
 
     @pytest.mark.asyncio
     async def test_denies_access_when_api_key_org_mismatches_target_org(self):
-        """
-        GIVEN: API key created for Org A, but user tries to access Org B
+        """GIVEN: API key created for Org A, but user tries to access Org B
         WHEN: Permission checker is called
         THEN: 403 Forbidden is raised with org mismatch message
         """
@@ -878,8 +830,7 @@ class TestApiKeyOrgValidation:
 
     @pytest.mark.asyncio
     async def test_allows_access_for_legacy_api_key_without_org_binding(self):
-        """
-        GIVEN: Legacy API key without org_id binding (org_id is None)
+        """GIVEN: Legacy API key without org_id binding (org_id is None)
         WHEN: Permission checker is called
         THEN: Falls through to normal permission check (backward compatible)
         """
@@ -904,8 +855,7 @@ class TestApiKeyOrgValidation:
 
     @pytest.mark.asyncio
     async def test_allows_access_for_cookie_auth_without_api_key_org_id(self):
-        """
-        GIVEN: Cookie-based authentication (no api_key_org_id in user_auth)
+        """GIVEN: Cookie-based authentication (no api_key_org_id in user_auth)
         WHEN: Permission checker is called
         THEN: Falls through to normal permission check
         """
@@ -930,8 +880,7 @@ class TestApiKeyOrgValidation:
 
     @pytest.mark.asyncio
     async def test_logs_warning_on_api_key_org_mismatch(self):
-        """
-        GIVEN: API key org_id doesn't match target org_id
+        """GIVEN: API key org_id doesn't match target org_id
         WHEN: Permission checker is called
         THEN: Warning is logged with org mismatch details
         """
@@ -961,8 +910,7 @@ class TestGetApiKeyOrgIdFromRequest:
 
     @pytest.mark.asyncio
     async def test_returns_org_id_when_user_auth_has_api_key_org_id(self):
-        """
-        GIVEN: Request with user_auth that has api_key_org_id
+        """GIVEN: Request with user_auth that has api_key_org_id
         WHEN: get_api_key_org_id_from_request is called
         THEN: Returns the api_key_org_id
         """
@@ -978,8 +926,7 @@ class TestGetApiKeyOrgIdFromRequest:
 
     @pytest.mark.asyncio
     async def test_returns_none_when_user_auth_has_no_api_key_org_id(self):
-        """
-        GIVEN: Request with user_auth that has no api_key_org_id (cookie auth)
+        """GIVEN: Request with user_auth that has no api_key_org_id (cookie auth)
         WHEN: get_api_key_org_id_from_request is called
         THEN: Returns None
         """
@@ -994,8 +941,7 @@ class TestGetApiKeyOrgIdFromRequest:
 
     @pytest.mark.asyncio
     async def test_returns_none_when_no_user_auth_in_request(self):
-        """
-        GIVEN: Request without user_auth in state
+        """GIVEN: Request without user_auth in state
         WHEN: get_api_key_org_id_from_request is called
         THEN: Returns None
         """
@@ -1032,8 +978,7 @@ class TestRequireFinancialDataAccess:
 
     @pytest.mark.asyncio
     async def test_grants_access_for_openhands_email(self):
-        """
-        GIVEN: User with @openhands.dev email
+        """GIVEN: User with @openhands.dev email
         WHEN: require_financial_data_access is called
         THEN: Returns user_id (access granted)
         """
@@ -1058,8 +1003,7 @@ class TestRequireFinancialDataAccess:
 
     @pytest.mark.asyncio
     async def test_grants_access_for_owner_role(self):
-        """
-        GIVEN: User with owner role in organization (non-@openhands.dev email)
+        """GIVEN: User with owner role in organization (non-@openhands.dev email)
         WHEN: require_financial_data_access is called
         THEN: Returns user_id (access granted)
         """
@@ -1092,8 +1036,7 @@ class TestRequireFinancialDataAccess:
 
     @pytest.mark.asyncio
     async def test_grants_access_for_admin_role(self):
-        """
-        GIVEN: User with admin role in organization (non-@openhands.dev email)
+        """GIVEN: User with admin role in organization (non-@openhands.dev email)
         WHEN: require_financial_data_access is called
         THEN: Returns user_id (access granted)
         """
@@ -1126,8 +1069,7 @@ class TestRequireFinancialDataAccess:
 
     @pytest.mark.asyncio
     async def test_denies_access_for_member_role_without_openhands_email(self):
-        """
-        GIVEN: User with member role (not admin/owner) and non-@openhands.dev email
+        """GIVEN: User with member role (not admin/owner) and non-@openhands.dev email
         WHEN: require_financial_data_access is called
         THEN: Raises 403 Forbidden
         """
@@ -1161,8 +1103,7 @@ class TestRequireFinancialDataAccess:
 
     @pytest.mark.asyncio
     async def test_denies_access_for_non_member(self):
-        """
-        GIVEN: User who is not a member of the organization
+        """GIVEN: User who is not a member of the organization
         WHEN: require_financial_data_access is called
         THEN: Raises 403 Forbidden
         """
@@ -1194,8 +1135,7 @@ class TestRequireFinancialDataAccess:
 
     @pytest.mark.asyncio
     async def test_denies_access_when_not_authenticated(self):
-        """
-        GIVEN: No user_id (not authenticated)
+        """GIVEN: No user_id (not authenticated)
         WHEN: require_financial_data_access is called
         THEN: Raises 401 Unauthorized
         """
@@ -1216,8 +1156,7 @@ class TestRequireFinancialDataAccess:
 
     @pytest.mark.asyncio
     async def test_denies_access_when_api_key_org_mismatch(self):
-        """
-        GIVEN: API key created for Org A, but user tries to access Org B
+        """GIVEN: API key created for Org A, but user tries to access Org B
         WHEN: require_financial_data_access is called
         THEN: Raises 403 Forbidden with org mismatch message
         """

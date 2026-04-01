@@ -1,9 +1,7 @@
 from unittest.mock import ANY, AsyncMock, patch
 
 import pytest
-from litellm.exceptions import (
-    RateLimitError,
-)
+from litellm.exceptions import RateLimitError
 
 from openhands.core.config.llm_config import LLMConfig
 from openhands.core.config.openhands_config import OpenHandsConfig

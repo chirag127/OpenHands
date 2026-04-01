@@ -33,25 +33,17 @@ from openhands.core.config import OpenHandsConfig
 from openhands.core.config.mcp_config import MCPConfig, MCPStdioServerConfig
 from openhands.core.logger import openhands_logger as logger
 from openhands.events import EventStream
-from openhands.events.action import (
-    BrowseInteractiveAction,
-    BrowseURLAction,
-    CmdRunAction,
-    FileEditAction,
-    FileReadAction,
-    FileWriteAction,
-    IPythonRunCellAction,
-)
+from openhands.events.action import (BrowseInteractiveAction, BrowseURLAction,
+                                     CmdRunAction, FileEditAction,
+                                     FileReadAction, FileWriteAction,
+                                     IPythonRunCellAction)
 from openhands.events.action.mcp import MCPAction
 from openhands.events.event import FileEditSource, FileReadSource
-from openhands.events.observation import (
-    CmdOutputObservation,
-    ErrorObservation,
-    FileEditObservation,
-    FileReadObservation,
-    FileWriteObservation,
-    Observation,
-)
+from openhands.events.observation import (CmdOutputObservation,
+                                          ErrorObservation,
+                                          FileEditObservation,
+                                          FileReadObservation,
+                                          FileWriteObservation, Observation)
 from openhands.integrations.provider import PROVIDER_TOKEN_TYPE
 from openhands.llm.llm_registry import LLMRegistry
 from openhands.runtime.base import Runtime
@@ -64,8 +56,10 @@ if TYPE_CHECKING:
 # Import Windows PowerShell support if on Windows
 if sys.platform == 'win32':
     try:
-        from openhands.runtime.utils.windows_exceptions import DotNetMissingError
-        from openhands.runtime.utils.windows_bash import WindowsPowershellSession  # isort: skip
+        from openhands.runtime.utils.windows_bash import \
+            WindowsPowershellSession  # isort: skip
+        from openhands.runtime.utils.windows_exceptions import \
+            DotNetMissingError
     except (ImportError, DotNetMissingError) as err:
         # Print a user-friendly error message without stack trace
         friendly_message = """

@@ -10,18 +10,13 @@ from httpcore import Request
 from pydantic import SecretStr
 
 from openhands.integrations.provider import ProviderToken, ProviderType
-from openhands.integrations.service_types import (
-    AuthenticationError,
-    Repository,
-)
+from openhands.integrations.service_types import (AuthenticationError,
+                                                  Repository)
 from openhands.microagent.types import MicroagentContentResponse
 from openhands.server.dependencies import check_session_api_key
 from openhands.server.routes.git import app as git_app
-from openhands.server.user_auth import (
-    get_access_token,
-    get_provider_tokens,
-    get_user_id,
-)
+from openhands.server.user_auth import (get_access_token, get_provider_tokens,
+                                        get_user_id)
 
 
 @pytest.fixture

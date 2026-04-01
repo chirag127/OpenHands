@@ -6,7 +6,8 @@ from unittest.mock import AsyncMock, MagicMock
 import httpx
 import pytest
 from pydantic import SecretStr
-from server.saas_nested_conversation_manager import SaasNestedConversationManager
+from server.saas_nested_conversation_manager import \
+    SaasNestedConversationManager
 
 from openhands.core.config.openhands_config import OpenHandsConfig
 from openhands.integrations.provider import CustomSecret

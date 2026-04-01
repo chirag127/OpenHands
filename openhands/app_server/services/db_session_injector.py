@@ -11,7 +11,8 @@ from fastapi import Request
 from pydantic import BaseModel, PrivateAttr, SecretStr, model_validator
 from sqlalchemy import Engine, create_engine
 from sqlalchemy.engine import URL
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
 from sqlalchemy.ext.asyncio.engine import AsyncEngine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
@@ -125,9 +126,7 @@ class DbSessionInjector(BaseModel, Injector[async_sessionmaker]):
 
     async def _create_async_gcp_creator(self):
         from sqlalchemy.dialects.postgresql.asyncpg import (
-            AsyncAdapt_asyncpg_connection,
-            AsyncAdapt_asyncpg_dbapi,
-        )
+            AsyncAdapt_asyncpg_connection, AsyncAdapt_asyncpg_dbapi)
 
         return AsyncAdapt_asyncpg_connection(
             AsyncAdapt_asyncpg_dbapi(asyncpg),
@@ -137,9 +136,7 @@ class DbSessionInjector(BaseModel, Injector[async_sessionmaker]):
 
     async def _create_async_gcp_engine(self):
         from sqlalchemy.dialects.postgresql.asyncpg import (
-            AsyncAdapt_asyncpg_connection,
-            AsyncAdapt_asyncpg_dbapi,
-        )
+            AsyncAdapt_asyncpg_connection, AsyncAdapt_asyncpg_dbapi)
 
         dbapi = AsyncAdapt_asyncpg_dbapi(asyncpg)
 

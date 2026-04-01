@@ -15,10 +15,8 @@ from openhands.events.action.action import Action
 from openhands.events.action.commands import IPythonRunCellAction
 from openhands.events.action.empty import NullAction
 from openhands.events.action.message import MessageAction
-from openhands.events.observation import (
-    CmdOutputObservation,
-    IPythonRunCellObservation,
-)
+from openhands.events.observation import (CmdOutputObservation,
+                                          IPythonRunCellObservation)
 from openhands.events.observation.agent import AgentCondensationObservation
 from openhands.events.observation.empty import NullObservation
 from openhands.events.observation.error import ErrorObservation

@@ -3,10 +3,7 @@
 import os
 from unittest.mock import MagicMock, patch
 
-from server.services.email_service import (
-    DEFAULT_WEB_HOST,
-    EmailService,
-)
+from server.services.email_service import DEFAULT_WEB_HOST, EmailService
 
 
 class TestEmailServiceInvitationUrl:

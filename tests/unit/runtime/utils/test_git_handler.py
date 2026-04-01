@@ -304,9 +304,9 @@ class TestGitHandler(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.git_handler.get_git_diff(malicious_path)
 
-        assert not os.path.exists(sentinel), (
-            'Shell injection succeeded: sentinel file was created'
-        )
+        assert not os.path.exists(
+            sentinel
+        ), 'Shell injection succeeded: sentinel file was created'
 
     def test_get_git_diff_no_cwd(self):
         """Raises ValueError('no_dir_in_git_diff') when cwd has not been set."""

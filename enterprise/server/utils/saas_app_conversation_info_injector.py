@@ -7,21 +7,16 @@ from uuid import UUID
 from fastapi import Request
 from sqlalchemy import func, select
 from storage.stored_conversation_metadata import StoredConversationMetadata
-from storage.stored_conversation_metadata_saas import StoredConversationMetadataSaas
+from storage.stored_conversation_metadata_saas import \
+    StoredConversationMetadataSaas
 from storage.user import User
 
 from openhands.app_server.app_conversation.app_conversation_info_service import (
-    AppConversationInfoService,
-    AppConversationInfoServiceInjector,
-)
+    AppConversationInfoService, AppConversationInfoServiceInjector)
 from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationInfo,
-    AppConversationInfoPage,
-    AppConversationSortOrder,
-)
-from openhands.app_server.app_conversation.sql_app_conversation_info_service import (
-    SQLAppConversationInfoService,
-)
+    AppConversationInfo, AppConversationInfoPage, AppConversationSortOrder)
+from openhands.app_server.app_conversation.sql_app_conversation_info_service import \
+    SQLAppConversationInfoService
 from openhands.app_server.errors import AuthError
 from openhands.app_server.services.injector import InjectorState
 from openhands.app_server.user.specifiy_user_context import ADMIN
@@ -411,10 +406,8 @@ class SaasAppConversationInfoServiceInjector(AppConversationInfoServiceInjector)
     async def inject(
         self, state: InjectorState, request: Request | None = None
     ) -> AsyncGenerator[AppConversationInfoService, None]:
-        from openhands.app_server.config import (
-            get_db_session,
-            get_user_context,
-        )
+        from openhands.app_server.config import (get_db_session,
+                                                 get_user_context)
 
         async with (
             get_user_context(state, request) as user_context,

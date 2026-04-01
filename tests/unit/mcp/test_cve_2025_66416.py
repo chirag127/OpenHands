@@ -24,9 +24,9 @@ class TestTransportSecuritySettingsAvailability:
         from mcp.server.fastmcp.server import Settings
 
         # The Settings class should have security-related configuration
-        assert hasattr(Settings, '__annotations__'), (
-            'Settings class should have annotations for configuration'
-        )
+        assert hasattr(
+            Settings, '__annotations__'
+        ), 'Settings class should have annotations for configuration'
 
     def test_fastmcp_accepts_security_settings(self):
         """Test FastMCP can be instantiated (security defaults are applied internally)."""
@@ -177,11 +177,8 @@ class TestSecurityIntegration:
         # MCP core
         # FastMCP components
         from fastmcp import FastMCP
-        from fastmcp.client.transports import (
-            SSETransport,
-            StdioTransport,
-            StreamableHttpTransport,
-        )
+        from fastmcp.client.transports import (SSETransport, StdioTransport,
+                                               StreamableHttpTransport)
         from fastmcp.exceptions import ToolError
         from mcp import McpError
         from mcp.types import CallToolResult, Tool
@@ -210,11 +207,9 @@ class TestSecurityIntegration:
 
     def test_openhands_mcp_config_types(self):
         """Test OpenHands MCP config types are available."""
-        from openhands.core.config.mcp_config import (
-            MCPSHTTPServerConfig,
-            MCPSSEServerConfig,
-            MCPStdioServerConfig,
-        )
+        from openhands.core.config.mcp_config import (MCPSHTTPServerConfig,
+                                                      MCPSSEServerConfig,
+                                                      MCPStdioServerConfig)
 
         assert MCPSSEServerConfig is not None
         assert MCPSHTTPServerConfig is not None

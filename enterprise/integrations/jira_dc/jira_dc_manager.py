@@ -5,26 +5,20 @@ from urllib.parse import urlparse
 
 import httpx
 from fastapi import Request
-from integrations.jira_dc.jira_dc_types import (
-    JiraDcViewInterface,
-)
-from integrations.jira_dc.jira_dc_view import (
-    JiraDcExistingConversationView,
-    JiraDcFactory,
-    JiraDcNewConversationView,
-)
+from integrations.jira_dc.jira_dc_types import JiraDcViewInterface
+from integrations.jira_dc.jira_dc_view import (JiraDcExistingConversationView,
+                                               JiraDcFactory,
+                                               JiraDcNewConversationView)
 from integrations.manager import Manager
 from integrations.models import JobContext, Message
-from integrations.utils import (
-    HOST_URL,
-    OPENHANDS_RESOLVER_TEMPLATES_DIR,
-    filter_potential_repos_by_user_msg,
-    get_session_expired_message,
-)
+from integrations.utils import (HOST_URL, OPENHANDS_RESOLVER_TEMPLATES_DIR,
+                                filter_potential_repos_by_user_msg,
+                                get_session_expired_message)
 from jinja2 import Environment, FileSystemLoader
 from server.auth.saas_user_auth import get_user_auth_from_keycloak_id
 from server.auth.token_manager import TokenManager
-from server.utils.conversation_callback_utils import register_callback_processor
+from server.utils.conversation_callback_utils import \
+    register_callback_processor
 from storage.jira_dc_integration_store import JiraDcIntegrationStore
 from storage.jira_dc_user import JiraDcUser
 from storage.jira_dc_workspace import JiraDcWorkspace
@@ -33,11 +27,8 @@ from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.provider import ProviderHandler
 from openhands.integrations.service_types import Repository
 from openhands.server.shared import server_config
-from openhands.server.types import (
-    LLMAuthenticationError,
-    MissingSettingsError,
-    SessionExpiredError,
-)
+from openhands.server.types import (LLMAuthenticationError,
+                                    MissingSettingsError, SessionExpiredError)
 from openhands.server.user_auth.user_auth import UserAuth
 from openhands.utils.http_session import httpx_verify_option
 
@@ -54,7 +45,6 @@ class JiraDcManager(Manager[JiraDcViewInterface]):
         self, user_email: str, jira_dc_user_id: str, workspace_id: int
     ) -> tuple[JiraDcUser | None, UserAuth | None]:
         """Authenticate Jira DC user and get their OpenHands user auth."""
-
         if not jira_dc_user_id or jira_dc_user_id == 'none':
             # Get Keycloak user ID from email
             keycloak_user_id = await self.token_manager.get_user_id_from_user_email(
@@ -227,7 +217,6 @@ class JiraDcManager(Manager[JiraDcViewInterface]):
 
     async def receive_message(self, message: Message):
         """Process incoming Jira DC webhook message."""
-
         payload = message.message.get('payload', {})
         job_context = self.parse_webhook(payload)
 
@@ -321,10 +310,8 @@ class JiraDcManager(Manager[JiraDcViewInterface]):
     async def is_job_requested(
         self, message: Message, jira_dc_view: JiraDcViewInterface
     ) -> bool:
+        """Check if a job is requested and handle repository selection.
         """
-        Check if a job is requested and handle repository selection.
-        """
-
         if isinstance(jira_dc_view, JiraDcExistingConversationView):
             return True
 
@@ -356,9 +343,8 @@ class JiraDcManager(Manager[JiraDcViewInterface]):
     async def start_job(self, jira_dc_view: JiraDcViewInterface) -> None:
         """Start a Jira DC job/conversation."""
         # Import here to prevent circular import
-        from server.conversation_callback_processor.jira_dc_callback_processor import (
-            JiraDcCallbackProcessor,
-        )
+        from server.conversation_callback_processor.jira_dc_callback_processor import \
+            JiraDcCallbackProcessor
 
         try:
             user_info: JiraDcUser = jira_dc_view.jira_dc_user

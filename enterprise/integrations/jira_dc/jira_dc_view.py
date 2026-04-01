@@ -1,9 +1,7 @@
 from dataclasses import dataclass
 
-from integrations.jira_dc.jira_dc_types import (
-    JiraDcViewInterface,
-    StartingConvoException,
-)
+from integrations.jira_dc.jira_dc_types import (JiraDcViewInterface,
+                                                StartingConvoException)
 from integrations.models import JobContext
 from integrations.utils import CONVERSATION_URL, get_final_agent_observation
 from jinja2 import Environment
@@ -17,12 +15,12 @@ from openhands.core.schema.agent import AgentState
 from openhands.events.action import MessageAction
 from openhands.events.serialization.event import event_to_dict
 from openhands.server.services.conversation_service import (
-    create_new_conversation,
-    setup_init_conversation_settings,
-)
-from openhands.server.shared import ConversationStoreImpl, config, conversation_manager
+    create_new_conversation, setup_init_conversation_settings)
+from openhands.server.shared import (ConversationStoreImpl, config,
+                                     conversation_manager)
 from openhands.server.user_auth.user_auth import UserAuth
-from openhands.storage.data_models.conversation_metadata import ConversationTrigger
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationTrigger
 
 integration_store = JiraDcIntegrationStore.get_instance()
 
@@ -38,7 +36,6 @@ class JiraDcNewConversationView(JiraDcViewInterface):
 
     async def _get_instructions(self, jinja_env: Environment) -> tuple[str, str]:
         """Instructions passed when conversation is first initialized"""
-
         instructions_template = jinja_env.get_template('jira_dc_instructions.j2')
         instructions = instructions_template.render()
 
@@ -55,7 +52,6 @@ class JiraDcNewConversationView(JiraDcViewInterface):
 
     async def create_or_update_conversation(self, jinja_env: Environment) -> str:
         """Create a new Jira DC conversation"""
-
         if not self.selected_repo:
             raise StartingConvoException('No repository selected for this conversation')
 
@@ -115,7 +111,6 @@ class JiraDcExistingConversationView(JiraDcViewInterface):
 
     async def _get_instructions(self, jinja_env: Environment) -> tuple[str, str]:
         """Instructions passed when conversation is first initialized"""
-
         user_msg_template = jinja_env.get_template('jira_dc_existing_conversation.j2')
         user_msg = user_msg_template.render(
             issue_key=self.job_context.issue_key,
@@ -128,7 +123,6 @@ class JiraDcExistingConversationView(JiraDcViewInterface):
 
     async def create_or_update_conversation(self, jinja_env: Environment) -> str:
         """Update an existing Jira conversation"""
-
         user_id = self.jira_dc_user.keycloak_user_id
 
         try:
@@ -200,7 +194,6 @@ class JiraDcFactory:
         jira_dc_workspace: JiraDcWorkspace,
     ) -> JiraDcViewInterface:
         """Create appropriate Jira DC view based on the payload."""
-
         if not jira_dc_user or not saas_user_auth or not jira_dc_workspace:
             raise StartingConvoException('User not authenticated with Jira integration')
 

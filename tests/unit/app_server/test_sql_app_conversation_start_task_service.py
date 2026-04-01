@@ -8,18 +8,15 @@ from typing import AsyncGenerator
 from uuid import uuid4
 
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
 from sqlalchemy.pool import StaticPool
 
 from openhands.app_server.app_conversation.app_conversation_models import (
-    AppConversationStartRequest,
-    AppConversationStartTask,
-    AppConversationStartTaskSortOrder,
-    AppConversationStartTaskStatus,
-)
-from openhands.app_server.app_conversation.sql_app_conversation_start_task_service import (
-    SQLAppConversationStartTaskService,
-)
+    AppConversationStartRequest, AppConversationStartTask,
+    AppConversationStartTaskSortOrder, AppConversationStartTaskStatus)
+from openhands.app_server.app_conversation.sql_app_conversation_start_task_service import \
+    SQLAppConversationStartTaskService
 from openhands.app_server.utils.sql_utils import Base
 
 

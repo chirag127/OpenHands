@@ -1,9 +1,6 @@
 import pytest
 
-from openhands.core.config import (
-    get_evaluation_parser,
-    get_headless_parser,
-)
+from openhands.core.config import get_evaluation_parser, get_headless_parser
 
 
 def test_headless_parser_default_values():

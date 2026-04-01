@@ -1,9 +1,5 @@
-from .microagent import (
-    BaseMicroagent,
-    KnowledgeMicroagent,
-    RepoMicroagent,
-    load_microagents_from_dir,
-)
+from .microagent import (BaseMicroagent, KnowledgeMicroagent, RepoMicroagent,
+                         load_microagents_from_dir)
 from .types import MicroagentMetadata, MicroagentType
 
 __all__ = [

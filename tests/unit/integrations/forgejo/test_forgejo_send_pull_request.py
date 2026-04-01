@@ -2,9 +2,11 @@
 
 from unittest.mock import MagicMock, patch
 
-from openhands.integrations.service_types import ProviderType as ServiceProviderType
+from openhands.integrations.service_types import \
+    ProviderType as ServiceProviderType
 from openhands.resolver.interfaces.issue import Issue
-from openhands.resolver.send_pull_request import PR_SIGNATURE, send_pull_request
+from openhands.resolver.send_pull_request import (PR_SIGNATURE,
+                                                  send_pull_request)
 
 
 @patch('openhands.resolver.send_pull_request.ServiceContextIssue')

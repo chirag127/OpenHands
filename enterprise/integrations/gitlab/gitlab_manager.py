@@ -3,37 +3,28 @@ from __future__ import annotations
 from types import MappingProxyType
 from typing import cast
 
-from integrations.gitlab.gitlab_view import (
-    GitlabFactory,
-    GitlabInlineMRComment,
-    GitlabIssue,
-    GitlabIssueComment,
-    GitlabMRComment,
-    GitlabViewType,
-)
+from integrations.gitlab.gitlab_view import (GitlabFactory,
+                                             GitlabInlineMRComment,
+                                             GitlabIssue, GitlabIssueComment,
+                                             GitlabMRComment, GitlabViewType)
 from integrations.manager import Manager
 from integrations.models import Message, SourceType
 from integrations.types import ResolverViewInterface
-from integrations.utils import (
-    CONVERSATION_URL,
-    HOST_URL,
-    OPENHANDS_RESOLVER_TEMPLATES_DIR,
-    get_session_expired_message,
-)
+from integrations.utils import (CONVERSATION_URL, HOST_URL,
+                                OPENHANDS_RESOLVER_TEMPLATES_DIR,
+                                get_session_expired_message)
 from integrations.v1_utils import get_saas_user_auth
 from jinja2 import Environment, FileSystemLoader
 from pydantic import SecretStr
 from server.auth.token_manager import TokenManager
-from server.utils.conversation_callback_utils import register_callback_processor
+from server.utils.conversation_callback_utils import \
+    register_callback_processor
 
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.gitlab.gitlab_service import GitLabServiceImpl
 from openhands.integrations.provider import ProviderToken, ProviderType
-from openhands.server.types import (
-    LLMAuthenticationError,
-    MissingSettingsError,
-    SessionExpiredError,
-)
+from openhands.server.types import (LLMAuthenticationError,
+                                    MissingSettingsError, SessionExpiredError)
 from openhands.storage.data_models.secrets import Secrets
 
 
@@ -52,8 +43,7 @@ class GitlabManager(Manager[GitlabViewType]):
     async def _user_has_write_access_to_repo(
         self, project_id: str, user_id: str
     ) -> bool:
-        """
-        Check if the user has write access to the repository (can pull/push changes and open merge requests).
+        """Check if the user has write access to the repository (can pull/push changes and open merge requests).
 
         Args:
             project_id: The ID of the GitLab project
@@ -63,7 +53,6 @@ class GitlabManager(Manager[GitlabViewType]):
         Returns:
             bool: True if the user has write access to the repository, False otherwise
         """
-
         keycloak_user_id = await self.token_manager.get_user_id_from_idp_user_id(
             user_id, ProviderType.GITLAB
         )
@@ -171,16 +160,14 @@ class GitlabManager(Manager[GitlabViewType]):
             )
 
     async def start_job(self, gitlab_view: GitlabViewType) -> None:
-        """
-        Start a job for the GitLab view.
+        """Start a job for the GitLab view.
 
         Args:
             gitlab_view: The GitLab view object containing issue/PR/comment info
         """
         # Importing here prevents circular import
-        from server.conversation_callback_processor.gitlab_callback_processor import (
-            GitlabCallbackProcessor,
-        )
+        from server.conversation_callback_processor.gitlab_callback_processor import \
+            GitlabCallbackProcessor
 
         try:
             try:

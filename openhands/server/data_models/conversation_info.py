@@ -11,8 +11,10 @@ from datetime import datetime, timezone
 
 from openhands.integrations.service_types import ProviderType
 from openhands.runtime.runtime_status import RuntimeStatus
-from openhands.storage.data_models.conversation_metadata import ConversationTrigger
-from openhands.storage.data_models.conversation_status import ConversationStatus
+from openhands.storage.data_models.conversation_metadata import \
+    ConversationTrigger
+from openhands.storage.data_models.conversation_status import \
+    ConversationStatus
 
 
 @dataclass

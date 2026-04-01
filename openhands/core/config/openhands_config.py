@@ -13,11 +13,8 @@ from pydantic import BaseModel, ConfigDict, Field, SecretStr
 from openhands.core import logger
 from openhands.core.config.agent_config import AgentConfig
 from openhands.core.config.config_utils import (
-    DEFAULT_WORKSPACE_MOUNT_PATH_IN_SANDBOX,
-    OH_DEFAULT_AGENT,
-    OH_MAX_ITERATIONS,
-    model_defaults_to_dict,
-)
+    DEFAULT_WORKSPACE_MOUNT_PATH_IN_SANDBOX, OH_DEFAULT_AGENT,
+    OH_MAX_ITERATIONS, model_defaults_to_dict)
 from openhands.core.config.extended_config import ExtendedConfig
 from openhands.core.config.kubernetes_config import KubernetesConfig
 from openhands.core.config.llm_config import LLMConfig

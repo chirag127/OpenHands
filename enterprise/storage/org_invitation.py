@@ -1,8 +1,8 @@
-"""
-SQLAlchemy model for Organization Invitation.
+"""SQLAlchemy model for Organization Invitation.
 """
 
-from sqlalchemy import UUID, Column, DateTime, ForeignKey, Integer, String, text
+from sqlalchemy import (UUID, Column, DateTime, ForeignKey, Integer, String,
+                        text)
 from sqlalchemy.orm import relationship
 from storage.base import Base
 

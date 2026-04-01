@@ -1,5 +1,4 @@
-"""
-Tests for the GitlabCallbackProcessor.
+"""Tests for the GitlabCallbackProcessor.
 """
 
 from unittest.mock import AsyncMock, patch
@@ -7,9 +6,8 @@ from unittest.mock import AsyncMock, patch
 import pytest
 from integrations.gitlab.gitlab_view import GitlabIssueComment
 from integrations.types import UserData
-from server.conversation_callback_processor.gitlab_callback_processor import (
-    GitlabCallbackProcessor,
-)
+from server.conversation_callback_processor.gitlab_callback_processor import \
+    GitlabCallbackProcessor
 from storage.conversation_callback import CallbackStatus, ConversationCallback
 
 from openhands.core.schema.agent import AgentState

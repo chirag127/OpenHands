@@ -6,12 +6,9 @@ from fastapi import APIRouter, HTTPException, Query
 
 from openhands.app_server.config import depends_sandbox_spec_service
 from openhands.app_server.sandbox.sandbox_spec_models import (
-    SandboxSpecInfo,
-    SandboxSpecInfoPage,
-)
-from openhands.app_server.sandbox.sandbox_spec_service import (
-    SandboxSpecService,
-)
+    SandboxSpecInfo, SandboxSpecInfoPage)
+from openhands.app_server.sandbox.sandbox_spec_service import \
+    SandboxSpecService
 from openhands.server.dependencies import get_dependencies
 
 # We use the get_dependencies method here to signal to the OpenAPI docs that this endpoint

@@ -3,19 +3,13 @@
 from uuid import UUID
 
 from server.constants import ROLE_ADMIN, ROLE_OWNER
-from server.routes.org_models import (
-    CannotModifySelfError,
-    InsufficientPermissionError,
-    InvalidRoleError,
-    LastOwnerError,
-    MemberUpdateError,
-    MeResponse,
-    OrgMemberNotFoundError,
-    OrgMemberPage,
-    OrgMemberResponse,
-    OrgMemberUpdate,
-    RoleNotFoundError,
-)
+from server.routes.org_models import (CannotModifySelfError,
+                                      InsufficientPermissionError,
+                                      InvalidRoleError, LastOwnerError,
+                                      MemberUpdateError, MeResponse,
+                                      OrgMemberNotFoundError, OrgMemberPage,
+                                      OrgMemberResponse, OrgMemberUpdate,
+                                      RoleNotFoundError)
 from storage.lite_llm_manager import LiteLlmManager
 from storage.org_member_store import OrgMemberStore
 from storage.role_store import RoleStore

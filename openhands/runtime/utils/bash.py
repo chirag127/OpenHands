@@ -18,11 +18,9 @@ import libtmux
 from openhands.core.logger import openhands_logger as logger
 from openhands.events.action import CmdRunAction
 from openhands.events.observation import ErrorObservation
-from openhands.events.observation.commands import (
-    CMD_OUTPUT_PS1_END,
-    CmdOutputMetadata,
-    CmdOutputObservation,
-)
+from openhands.events.observation.commands import (CMD_OUTPUT_PS1_END,
+                                                   CmdOutputMetadata,
+                                                   CmdOutputObservation)
 from openhands.runtime.utils.bash_constants import TIMEOUT_MESSAGE_TEMPLATE
 from openhands.utils.shutdown_listener import should_continue
 

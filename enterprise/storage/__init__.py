@@ -28,7 +28,8 @@ from storage.slack_conversation import SlackConversation
 from storage.slack_team import SlackTeam
 from storage.slack_user import SlackUser
 from storage.stored_conversation_metadata import StoredConversationMetadata
-from storage.stored_conversation_metadata_saas import StoredConversationMetadataSaas
+from storage.stored_conversation_metadata_saas import \
+    StoredConversationMetadataSaas
 from storage.stored_custom_secrets import StoredCustomSecrets
 from storage.stored_offline_token import StoredOfflineToken
 from storage.stored_repository import StoredRepository

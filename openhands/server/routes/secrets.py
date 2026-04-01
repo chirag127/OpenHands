@@ -14,17 +14,11 @@ from openhands.integrations.provider import PROVIDER_TOKEN_TYPE, CustomSecret
 from openhands.integrations.service_types import ProviderType
 from openhands.integrations.utils import validate_provider_token
 from openhands.server.dependencies import get_dependencies
-from openhands.server.settings import (
-    CustomSecretModel,
-    CustomSecretWithoutValueModel,
-    GETCustomSecrets,
-    POSTProviderModel,
-)
-from openhands.server.user_auth import (
-    get_provider_tokens,
-    get_secrets,
-    get_secrets_store,
-)
+from openhands.server.settings import (CustomSecretModel,
+                                       CustomSecretWithoutValueModel,
+                                       GETCustomSecrets, POSTProviderModel)
+from openhands.server.user_auth import (get_provider_tokens, get_secrets,
+                                        get_secrets_store)
 from openhands.storage.data_models.secrets import Secrets
 from openhands.storage.data_models.settings import Settings
 from openhands.storage.secrets.secrets_store import SecretsStore
@@ -244,9 +238,9 @@ async def create_custom_secret(
         # Create a new Secrets that preserves provider tokens
         updated_user_secrets = Secrets(
             custom_secrets=custom_secrets,  # type: ignore[arg-type]
-            provider_tokens=existing_secrets.provider_tokens
-            if existing_secrets
-            else {},  # type: ignore[arg-type]
+            provider_tokens=(
+                existing_secrets.provider_tokens if existing_secrets else {}
+            ),  # type: ignore[arg-type]
         )
 
         await secrets_store.store(updated_user_secrets)

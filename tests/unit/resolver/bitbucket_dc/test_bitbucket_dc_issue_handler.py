@@ -7,13 +7,9 @@ from pydantic import SecretStr
 from openhands.core.config import LLMConfig
 from openhands.integrations.service_types import ProviderType
 from openhands.resolver.interfaces.bitbucket_data_center import (
-    BitbucketDCIssueHandler,
-    BitbucketDCPRHandler,
-)
+    BitbucketDCIssueHandler, BitbucketDCPRHandler)
 from openhands.resolver.interfaces.issue_definitions import (
-    ServiceContextIssue,
-    ServiceContextPR,
-)
+    ServiceContextIssue, ServiceContextPR)
 from openhands.resolver.issue_handler_factory import IssueHandlerFactory
 
 

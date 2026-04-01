@@ -5,13 +5,9 @@ import pytest
 from pydantic import SecretStr
 
 from openhands.integrations.github.github_service import GitHubService
-from openhands.integrations.service_types import (
-    AuthenticationError,
-    OwnerType,
-    ProviderType,
-    Repository,
-    User,
-)
+from openhands.integrations.service_types import (AuthenticationError,
+                                                  OwnerType, ProviderType,
+                                                  Repository, User)
 from openhands.server.types import AppMode
 
 

@@ -18,16 +18,10 @@ from docker.errors import APIError, NotFound
 
 from openhands.app_server.errors import SandboxError
 from openhands.app_server.sandbox.docker_sandbox_service import (
-    DockerSandboxService,
-    ExposedPort,
-    VolumeMount,
-)
-from openhands.app_server.sandbox.sandbox_models import (
-    AGENT_SERVER,
-    VSCODE,
-    SandboxPage,
-    SandboxStatus,
-)
+    DockerSandboxService, ExposedPort, VolumeMount)
+from openhands.app_server.sandbox.sandbox_models import (AGENT_SERVER, VSCODE,
+                                                         SandboxPage,
+                                                         SandboxStatus)
 
 
 @pytest.fixture
@@ -1195,9 +1189,8 @@ class TestDockerSandboxServiceInjector:
 
     def test_default_values(self):
         """Test default configuration values."""
-        from openhands.app_server.sandbox.docker_sandbox_service import (
-            DockerSandboxServiceInjector,
-        )
+        from openhands.app_server.sandbox.docker_sandbox_service import \
+            DockerSandboxServiceInjector
 
         injector = DockerSandboxServiceInjector()
         assert injector.host_port == 3000
@@ -1205,18 +1198,16 @@ class TestDockerSandboxServiceInjector:
 
     def test_custom_host_port(self):
         """Test custom host_port configuration."""
-        from openhands.app_server.sandbox.docker_sandbox_service import (
-            DockerSandboxServiceInjector,
-        )
+        from openhands.app_server.sandbox.docker_sandbox_service import \
+            DockerSandboxServiceInjector
 
         injector = DockerSandboxServiceInjector(host_port=4000)
         assert injector.host_port == 4000
 
     def test_custom_container_url_pattern(self):
         """Test custom container_url_pattern configuration."""
-        from openhands.app_server.sandbox.docker_sandbox_service import (
-            DockerSandboxServiceInjector,
-        )
+        from openhands.app_server.sandbox.docker_sandbox_service import \
+            DockerSandboxServiceInjector
 
         injector = DockerSandboxServiceInjector(
             container_url_pattern='http://192.168.1.100:{port}'
@@ -1225,9 +1216,8 @@ class TestDockerSandboxServiceInjector:
 
     def test_custom_configuration_combined(self):
         """Test combined custom configuration for remote access."""
-        from openhands.app_server.sandbox.docker_sandbox_service import (
-            DockerSandboxServiceInjector,
-        )
+        from openhands.app_server.sandbox.docker_sandbox_service import \
+            DockerSandboxServiceInjector
 
         injector = DockerSandboxServiceInjector(
             host_port=4000,
@@ -1238,18 +1228,16 @@ class TestDockerSandboxServiceInjector:
 
     def test_use_host_network_default_value(self):
         """Test that use_host_network field defaults to False."""
-        from openhands.app_server.sandbox.docker_sandbox_service import (
-            DockerSandboxServiceInjector,
-        )
+        from openhands.app_server.sandbox.docker_sandbox_service import \
+            DockerSandboxServiceInjector
 
         injector = DockerSandboxServiceInjector()
         assert injector.use_host_network is False
 
     def test_use_host_network_can_be_enabled(self):
         """Test that use_host_network field can be set to True."""
-        from openhands.app_server.sandbox.docker_sandbox_service import (
-            DockerSandboxServiceInjector,
-        )
+        from openhands.app_server.sandbox.docker_sandbox_service import \
+            DockerSandboxServiceInjector
 
         injector = DockerSandboxServiceInjector(use_host_network=True)
         assert injector.use_host_network is True
@@ -1259,9 +1247,8 @@ class TestDockerSandboxServiceInjector:
         import os
         from unittest.mock import patch
 
-        from openhands.app_server.sandbox.docker_sandbox_service import (
-            DockerSandboxServiceInjector,
-        )
+        from openhands.app_server.sandbox.docker_sandbox_service import \
+            DockerSandboxServiceInjector
 
         env_vars = {
             'AGENT_SERVER_USE_HOST_NETWORK': 'true',
@@ -1276,26 +1263,24 @@ class TestDockerSandboxServiceInjector:
         import os
         from unittest.mock import patch
 
-        from openhands.app_server.sandbox.docker_sandbox_service import (
-            DockerSandboxServiceInjector,
-        )
+        from openhands.app_server.sandbox.docker_sandbox_service import \
+            DockerSandboxServiceInjector
 
         for true_value in ['true', 'TRUE', 'True', '1', 'yes', 'YES', 'Yes']:
             env_vars = {'AGENT_SERVER_USE_HOST_NETWORK': true_value}
             with patch.dict(os.environ, env_vars, clear=True):
                 injector = DockerSandboxServiceInjector()
-                assert injector.use_host_network is True, (
-                    f'Failed for value: {true_value}'
-                )
+                assert (
+                    injector.use_host_network is True
+                ), f'Failed for value: {true_value}'
 
     def test_use_host_network_env_var_defaults_to_false(self):
         """Test that unset or empty env var defaults to False."""
         import os
         from unittest.mock import patch
 
-        from openhands.app_server.sandbox.docker_sandbox_service import (
-            DockerSandboxServiceInjector,
-        )
+        from openhands.app_server.sandbox.docker_sandbox_service import \
+            DockerSandboxServiceInjector
 
         # Empty environment
         with patch.dict(os.environ, {}, clear=True):

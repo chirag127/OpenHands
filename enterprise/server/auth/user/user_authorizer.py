@@ -2,12 +2,12 @@ import logging
 from abc import ABC, abstractmethod
 
 from fastapi import Depends
+from openhands.agent_server.env_parser import from_env
+from openhands.sdk.utils.models import DiscriminatedUnionMixin
 from pydantic import BaseModel
 from server.auth.token_manager import KeycloakUserInfo
 
-from openhands.agent_server.env_parser import from_env
 from openhands.app_server.services.injector import Injector
-from openhands.sdk.utils.models import DiscriminatedUnionMixin
 
 logger = logging.getLogger(__name__)
 
@@ -32,9 +32,8 @@ class UserAuthorizerInjector(DiscriminatedUnionMixin, Injector[UserAuthorizer], 
 
 
 def depends_user_authorizer():
-    from server.auth.user.default_user_authorizer import (
-        DefaultUserAuthorizerInjector,
-    )
+    from server.auth.user.default_user_authorizer import \
+        DefaultUserAuthorizerInjector
 
     try:
         injector: UserAuthorizerInjector = from_env(

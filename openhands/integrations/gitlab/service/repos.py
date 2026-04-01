@@ -1,12 +1,12 @@
 from openhands.core.logger import openhands_logger as logger
 from openhands.integrations.gitlab.service.base import GitLabMixinBase
-from openhands.integrations.service_types import OwnerType, ProviderType, Repository
+from openhands.integrations.service_types import (OwnerType, ProviderType,
+                                                  Repository)
 from openhands.server.types import AppMode
 
 
 class GitLabReposMixin(GitLabMixinBase):
-    """
-    Methods for interacting with GitLab repositories
+    """Methods for interacting with GitLab repositories
     """
 
     def _parse_repository(

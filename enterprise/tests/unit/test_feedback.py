@@ -16,10 +16,8 @@ mock_db_module.a_session_maker = MagicMock()
 sys.modules['storage.database'] = mock_db_module
 
 # Now import the modules we need
-from server.routes.feedback import (  # noqa: E402
-    FeedbackRequest,
-    submit_conversation_feedback,
-)
+from server.routes.feedback import (FeedbackRequest,  # noqa: E402
+                                    submit_conversation_feedback)
 from storage.feedback import ConversationFeedback  # noqa: E402
 
 

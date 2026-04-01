@@ -8,24 +8,18 @@
 from openhands.core.config import LLMConfig
 from openhands.integrations.provider import ProviderType
 from openhands.resolver.interfaces.azure_devops import AzureDevOpsIssueHandler
-from openhands.resolver.interfaces.bitbucket import (
-    BitbucketIssueHandler,
-    BitbucketPRHandler,
-)
+from openhands.resolver.interfaces.bitbucket import (BitbucketIssueHandler,
+                                                     BitbucketPRHandler)
 from openhands.resolver.interfaces.bitbucket_data_center import (
-    BitbucketDCIssueHandler,
-    BitbucketDCPRHandler,
-)
-from openhands.resolver.interfaces.forgejo import (
-    ForgejoIssueHandler,
-    ForgejoPRHandler,
-)
-from openhands.resolver.interfaces.github import GithubIssueHandler, GithubPRHandler
-from openhands.resolver.interfaces.gitlab import GitlabIssueHandler, GitlabPRHandler
+    BitbucketDCIssueHandler, BitbucketDCPRHandler)
+from openhands.resolver.interfaces.forgejo import (ForgejoIssueHandler,
+                                                   ForgejoPRHandler)
+from openhands.resolver.interfaces.github import (GithubIssueHandler,
+                                                  GithubPRHandler)
+from openhands.resolver.interfaces.gitlab import (GitlabIssueHandler,
+                                                  GitlabPRHandler)
 from openhands.resolver.interfaces.issue_definitions import (
-    ServiceContextIssue,
-    ServiceContextPR,
-)
+    ServiceContextIssue, ServiceContextPR)
 
 
 class IssueHandlerFactory:
